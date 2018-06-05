@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
 @Table(name = "usuarios")
 @NamedQueries({
     @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u")})
-public class Usuarios implements Serializable {
+public class Usuarios implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -52,6 +52,10 @@ public class Usuarios implements Serializable {
     private Date fechaRetiro;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarios")
     private List<RelUsuariosEstablecimiento> relUsuariosEstablecimientoList;
+    private Roles roles;
+    private String claveMd5;
+    private List<Establecimiento> listaEstablecimientos;
+    private Establecimiento establecimiento;
 
     public Usuarios() {
     }
@@ -60,7 +64,7 @@ public class Usuarios implements Serializable {
         this.usuariosPK = usuariosPK;
     }
 
-    public Usuarios(short codigoEstablecimiento, String documentoUsuario) {
+    public Usuarios(int codigoEstablecimiento, String documentoUsuario) {
         this.usuariosPK = new UsuariosPK(codigoEstablecimiento, documentoUsuario);
     }
 
@@ -168,5 +172,68 @@ public class Usuarios implements Serializable {
     public String toString() {
         return "com.gestor.publico.Usuarios[ usuariosPK=" + usuariosPK + " ]";
     }
+
+    /**
+     * @return the roles
+     */
+    public Roles getRoles() {
+        return roles;
+    }
+
+    /**
+     * @param roles the roles to set
+     */
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
+
+    /**
+     * @return the claveMd5
+     */
+    public String getClaveMd5() {
+        return claveMd5;
+    }
+
+    /**
+     * @param claveMd5 the claveMd5 to set
+     */
+    public void setClaveMd5(String claveMd5) {
+        this.claveMd5 = claveMd5;
+    }
+
+    /**
+     * @return the listaEstablecimientos
+     */
+    public List<Establecimiento> getListaEstablecimientos() {
+        return listaEstablecimientos;
+    }
+
+    /**
+     * @param listaEstablecimientos the listaEstablecimientos to set
+     */
+    public void setListaEstablecimientos(List<Establecimiento> listaEstablecimientos) {
+        this.listaEstablecimientos = listaEstablecimientos;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the establecimiento
+     */
+    public Establecimiento getEstablecimiento() {
+        return establecimiento;
+    }
+
+    /**
+     * @param establecimiento the establecimiento to set
+     */
+    public void setEstablecimiento(Establecimiento establecimiento) {
+        this.establecimiento = establecimiento;
+    }
+    
+    
     
 }

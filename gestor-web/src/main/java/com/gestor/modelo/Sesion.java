@@ -7,6 +7,7 @@ package com.gestor.modelo;
 
 
 import com.gestor.entity.Dialogo;
+import com.gestor.publico.Establecimiento;
 import com.gestor.publico.Usuarios;
 import java.util.HashMap;
 import javax.faces.bean.ManagedBean;
@@ -22,6 +23,7 @@ public class Sesion {
 
     private Dialogo dialogo;
     private Usuarios usuarios;
+    private Establecimiento establecimiento;
     private boolean logueado;
     private HashMap parametros = new HashMap();
     private HashMap<Integer, Boolean> permisos = new HashMap<>();
@@ -95,5 +97,19 @@ public class Sesion {
      */
     public void setPermisos(HashMap<Integer, Boolean> permisos) {
         this.permisos = permisos;
+    }
+
+    /**
+     * @return the establecimiento
+     */
+    public Establecimiento getEstablecimiento() {
+        return establecimiento;
+    }
+
+    /**
+     * @param establecimiento the establecimiento to set
+     */
+    public void setEstablecimiento(Establecimiento establecimiento) {
+        this.establecimiento = establecimiento;
     }
 }

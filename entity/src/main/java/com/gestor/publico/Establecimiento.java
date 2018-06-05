@@ -36,7 +36,7 @@ public class Establecimiento implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "codigo_establecimiento")
-    private Short codigoEstablecimiento;
+    private Integer codigoEstablecimiento;
     @Column(name = "nombre")
     private String nombre;
     @Basic(optional = false)
@@ -54,32 +54,37 @@ public class Establecimiento implements Serializable {
     private Date fechaCierreDiario;
     @Basic(optional = false)
     @Column(name = "tipo_establecimiento")
-    private Character tipoEstablecimiento;
+    private String tipoEstablecimiento;
     @JoinColumn(name = "codigo_municipio", referencedColumnName = "codigo_municipio")
     @ManyToOne(optional = false)
-    private Municipios codigoMunicipio;
+    private Municipios municipios;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "establecimiento")
     private List<RelUsuariosEstablecimiento> relUsuariosEstablecimientoList;
 
     public Establecimiento() {
     }
 
-    public Establecimiento(Short codigoEstablecimiento) {
+    public Establecimiento(int codigoEstablecimiento) {
         this.codigoEstablecimiento = codigoEstablecimiento;
     }
 
-    public Establecimiento(Short codigoEstablecimiento, String nit, Date fechaCierreDiario, Character tipoEstablecimiento) {
+    public Establecimiento(int codigoEstablecimiento, String nombre) {
+        this.codigoEstablecimiento = codigoEstablecimiento;
+        this.nombre = nombre;
+    }
+
+    public Establecimiento(int codigoEstablecimiento, String nit, Date fechaCierreDiario, String tipoEstablecimiento) {
         this.codigoEstablecimiento = codigoEstablecimiento;
         this.nit = nit;
         this.fechaCierreDiario = fechaCierreDiario;
         this.tipoEstablecimiento = tipoEstablecimiento;
     }
 
-    public Short getCodigoEstablecimiento() {
+    public int getCodigoEstablecimiento() {
         return codigoEstablecimiento;
     }
 
-    public void setCodigoEstablecimiento(Short codigoEstablecimiento) {
+    public void setCodigoEstablecimiento(int codigoEstablecimiento) {
         this.codigoEstablecimiento = codigoEstablecimiento;
     }
 
@@ -131,20 +136,12 @@ public class Establecimiento implements Serializable {
         this.fechaCierreDiario = fechaCierreDiario;
     }
 
-    public Character getTipoEstablecimiento() {
+    public String getTipoEstablecimiento() {
         return tipoEstablecimiento;
     }
 
-    public void setTipoEstablecimiento(Character tipoEstablecimiento) {
+    public void setTipoEstablecimiento(String tipoEstablecimiento) {
         this.tipoEstablecimiento = tipoEstablecimiento;
-    }
-
-    public Municipios getCodigoMunicipio() {
-        return codigoMunicipio;
-    }
-
-    public void setCodigoMunicipio(Municipios codigoMunicipio) {
-        this.codigoMunicipio = codigoMunicipio;
     }
 
     public List<RelUsuariosEstablecimiento> getRelUsuariosEstablecimientoList() {
@@ -179,5 +176,19 @@ public class Establecimiento implements Serializable {
     public String toString() {
         return "com.gestor.publico.Establecimiento[ codigoEstablecimiento=" + codigoEstablecimiento + " ]";
     }
-    
+
+    /**
+     * @return the municipios
+     */
+    public Municipios getMunicipios() {
+        return municipios;
+    }
+
+    /**
+     * @param municipios the municipios to set
+     */
+    public void setMunicipios(Municipios municipios) {
+        this.municipios = municipios;
+    }
+
 }

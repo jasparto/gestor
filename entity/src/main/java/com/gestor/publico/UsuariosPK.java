@@ -19,7 +19,7 @@ public class UsuariosPK implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "codigo_establecimiento")
-    private short codigoEstablecimiento;
+    private int codigoEstablecimiento;
     @Basic(optional = false)
     @Column(name = "documento_usuario")
     private String documentoUsuario;
@@ -27,16 +27,16 @@ public class UsuariosPK implements Serializable {
     public UsuariosPK() {
     }
 
-    public UsuariosPK(short codigoEstablecimiento, String documentoUsuario) {
+    public UsuariosPK(int codigoEstablecimiento, String documentoUsuario) {
         this.codigoEstablecimiento = codigoEstablecimiento;
         this.documentoUsuario = documentoUsuario;
     }
 
-    public short getCodigoEstablecimiento() {
+    public int getCodigoEstablecimiento() {
         return codigoEstablecimiento;
     }
 
-    public void setCodigoEstablecimiento(short codigoEstablecimiento) {
+    public void setCodigoEstablecimiento(int codigoEstablecimiento) {
         this.codigoEstablecimiento = codigoEstablecimiento;
     }
 

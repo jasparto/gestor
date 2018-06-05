@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>OASYS</title>
+    </h:head>
+    <h:body id="body"> 
+        <h:outputScript library="js" name="general.js"/>
+        <div align="center">
+            <h:form id="formulario">
+                <tr>
+                    <td>
+                        <p:panel style="width: 35%; margin-top: 10%; font-size: 12px; text-align: center">
+                            <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+                            <f:facet name="header">
+                                <center>
+                                    <span  style="margin: auto auto;" 
+                                           class="ui-button ui-widget ui-corner-all ui-button-text-only ui-button-text ui-c"
+                                           >
+                                        OASYS
+                                    </span>
+                                </center>
+
+                            </f:facet>
+                            <p:focus context="grid"/>
+                            <p:spacer height="40"/>
+
+
+                            <p:panelGrid id="grid" style="margin: auto auto;" columns="1" layout="grid">
+                                <p:spacer height="10"/>
+                                <p:inputText id="inTxtUsuario" value="#{usuario.usuario}"
+                                             placeholder="Usuario"
+                                             style="width: 170px;">
+                                    <p:ajax event="change" listener="#{uiUsuario.cargarEstablecimientosUsuario(usuario.usuario)}" 
+                                            process="inTxtUsuario" update="somItemsEstablecimiento" oncomplete="get('pwClave').focus();"/>
+                                </p:inputText>
+
+                                <p:password id="pwClave" value="#{usuario.clave}" feedback="true" placeholder="Contraseña" 
+                                            promptLabel="Digite Clave" weakLabel="Insegura"
+                                            goodLabel="Segura" strongLabel="Segura" style="width: 170px;"/>
+
+                                <p:selectOneMenu id="somItemsEstablecimiento" value="#{usuario.establecimiento}" converter="convertidorGenerico"
+                                                 effect="fade" style="text-align: center;width: 180px;"
+                                                 >  
+                                    <f:selectItems value="#{uiUsuario.itemsEstablecimiento}" var="estab" itemLabel="#{estab.nombre}" itemValue="#{estab}"/>
+                                </p:selectOneMenu>
+                                <p:commandButton value="Ingresar" style="margin: auto auto;width: 190px;height: 40px;" action="#{uiUsuario.validarUsuario()}"/>
+                                <p:commandButton value="Registrarme" style="margin: auto auto;width: 190px;height: 40px;" action="#{uiUsuario.registrarEstablecimiento()}"/>
+                                <p:spacer height="10"/>
+                            </p:panelGrid>
+                            <p:spacer height="40"/>
+                        </p:panel> 
+                    </td>
+                </tr>
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <p:graphicImage value="/resources/imagenes/barra.gif" />
+                </p:dialog>
+            </h:form>
+        </div>
+    </h:body>
+</html>
