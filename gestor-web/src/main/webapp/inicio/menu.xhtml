@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <center>
+        <div id="navigation" class="navigation">
+            <div id="logo" class="logo" ></div>
+        </div>
+        <div>
+            <p:panelGrid layout="grid" columns="4" style="margin-top:20px; width: 70%">
+                <p:commandButton value="Inicio" action="/inicio/principal.xhtml" icon="ui-icon-home" style="width: 200px; height: 60px;"/>
+                <p:commandButton value="Administrar Agenda Paciente" action="/agenda/administrar-agenda.xhtml" icon="ui-icon-newwin" style="width: 200px; height: 60px;"/>
+                <p:commandButton value="Seguimiento Agenda Paciente" action="/agenda/seguimiento-agenda.xhtml" icon="ui-icon-document" style="width: 200px; height: 60px;"/>
+                <p:commandButton value="Cerrar Sesión" action="#{uiSesion.cerrarSesion()}" icon="ui-icon-extlink" style="width: 200px; height: 60px;"/>
+            </p:panelGrid>
+        </div>
+
+
+    </center>
+
+
+
+</ui:composition>
