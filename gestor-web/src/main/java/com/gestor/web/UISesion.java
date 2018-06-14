@@ -40,7 +40,7 @@ public class UISesion {
     public String cerrarSesion() {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         ((HttpSession) externalContext.getSession(true)).invalidate();
-        return ("/loginOut.xhtml?faces-redirect=true");
+        return ("/ingreso.xhtml?faces-redirect=true");
     }
 
     public void limpiarDialogo() {

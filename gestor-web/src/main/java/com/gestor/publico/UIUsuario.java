@@ -40,11 +40,16 @@ public class UIUsuario {
     private List<String> establecimientosAsignados = new ArrayList<>();
     private DualListModel<String> itemsDualEstablecimientos = new DualListModel<>(establecimientosDisponibles, establecimientosAsignados);
     private String usuarioBuscar;
+    private String usuario;
+    private String clave;
+    private Establecimiento establecimiento;
 
     public UIUsuario() {
         this.itemsEstablecimiento = new ArrayList<>();
         this.itemsRoles = new ArrayList<>();
         this.cargarRoles();
+        this.establecimiento = new Establecimiento();
+        
     }
 
     public String getDialogoCrearNuevo() {
@@ -87,36 +92,40 @@ public class UIUsuario {
 
     public String validarUsuario() {
         Sesion sesion = new Sesion();
-        Usuarios usuario = (Usuarios) UtilJSF.getBean("usuario");
+        Usuarios usuarios = new Usuarios();
 
-        Establecimiento establecimiento;
+        Establecimiento e;
         boolean usuarioValido;
         try {
             GestorUsuario gestorUsuario = new GestorUsuario();
-            usuarioValido = gestorUsuario.validarUsuario(usuario.getUsuario(), usuario.getClave());
+            usuarios.setUsuario(usuario);
+            usuarios.setClave(clave);
+            usuarios.setEstablecimiento(establecimiento);
+            
+            usuarioValido = gestorUsuario.validarUsuario(usuarios.getUsuario(), usuarios.getClave());
             if (usuarioValido) {
-                establecimiento = this.cargarEstablecimiento(usuario.getEstablecimiento().getCodigoEstablecimiento());
-                usuario = this.cargarDatosUsuario(establecimiento, usuario);
+                e = this.cargarEstablecimiento(usuarios.getEstablecimiento().getCodigoEstablecimiento());
+                usuarios = this.cargarDatosUsuario(e, usuarios);
 
 //                if (establecimiento.getPrefijo() == null || establecimiento.getPrefijo().equalsIgnoreCase("")) {
 //                    throw new Exception("No se pudieron cargar los prefijos.", UtilLog.TW_VALIDACION);
 //                }
-                Properties propiedades = Propiedades.getInstancia().getPropiedades();
+//                Properties propiedades = Propiedades.getInstancia().getPropiedades();
 //                Sesion.RUTA_SERVICIO = propiedades.getProperty("urlServicio");
-                sesion.setUsuarios((Usuarios) usuario.clone());
-                sesion.setEstablecimiento(establecimiento);
-                usuario = new Usuarios();
-                UtilJSF.setBean("usuario", usuario, UtilJSF.SESSION_SCOPE);
+                sesion.setUsuarios((Usuarios) usuarios.clone());
+                sesion.setEstablecimiento(e);
+                usuarios = new Usuarios();
+                UtilJSF.setBean("usuarios", usuarios, UtilJSF.SESSION_SCOPE);
                 UtilJSF.setBean("sesion", sesion, UtilJSF.SESSION_SCOPE);
                 return ("/inicio/principal.xhtml?faces-redirect=true");
             } else {
                 UtilMSG.addWarningMsg("Usuario o clave invalida.");
             }
-        } catch (Exception e) {
-            if (UtilLog.causaControlada(e)) {
-                UtilMSG.addWarningMsg(e.getMessage());
+        } catch (Exception ex) {
+            if (UtilLog.causaControlada(ex)) {
+                UtilMSG.addWarningMsg(ex.getMessage());
             } else {
-                UtilLog.generarLog(this.getClass(), e);
+                UtilLog.generarLog(this.getClass(), ex);
                 UtilMSG.addErrorMsg("errorPersistencia");
             }
         }
@@ -140,7 +149,7 @@ public class UIUsuario {
     public void cargarUsuario() {
 
         try {
-            Usuarios usuario = (Usuarios) UtilJSF.getBean("usuario");
+            Usuarios usuario = (Usuarios) UtilJSF.getBean("usuarios");
             Establecimiento establecimiento = (Establecimiento) ((Sesion) UtilJSF.getBean("sesion")).getEstablecimiento();
             usuario.setUsuario(usuarioBuscar);
             usuario = this.cargarDatosUsuario(establecimiento, usuario);
@@ -155,7 +164,7 @@ public class UIUsuario {
             this.establecimientosAsignados = this.transformarLista(gestorEstablecimiento.cargarListaEstablecimientosUsuario(usuario.getUsuariosPK().getDocumentoUsuario()));
             this.itemsDualEstablecimientos = new DualListModel<>((List<String>) this.removerElementosAsignados(establecimientosDisponibles, establecimientosAsignados), establecimientosAsignados);
 
-            UtilJSF.setBean("usuario", usuario, UtilJSF.SESSION_SCOPE);
+            UtilJSF.setBean("usuarios", usuario, UtilJSF.SESSION_SCOPE);
         } catch (Exception ex) {
             UtilMSG.addErrorMsg("Error al cargar el usuario");
             UtilLog.generarLog(this.getClass(), ex);
@@ -215,7 +224,7 @@ public class UIUsuario {
     }
 
     public void nuevo() {
-        Usuarios usuario = (Usuarios) UtilJSF.getBean("usuario");
+        Usuarios usuario = (Usuarios) UtilJSF.getBean("usuarios");
         Establecimiento establecimiento = (Establecimiento) ((Sesion) UtilJSF.getBean("sesion")).getEstablecimiento();
         try {
             GestorUsuario gestorUsuario = new GestorUsuario();
@@ -225,7 +234,7 @@ public class UIUsuario {
             gestorUsuario.almacenarUsuario(establecimiento, usuario);
             usuario = new Usuarios();
             this.usuarioBuscar = null;
-            UtilJSF.setBean("usuario", usuario, UtilJSF.SESSION_SCOPE);
+            UtilJSF.setBean("usuarios", usuario, UtilJSF.SESSION_SCOPE);
             UtilMSG.addSuccessMsg("Usuario creado");
         } catch (Exception ex) {
             if (UtilLog.causaControlada(ex)) {
@@ -238,7 +247,7 @@ public class UIUsuario {
     }
 
     public void guardar() {
-        Usuarios usuario = (Usuarios) UtilJSF.getBean("usuario");
+        Usuarios usuario = (Usuarios) UtilJSF.getBean("usuarios");
         Establecimiento establecimiento = (Establecimiento) ((Sesion) UtilJSF.getBean("sesion")).getEstablecimiento();
         try {
             if (usuario.getRoles() == null || usuario.getRoles().getCodigoRol() == 0) {
@@ -254,7 +263,7 @@ public class UIUsuario {
 
             usuario = new Usuarios();
             this.usuarioBuscar = null;
-            UtilJSF.setBean("usuario", usuario, UtilJSF.SESSION_SCOPE);
+            UtilJSF.setBean("usuarios", usuario, UtilJSF.SESSION_SCOPE);
             UtilMSG.addSuccessMsg("Usuario modificado correctamente");
         } catch (Exception ex) {
             if (UtilLog.causaControlada(ex)) {
@@ -333,6 +342,48 @@ public class UIUsuario {
      */
     public void setItemsEstablecimiento(List<Establecimiento> itemsEstablecimiento) {
         this.itemsEstablecimiento = itemsEstablecimiento;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public String getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    /**
+     * @return the clave
+     */
+    public String getClave() {
+        return clave;
+    }
+
+    /**
+     * @param clave the clave to set
+     */
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    /**
+     * @return the establecimiento
+     */
+    public Establecimiento getEstablecimiento() {
+        return establecimiento;
+    }
+
+    /**
+     * @param establecimiento the establecimiento to set
+     */
+    public void setEstablecimiento(Establecimiento establecimiento) {
+        this.establecimiento = establecimiento;
     }
 
 }

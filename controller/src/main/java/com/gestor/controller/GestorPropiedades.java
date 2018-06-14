@@ -15,12 +15,11 @@ public class GestorPropiedades {
     public Properties cargarPropiedades() throws Exception {
         Properties p = new Properties();
         try {
-//            p.setProperty("urlbd", "jdbc:postgresql://127.0.0.1:5433/myapp");
-            p.setProperty("urlbd", "jdbc:postgresql://10.1.1.141:5432/myapp");
-//            p.setProperty("urlbd", "jdbc:postgresql://localhost:5433/myapp");
+//            p.setProperty("urlbd", "jdbc:postgresql://10.1.1.141:5432/gestor");
+            p.setProperty("urlbd", "jdbc:postgresql://localhost:5432/gestor");
             p.setProperty("controlador", "org.postgresql.Driver");
-            p.setProperty("usuario", "adminw4baqh8");
-            p.setProperty("clave", "NzlgZYzISdKt");
+            p.setProperty("usuario", "postgres");
+            p.setProperty("clave", "postgres");
 
         } catch (Exception e) {
             throw e;

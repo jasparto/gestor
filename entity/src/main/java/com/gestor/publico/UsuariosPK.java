@@ -27,7 +27,7 @@ public class UsuariosPK implements Serializable {
     public UsuariosPK() {
     }
 
-    public UsuariosPK(int codigoEstablecimiento, String documentoUsuario) {
+    public UsuariosPK(String documentoUsuario) {
         this.codigoEstablecimiento = codigoEstablecimiento;
         this.documentoUsuario = documentoUsuario;
     }

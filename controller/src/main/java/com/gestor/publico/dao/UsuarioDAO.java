@@ -75,14 +75,11 @@ public class UsuarioDAO {
 
         try {
             consulta = new Consulta(this.conexion);
-            String sql
-                    = //                    "SELECT documento_usuario, nombre, apellido, usuario, clave, activo,"
-                    //                    + " correo"
-                    "SELECT codigo_establecimiento, documento_usuario, nombre, apellido, usuario, clave, activo, correo, fecha_ingreso, fecha_retiro"
+            String sql = "SELECT codigo_establecimiento, documento_usuario, nombre, apellido, usuario, clave, activo, correo, fecha_ingreso, fecha_retiro"
                     + " FROM usuarios";
             rs = consulta.ejecutar(sql);
             while (rs.next()) {
-                Usuarios u = new Usuarios(rs.getInt("codigo_establecimiento"), rs.getString("documento_usuario"));
+                Usuarios u = new Usuarios(rs.getString("documento_usuario"));
                 u.setNombre(rs.getString("nombre"));
                 u.setApellido(rs.getString("apellido"));
                 u.setUsuario(rs.getString("usuario"));
@@ -108,7 +105,7 @@ public class UsuarioDAO {
         try {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
-                    "SELECT codigo_establecimiento, documento_usuario, nombre, apellido, usuario, clave, activo, correo"
+                    "SELECT documento_usuario, nombre, apellido, usuario, clave, activo, correo"
                     + " FROM usuarios"
             );
 
@@ -127,7 +124,7 @@ public class UsuarioDAO {
 
             rs = consulta.ejecutar(sql);
             if (rs.next()) {
-                usuario = new Usuarios(rs.getInt("codigo_establecimiento"), rs.getString("documento_usuario"));
+                usuario = new Usuarios(rs.getString("documento_usuario"));
                 usuario.setNombre(rs.getString("nombre"));
                 usuario.setApellido(rs.getString("apellido"));
                 usuario.setActivo(rs.getBoolean("activo"));
@@ -334,7 +331,7 @@ public class UsuarioDAO {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
                     "DELETE FROM roles_usuarios"
-                    + " WHERE codigo_establecimiento=" + establecimiento.getCodigoEstablecimiento()+ " AND documento_usuario='" + usuario.getUsuariosPK().getDocumentoUsuario() + "'"
+                    + " WHERE codigo_establecimiento=" + establecimiento.getCodigoEstablecimiento() + " AND documento_usuario='" + usuario.getUsuariosPK().getDocumentoUsuario() + "'"
             );
             consulta.actualizar(sql);
         } finally {
@@ -376,7 +373,7 @@ public class UsuarioDAO {
             );
             rs = consulta.ejecutar(sql);
             while (rs.next()) {
-                Usuarios u = new Usuarios(rs.getInt("codigo_establecimiento"), rs.getString("documento_usuario"));
+                Usuarios u = new Usuarios(rs.getString("documento_usuario"));
                 u.setNombre(rs.getString("nombre"));
                 u.setApellido(rs.getString("apellido"));
                 u.setUsuario(rs.getString("usuario"));

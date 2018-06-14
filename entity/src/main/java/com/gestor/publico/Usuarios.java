@@ -8,6 +8,8 @@ package com.gestor.publico;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -27,6 +29,8 @@ import javax.persistence.TemporalType;
 @Table(name = "usuarios")
 @NamedQueries({
     @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u")})
+@ManagedBean
+@SessionScoped
 public class Usuarios implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
@@ -64,8 +68,8 @@ public class Usuarios implements Serializable, Cloneable {
         this.usuariosPK = usuariosPK;
     }
 
-    public Usuarios(int codigoEstablecimiento, String documentoUsuario) {
-        this.usuariosPK = new UsuariosPK(codigoEstablecimiento, documentoUsuario);
+    public Usuarios(String documentoUsuario) {
+        this.usuariosPK = new UsuariosPK(documentoUsuario);
     }
 
     public UsuariosPK getUsuariosPK() {
