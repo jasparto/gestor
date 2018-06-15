@@ -140,7 +140,7 @@ root {
     background-position:center;
 }
 .logo {
-    background-image: url(../images/logo.jpg);
+    /*background-image: url(../images/logo.jpg);*/
     background-repeat: no-repeat;
     background-position: right center;
     width: 216px;
@@ -154,12 +154,35 @@ root {
     background-color: #ffffff;
 }
 .navigation {
-    background-image: url(../images/fondo_menu.gif);
+    /*background-image: url(../images/fondo_menu.gif);*/
     background-repeat: no-repeat;
     background-position: center top;
     width: 80%;
     height: 70px;
 }
+
+.banner {
+    /*background: url("../resources/imagenes/about-bg.jpg") center top no-repeat fixed;*/
+    /*opacity: 0.2;*/
+    background-size: cover;
+    padding: 60px 0 40px 0;
+    position: relative;
+    z-index: 9;
+}
+
+.banner.content{
+    opacity: 1;
+}
+
+.opacity-default {
+    opacity: 1;
+}
+
+
+
+
+
+
 .version{
     font-weight: bold;
     color: #99ccff;

@@ -49,7 +49,7 @@ public class UIUsuario {
         this.itemsRoles = new ArrayList<>();
         this.cargarRoles();
         this.establecimiento = new Establecimiento();
-        
+
     }
 
     public String getDialogoCrearNuevo() {
@@ -76,6 +76,18 @@ public class UIUsuario {
         return gestorUsuario.cargarDatosUsuario(establecimiento, usuario, App.USUARIOS_FILTRO_USUARIO);
     }
 
+    /**
+     * Cargar los datos del usuario.
+     *
+     * @param establecimiento
+     * @param usuario
+     *
+     */
+    private Usuarios cargarDatosUsuario(Usuarios usuario) throws Exception {
+        GestorUsuario gestorUsuario = new GestorUsuario();
+        return gestorUsuario.cargarDatosUsuario(usuario, App.USUARIOS_FILTRO_USUARIO);
+    }
+
     public void cargarEstablecimientosUsuario(String usuario) {
         try {
             GestorEstablecimiento gestorEstablecimiento = new GestorEstablecimiento();
@@ -98,15 +110,24 @@ public class UIUsuario {
         boolean usuarioValido;
         try {
             GestorUsuario gestorUsuario = new GestorUsuario();
+            GestorEstablecimiento gestorEstablecimiento = new GestorEstablecimiento();
             usuarios.setUsuario(usuario);
             usuarios.setClave(clave);
             usuarios.setEstablecimiento(establecimiento);
-            
+
             usuarioValido = gestorUsuario.validarUsuario(usuarios.getUsuario(), usuarios.getClave());
             if (usuarioValido) {
-                e = this.cargarEstablecimiento(usuarios.getEstablecimiento().getCodigoEstablecimiento());
-                usuarios = this.cargarDatosUsuario(e, usuarios);
+                //usuarios = this.cargarDatosUsuario(usuarios);
 
+                usuarios = gestorUsuario.cargarDatosUsuario(usuarios, App.USUARIOS_FILTRO_USUARIO);
+                usuarios.setListaEstablecimientos((List<Establecimiento>) gestorEstablecimiento.cargarListaEstablecimientosUsuario(usuarios.getUsuariosPK().getDocumentoUsuario()));
+
+                for (Establecimiento i : usuarios.getListaEstablecimientos()) {
+                    usuarios.setEstablecimiento(i);
+                    break;
+                }
+                e = this.cargarEstablecimiento(usuarios.getEstablecimiento().getCodigoEstablecimiento());
+                
 //                if (establecimiento.getPrefijo() == null || establecimiento.getPrefijo().equalsIgnoreCase("")) {
 //                    throw new Exception("No se pudieron cargar los prefijos.", UtilLog.TW_VALIDACION);
 //                }

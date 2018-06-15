@@ -7,59 +7,58 @@
         <title>GESTOR</title>
     </h:head>
     <h:body id="body"> 
+
         <h:outputScript library="js" name="general.js"/>
-        <div align="center">
-            <h:form id="formulario">
-                <tr>
-                    <td>
-                        <p:panel style="width: 35%; margin-top: 10%; font-size: 12px; text-align: center">
-                            <p:messages id="messages" showDetail="true" autoUpdate="true"/>
-                            <f:facet name="header">
-                                <center>
-                                    <span  style="margin: auto auto;" 
-                                           class="ui-button ui-widget ui-corner-all ui-button-text-only ui-button-text ui-c"
-                                           >
-                                        GESTOR
-                                    </span>
-                                </center>
+        <h:outputStylesheet library="css" name="global.css"/> 
+        <div class="banner" >
+            <div align="left" >
+                <h:form id="formulario"  >
+                    <tr>
+                        <td>
+                            <p:panel style="width: 50%; margin-top: 20%; margin-left: 20%; font-size: 12px; text-align: center" >
+                                <p:messages id="messages" showDetail="true" autoUpdate="true"/>
+                                <f:facet name="header">
+                                    <center>
+                                        <span  style="margin: auto auto;" 
+                                               class="ui-button ui-widget ui-corner-all ui-button-text-only ui-button-text ui-c"
+                                               >
+                                            GESTOR
+                                        </span>
+                                    </center>
 
-                            </f:facet>
-                            <p:focus context="grid"/>
-                            <p:spacer height="40"/>
+                                </f:facet>
+                                <p:focus context="grid"/>
+                                <p:spacer height="40"/>
 
 
-                            <p:panelGrid id="grid" style="margin: auto auto;" columns="1" layout="grid">
-                                <p:spacer height="10"/>
-                                <p:inputText id="inTxtUsuario" value="#{uiUsuario.usuario}"
-                                             placeholder="Usuario"
-                                             style="width: 200px;">
-                                    <p:ajax event="change" listener="#{uiUsuario.cargarEstablecimientosUsuario(uiUsuario.usuario)}" 
-                                            process="inTxtUsuario" update="somItemsEstablecimiento" oncomplete="get('pwClave').focus();"/>
-                                </p:inputText>
+                                <p:panelGrid id="grid" style="margin: auto auto;" columns="1" layout="grid" >
+                                    <p:spacer height="10"/>
+                                    <p:inputText id="inTxtUsuario" value="#{uiUsuario.usuario}" 
+                                                 placeholder="Usuario"
+                                                 style="width: 200px;">
+                                    </p:inputText>
 
-                                <p:password id="pwClave" value="#{uiUsuario.clave}" feedback="true" placeholder="Contraseña" 
-                                            promptLabel="Digite Clave" weakLabel="Insegura"
-                                            goodLabel="Segura" strongLabel="Segura" style="width: 200px;"/>
+                                    <p:password id="pwClave" value="#{uiUsuario.clave}" feedback="true" placeholder="Contraseña" 
+                                                promptLabel="Digite Clave" weakLabel="Insegura"
+                                                goodLabel="Segura" strongLabel="Segura" style="width: 200px;"/>
 
-                                <p:selectOneMenu id="somItemsEstablecimiento" value="#{uiUsuario.establecimiento}" converter="convertidorGenerico"
-                                                 effect="fade" style="text-align: center;width: 180px;"
-                                                 >  
-                                    <f:selectItems value="#{uiUsuario.itemsEstablecimiento}" var="estab" itemLabel="#{estab.nombre}" itemValue="#{estab}"/>
-                                </p:selectOneMenu>
-                                <p:commandButton value="Ingresar" style="margin: auto auto;width: 210px;height: 40px;" action="#{uiUsuario.validarUsuario()}"/>
-                                
-                                <p:spacer height="10"/>
-                            </p:panelGrid>
-                            <p:spacer height="40"/>
-                        </p:panel> 
-                    </td>
-                </tr>
-                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                                    <p:commandButton value="Ingresar" style="margin: auto auto;width: 210px;height: 40px;" action="#{uiUsuario.validarUsuario()}"/>
 
-                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                    <p:graphicImage value="/resources/imagenes/barra.gif" />
-                </p:dialog>
-            </h:form>
+                                    <p:spacer height="10"/>
+                                </p:panelGrid>
+                                <p:spacer height="40"/>
+                            </p:panel> 
+
+                        </td>
+                    </tr>
+                    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+                    <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                        <p:graphicImage value="/resources/imagenes/barra.gif" />
+                    </p:dialog>
+                </h:form>
+            </div>
         </div>
     </h:body>
+
 </html>
