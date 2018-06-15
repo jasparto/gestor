@@ -127,29 +127,33 @@ public class UISesion {
      * @return the guardarActivo
      */
     public boolean isGuardarActivo() {
-        HashMap<Integer, Boolean> s = ((Sesion) UtilJSF.getBean("sesion")).getPermisos();
-        return (s.get(UtilBinario.PERMISO_CREAR) || s.get(UtilBinario.PERMISO_MODIFICAR));
+//        HashMap<Integer, Boolean> s = ((Sesion) UtilJSF.getBean("sesion")).getPermisos();
+//        return (s.get(UtilBinario.PERMISO_CREAR) || s.get(UtilBinario.PERMISO_MODIFICAR));
+        return true;
     }
 
     /**
      * @return the nuevoActivo
      */
     public boolean isNuevoActivo() {
-        return ((Sesion) UtilJSF.getBean("sesion")).getPermisos().get(UtilBinario.PERMISO_CREAR);
+        return true;
+//        return ((Sesion) UtilJSF.getBean("sesion")).getPermisos().get(UtilBinario.PERMISO_CREAR);
     }
 
     /**
      * @return the eliminarActivo
      */
     public boolean isEliminarActivo() {
-        return ((Sesion) UtilJSF.getBean("sesion")).getPermisos().get(UtilBinario.PERMISO_ELIMINAR);
+        return true;
+//        return ((Sesion) UtilJSF.getBean("sesion")).getPermisos().get(UtilBinario.PERMISO_ELIMINAR);
     }
 
     /**
      * @return the consultarActivo
      */
     public boolean isConsultarActivo() {
-        HashMap<Integer, Boolean> s = ((Sesion) UtilJSF.getBean("sesion")).getPermisos();
-        return (s.get(UtilBinario.PERMISO_CREAR) || s.get(UtilBinario.PERMISO_MODIFICAR) || s.get(UtilBinario.PERMISO_ELIMINAR));
+        return true;
+//        HashMap<Integer, Boolean> s = ((Sesion) UtilJSF.getBean("sesion")).getPermisos();
+//        return (s.get(UtilBinario.PERMISO_CREAR) || s.get(UtilBinario.PERMISO_MODIFICAR) || s.get(UtilBinario.PERMISO_ELIMINAR));
     }
 }

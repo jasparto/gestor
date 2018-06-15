@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"                
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="/template.xhtml">
+    <ui:define name="content">       
+        <h:form enctype="multipart/form-data" id="formNuevoUsuario" style="font-size: small; width: 70%">
+            <div class="subheader">
+                <h:outputText value="Configuración de usuarios"/>
+            </div>
+
+            <p:panel style="font-size: small">
+                <h:panelGrid columns="2" >
+                    <h:outputText value="Usuario:"/>   
+                    <p:autoComplete id="acUsuario" value="#{uiUsuario.usuarioBuscar}" completeMethod="#{uiUsuario.autoCompletaUsuario}"  
+                                    maxResults="10" style="font-size: small">
+                        <p:ajax event="itemSelect" listener="#{uiUsuario.cargarUsuario()}" update="formNuevoUsuario" />                    
+                    </p:autoComplete>
+                </h:panelGrid>
+            </p:panel>
+
+            <p:outputPanel id="panelDatosUsuario" rendered="#{not empty uiUsuario.usuarioBuscar}" style="font-size: small; width: 80%">
+                <h:outputText value="#{uiUsuario.usuarioBuscar != null?'Configuración actual para':''} #{uiUsuario.usuarioBuscar}"/>
+                <p:accordionPanel id="accordionPanel" activeIndex="-1" rendered="#{not empty usuario.documentoUsuario}" style="font-size: small">
+                    <p:tab title="Datos Usuario" >
+                        <h:panelGrid columns="3">
+                            <h:panelGrid columns="2" style="font-size: small">
+                                <h:outputText value="Documento usuario:" />
+                                <h:outputText value="#{usuario.documentoUsuario}" />
+                                <h:outputText value="Nombre:" />
+                                <p:inplace id="inplaceNombre" editor="true">
+                                    <h:inputText value="#{usuario.nombre}" required="true" requiredMessage="El nombre es requerido"/>
+                                </p:inplace>  
+                                <h:outputText value="Apellido:" />
+                                <p:inplace id="inplaceApellido" editor="true">
+                                    <h:inputText value="#{usuario.apellido}" required="true" requiredMessage="El apellido es requerido"/>
+                                </p:inplace>  
+                            </h:panelGrid>
+                            <p:spacer height="0" width="120" />
+                            <h:panelGrid columns="2" style="font-size: small">
+                                <h:outputText value="Correo:"/>
+                                <p:inplace id="inplaceCorreo" editor="true">  
+                                    <h:inputText value="#{usuario.correo}" />
+                                </p:inplace>                                                                    
+                            </h:panelGrid>
+                        </h:panelGrid> 
+                    </p:tab>
+
+                    <p:tab title="Datos Acceso">
+                        <h:panelGrid columns="2" style="font-size: small"> 
+                            <h:outputText value="Usuario:"/>
+                            <p:inplace id="inplaceUsuario" editor="true">
+                                <h:inputText value="#{usuario.usuario}" title="Usuario" required="true" requiredMessage="El usuario es requerido"/>
+                            </p:inplace>                               
+                            <h:outputText value="Clave:"/>
+                            <p:inplace id="inplaceClave" editor="true">
+                                <h:inputText value="#{usuario.clave}" title="Clave" required="true" requiredMessage="La clave es requerida"/>
+                            </p:inplace>                           
+                            <h:outputText value="Rol:"/>
+                            <p:selectOneMenu value="#{usuario.rol}" converter="convertidorGenerico" effect="fade" style="margin-left: 20px; width: 150px;" >  
+                                <f:selectItem itemLabel="Seleccionar rol" itemValue="" />  
+                                <f:selectItems value="#{uiUsuario.itemsRoles}" var="rol" itemLabel="#{rol.nombre}" itemValue="#{rol}"/>
+                            </p:selectOneMenu> 
+                            <h:outputText value="Establecimiento:"/>
+                            <p:selectOneMenu id="comboEmpresas" value="#{usuario.establecimiento.codigo}" effect="fade" style="margin-left: 20px; width: 150px;">  
+                                <f:selectItem itemLabel="SERVINET" itemValue="1" />
+                                <f:selectItem itemLabel="GENESIS" itemValue="2" /> 
+                            </p:selectOneMenu> 
+                            <h:outputText value="Estado:"/>
+                            <p:selectOneRadio id="options" value="#{usuario.activo}" style="margin-top: -10px" >
+                                <f:selectItem itemLabel="Activo" itemValue="true" />  
+                                <p:spacer height="0" width="20" />
+                                <f:selectItem itemLabel="Inactivo" itemValue="false" />                                          
+                            </p:selectOneRadio>  
+                        </h:panelGrid>
+                    </p:tab>
+                </p:accordionPanel>
+
+                <p:accordionPanel id="acordionPanelControl" activeIndex="-1" style="font-size: small" > 
+                    <p:tab title="Control de Establecimientos" > 
+                        <div class="contenedor" style="font-size: small">
+                            <p:pickList id="pickListEmpresas" value="#{uiUsuario.itemsDualEstablecimientos}"
+                                        var="dualEstablecimiento"  
+                                        itemLabel="#{dualEstablecimiento}"  
+                                        itemValue="#{dualEstablecimiento}"
+                                        addLabel="Agregar" addAllLabel="Agregar todos"
+                                        removeLabel="Remover" removeAllLabel="Remover Todos"
+                                        > 
+                                <f:facet name="sourceCaption">Establecimientos disponibles</f:facet>  
+                                <f:facet name="targetCaption">Establecimientos asignados</f:facet> 
+                            </p:pickList> 
+                        </div>
+                    </p:tab>                    
+
+                </p:accordionPanel >   
+            </p:outputPanel> 
+            <br/>
+            <ui:include src="/barra.xhtml">
+                <ui:param name="bean" value="#{uiUsuarioBean}"/>
+            </ui:include>
+        </h:form>
+        <h:form enctype="multipart/form-data" id="formModalUsuario" style="font-size: small; width: 70%">
+            <p:outputPanel id="panelNuevoUsuario">
+                <p:dialog id="dialogoNuevoUsuario" modal="true" header="Crear nuevo usuario" widgetVar="dialogoNuevoUsuario"> 
+                    <h:panelGrid columns="3">
+                        <h:panelGrid columns="2" >
+                            <h:outputText value="Documento usuario:"/>
+                            <p:inputText value="#{usuario.documentoUsuario}"/>                            
+                            <h:outputText value="Nombre:" />                        
+                            <p:inputText value="#{usuario.nombre}" />
+                            <h:outputText value="Apellido:" />                       
+                            <p:inputText value="#{usuario.apellido}"/>                       
+                        </h:panelGrid>
+                        <p:spacer height="0" width="50" />
+                        <h:panelGrid columns="2" >
+                            <h:outputText value="Correo:"/>
+                            <p:inputText value="#{usuario.correo}"/>
+                        </h:panelGrid>
+                    </h:panelGrid> 
+                    <p:separator/>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Usuario:"/>
+                        <p:inputText id="usuario" value="#{usuario.usuario}"/>
+                        <h:outputText value="Clave:"/>   
+                        <p:password id="clave" value="#{usuario.clave}" feedback="true" />  
+                    </h:panelGrid>
+                    <p:commandButton value="Crear" onclick="PF('dialogoNuevoUsuario').hide();"
+                                     action="#{uiUsuario.nuevo()}" 
+                                     style="font-size: 9px;"/> 
+                </p:dialog> 
+            </p:outputPanel>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
