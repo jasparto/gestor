@@ -6,7 +6,6 @@
 package com.gestor.dao;
 
 import conexion.Consulta;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -65,13 +64,4 @@ public class GeneralDAO {
         }
     }
 
-//    public int siguienteCodigoEntidad(Integer codInstitucion, String campo, String entidad) {
-//        Query query = session.createSQLQuery(
-//                "SELECT COALESCE(MAX(" + campo + "),0) + 1"
-//                + " FROM " + entidad
-//                + " WHERE cod_institucion=?"
-//        );
-//        query.setParameter(0, codInstitucion);
-//        return (int) query.uniqueResult();
-//    }
 }

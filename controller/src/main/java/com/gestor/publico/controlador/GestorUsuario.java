@@ -119,9 +119,7 @@ public class GestorUsuario extends Gestor {
             usuarioDAO.eliminarRolesUsuario(usuario);
             usuarioDAO.eliminarEstablecimientosUsuario(usuario);
             for (Establecimiento e : usuario.getListaEstablecimientos()) {
-//                if (!usuarioDAO.existeEstablecimientoUsuario(e, usuario)) {
                 usuarioDAO.agregarEstablecimientosUsuario(e, usuario);
-//                }
             }
             this.finTransaccion();
         } finally {
