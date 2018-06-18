@@ -25,11 +25,13 @@
             <p:spacer height="0" width="50" />
             <p:separator/>
             <p:spacer height="0" width="50" />
-            
-            <p:toolbar style="height: 35px;">
+
+            <p:toolbar style="height: 45px;">
                 <p:toolbarGroup align="center" style="margin: auto auto;">
-                    <p:commandButton value="Volver" icon="ui-icon-triangle-1-w" action="#{uiUsuario.volverUsuario()}"/>
-                    <p:commandButton value="Crear Usuario" icon="ui-icon-person" action="#{uiUsuario.nuevoCrear()}" update="formNuevoUsuario"/>
+                    <h:panelGrid columns="2" cellspacing="10">
+                        <p:commandButton value="Crear Usuario" icon="ui-icon-person" action="#{uiUsuario.nuevoCrear()}" update="formNuevoUsuario"/>
+                        <p:commandButton value="Volver" icon="ui-icon-triangle-1-w" action="#{uiUsuario.volverUsuario()}"/>
+                    </h:panelGrid>
                 </p:toolbarGroup>
             </p:toolbar> 
 

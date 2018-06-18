@@ -62,6 +62,7 @@ public class Usuarios implements Serializable, Cloneable {
     private Establecimiento establecimiento;
 
     public Usuarios() {
+        this.usuariosPK = new UsuariosPK();
     }
 
     public Usuarios(UsuariosPK usuariosPK) {
@@ -237,7 +238,5 @@ public class Usuarios implements Serializable, Cloneable {
     public void setEstablecimiento(Establecimiento establecimiento) {
         this.establecimiento = establecimiento;
     }
-    
-    
-    
+
 }

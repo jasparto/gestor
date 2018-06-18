@@ -1,17 +1,20 @@
- /*
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 package com.gestor.publico.controlador;
 
-
 import com.gestor.controller.Gestor;
+import com.gestor.entity.UtilCorreo;
+import com.gestor.entity.UtilLog;
+import com.gestor.entity.UtilTexto;
 import com.gestor.publico.Establecimiento;
 import com.gestor.publico.Roles;
 import com.gestor.publico.Usuarios;
 import com.gestor.publico.dao.UsuarioDAO;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -152,14 +155,59 @@ public class GestorUsuario extends Gestor {
             this.cerrarConexion();
         }
     }
+    
+    public boolean existeUsuario(Usuarios usuario) throws Exception {
+        try {
+            this.abrirConexion();
+            UsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
+            return usuarioDAO.existeUsuario(usuario);
+        } finally {
+            this.cerrarConexion();
+        }
+    }
 
     public boolean usuarioAutorizadoExamen(String email, String codExamen) throws Exception {
         try {
             this.abrirConexion();
             UsuarioDAO usuarioDAO = new UsuarioDAO(conexion);
-            return usuarioDAO.usuarioAutorizadoExamen(email,codExamen);
+            return usuarioDAO.usuarioAutorizadoExamen(email, codExamen);
         } finally {
             this.cerrarConexion();
         }
+    }
+
+    public Usuarios validarUsuarioNuevo(Usuarios usuario) throws Exception {
+        if (usuario == null || usuario.getUsuariosPK() == null || usuario.getUsuariosPK().getDocumentoUsuario() == null
+                || usuario.getUsuariosPK().getDocumentoUsuario().equalsIgnoreCase("")
+                || usuario.getUsuariosPK().getDocumentoUsuario().equalsIgnoreCase("0")) {
+            throw new Exception("Ingresa el documento del usuario a crear", UtilLog.TW_VALIDACION);
+        }
+        if (usuario.getNombre() == null || usuario.getNombre().equalsIgnoreCase("")) {
+            throw new Exception("Ingresa el nombre del usuario", UtilLog.TW_VALIDACION);
+        }
+        if (usuario.getApellido() == null || usuario.getApellido().equalsIgnoreCase("")) {
+            throw new Exception("Ingresa el apellido del usuario", UtilLog.TW_VALIDACION);
+        }
+        if (usuario.getCorreo() == null
+                || usuario.getCorreo().equalsIgnoreCase("")
+                || !UtilCorreo.validarCorreo(usuario.getCorreo())) {
+            throw new Exception("Ingresa un correo valido", UtilLog.TW_VALIDACION);
+        }
+        if (usuario.getUsuario() == null || usuario.getUsuario().equalsIgnoreCase("")) {
+            throw new Exception("Ingresa el usuario a crear", UtilLog.TW_VALIDACION);
+        }
+
+        if (usuario.getClave() == null || usuario.getClave().equalsIgnoreCase("")) {
+            throw new Exception("Ingresa una clave valida", UtilLog.TW_VALIDACION);
+        }
+
+        usuario.setNombre(usuario.getNombre().trim().toUpperCase());
+        usuario.setApellido(usuario.getApellido().trim().toUpperCase());
+        usuario.setUsuario(usuario.getUsuario().trim().toUpperCase());
+        usuario.setActivo(Boolean.TRUE);
+        usuario.setFechaIngreso(new Date());
+        usuario.setClave(usuario.getClave().trim());
+        usuario.setCorreo(usuario.getCorreo().trim().toLowerCase());
+        return usuario;
     }
 }

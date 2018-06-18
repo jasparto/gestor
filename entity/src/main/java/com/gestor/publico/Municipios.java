@@ -36,9 +36,8 @@ public class Municipios implements Serializable {
     private String codigoMunicipio;
     @Column(name = "nombre")
     private String nombre;
-    @JoinColumn(name = "codigo_departamento", referencedColumnName = "codigo_departamento")
     @ManyToOne(optional = false)
-    private Departamentos codigoDepartamento;
+    private String codigoDepartamento;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoMunicipio")
     private List<Establecimiento> establecimientoList;
 
@@ -63,14 +62,6 @@ public class Municipios implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public Departamentos getCodigoDepartamento() {
-        return codigoDepartamento;
-    }
-
-    public void setCodigoDepartamento(Departamentos codigoDepartamento) {
-        this.codigoDepartamento = codigoDepartamento;
     }
 
     public List<Establecimiento> getEstablecimientoList() {
@@ -104,6 +95,20 @@ public class Municipios implements Serializable {
     @Override
     public String toString() {
         return "com.gestor.publico.Municipios[ codigoMunicipio=" + codigoMunicipio + " ]";
+    }
+
+    /**
+     * @return the codigoDepartamento
+     */
+    public String getCodigoDepartamento() {
+        return codigoDepartamento;
+    }
+
+    /**
+     * @param codigoDepartamento the codigoDepartamento to set
+     */
+    public void setCodigoDepartamento(String codigoDepartamento) {
+        this.codigoDepartamento = codigoDepartamento;
     }
     
 }

@@ -194,7 +194,7 @@ public class UIUsuario {
             this.itemsDualEstablecimientos = new DualListModel<>((List<String>) this.removerElementosAsignados(establecimientosDisponibles, establecimientosAsignados), establecimientosAsignados);
 
             UtilJSF.setBean("usuarios", usuario, UtilJSF.SESSION_SCOPE);
-            this.guardarActivo=true;
+            this.guardarActivo = true;
         } catch (Exception ex) {
             UtilMSG.addErrorMsg("Error al cargar el usuario");
             UtilLog.generarLog(this.getClass(), ex);
@@ -270,11 +270,16 @@ public class UIUsuario {
             if (gestorUsuario.existeDocumentoUsuario(usuario)) {
                 throw new Exception("El documento de identificación ya existe por favor valide.", UtilLog.TW_VALIDACION);
             }
+            if (gestorUsuario.existeUsuario(usuario)) {
+                throw new Exception("El usuario ya existe por favor valide.", UtilLog.TW_VALIDACION);
+            }
+            usuario = gestorUsuario.validarUsuarioNuevo(usuario);
             gestorUsuario.almacenarUsuario(establecimiento, usuario);
             usuario = new Usuarios();
             this.usuarioBuscar = null;
             UtilJSF.setBean("usuarios", usuario, UtilJSF.SESSION_SCOPE);
             UtilMSG.addSuccessMsg("Usuario creado");
+            guardarActivo = false;
         } catch (Exception ex) {
             if (UtilLog.causaControlada(ex)) {
                 UtilMSG.addWarningMsg(ex.getMessage());
@@ -304,7 +309,7 @@ public class UIUsuario {
             this.usuarioBuscar = null;
             UtilJSF.setBean("usuarios", usuario, UtilJSF.SESSION_SCOPE);
             UtilMSG.addSuccessMsg("Usuario modificado correctamente");
-            guardarActivo=false;
+            guardarActivo = false;
         } catch (Exception ex) {
             if (UtilLog.causaControlada(ex)) {
                 UtilMSG.addWarningMsg(ex.getMessage());

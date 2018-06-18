@@ -54,7 +54,7 @@ public class UsuarioDAO {
             if (claveActual.equalsIgnoreCase(claveIngresada)) {
                 usuarioValido = true;
             } else {
-                throw new Exception("usuarioClaveIncorrecta", UtilLog.TW_VALIDACION);
+                throw new Exception("Por favor verifique la clave de acceso.", UtilLog.TW_VALIDACION);
             }
 
             return usuarioValido;
@@ -185,11 +185,11 @@ public class UsuarioDAO {
                     "SELECT documento_usuario, nombre, apellido,"
                     + " usuario, clave, activo, correo, fecha_ingreso, fecha_retiro"
                     + " FROM usuarios"
-                    + " WHERE usuario LIKE '%" + query.toUpperCase() + "%'"
+                    + " WHERE nombre || apellido ||usuario LIKE '%" + query.toUpperCase() + "%'"
             );
             rs = consulta.ejecutar(sql);
             while (rs.next()) {
-                resultados.add(rs.getString("usuario"));
+                resultados.add(rs.getString("usuario") + " - " + rs.getString("nombre") + " " + rs.getString("apellido"));
             }
             return resultados;
         } finally {
@@ -229,10 +229,10 @@ public class UsuarioDAO {
         try {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
-                    "INSERT INTO usuarios(codigo_establecimiento,"
+                    "INSERT INTO usuarios("
                     + " documento_usuario, nombre, apellido, "
                     + " usuario, clave, activo, correo, fecha_ingreso, fecha_retiro)"
-                    + " VALUES (" + establecimiento.getCodigoEstablecimiento() + ",'" + usuario.getUsuariosPK().getDocumentoUsuario().trim() + "', '" + usuario.getNombre().toUpperCase() + "',"
+                    + " VALUES ('" + usuario.getUsuariosPK().getDocumentoUsuario().trim() + "', '" + usuario.getNombre().toUpperCase() + "',"
                     + "  '" + usuario.getApellido().toUpperCase() + "', '" + usuario.getUsuario().toUpperCase() + "',"
                     + " MD5('" + usuario.getClave() + "')," + usuario.getActivo() + ",'" + usuario.getCorreo() + "',"
                     + " current_date," + UtilFecha.formatoFecha(usuario.getFechaRetiro(), null, UtilFecha.PATRON_FECHA_YYYYMMDD, UtilFecha.CARACTER_COMILLA) + ")"
@@ -383,6 +383,29 @@ public class UsuarioDAO {
                 listaUsuarios.add(u);
             }
             return listaUsuarios;
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (consulta != null) {
+                consulta.desconectar();
+            }
+        }
+    }
+    
+    public boolean existeUsuario(Usuarios usuario) throws SQLException {
+        ResultSet rs = null;
+        Consulta consulta = null;
+        try {
+            consulta = new Consulta(this.conexion);
+            StringBuilder sql = new StringBuilder(
+                    "SELECT count(1) > 0 as existe"
+                    + " FROM usuarios"
+                    + " WHERE documento_usuario='" + usuario.getUsuario() + "'"
+            );
+            rs = consulta.ejecutar(sql);
+            rs.next();
+            return rs.getBoolean("existe");
         } finally {
             if (rs != null) {
                 rs.close();

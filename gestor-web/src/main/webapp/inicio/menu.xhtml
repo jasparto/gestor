@@ -9,6 +9,8 @@
         ul.ui-menu-child {
             white-space: nowrap;
             width: auto !important;
+            float: right;
+            margin-left: 10px;
         }
     </style>
 
@@ -17,10 +19,10 @@
     <p:megaMenu orientation="Horizontal" style="margin-top:20px" >
         <p:submenu label="Configuracion" icon="ui-icon-check" style="margin-left: 2%">
             <p:column>
-                <p:submenu label="Configuracion">
+                <p:submenu label="Configuración">
                     <p:menuitem  value="Administrar Usuarios" style="font-size: 11px;"
                                  action="/usuario/usuarios.xhtml"/>
-                    <p:menuitem  value="Administrar Establecimientos"  style="font-size: 11px;"
+                    <p:menuitem  value="Administrar Empresas"  style="font-size: 11px;"
                                  action="/configuracion/establecimientos.xhtml"/>
                 </p:submenu>
             </p:column>
@@ -38,6 +40,7 @@
                 </p:submenu>
             </p:column>
         </p:submenu>
+
         <p:menuitem value="Cerrar Sesión" action="#{uiSesion.cerrarSesion()}" icon="ui-icon-close" style="margin-left: 80%"/>
 
     </p:megaMenu>

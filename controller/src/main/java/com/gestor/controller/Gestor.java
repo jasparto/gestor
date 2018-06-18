@@ -10,7 +10,7 @@ import java.sql.Connection;
 
 /**
  *
- * @author carlosp
+ * @author juliano
  */
 public abstract class Gestor {
 

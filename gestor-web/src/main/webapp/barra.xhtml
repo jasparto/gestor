@@ -4,8 +4,8 @@
                 xmlns:p="http://primefaces.org/ui"       
                 >
 
-    <p:toolbar style="height: 35px;"> 
-        
+    <p:toolbar style="height: 40px;"> 
+        <p:spacer height="5"/> 
         <p:toolbarGroup align="center" style="margin: auto auto;">
             <p:commandButton id="nuevo" action="#{bean.nuevo()}" value="Nuevo" title="Nuevo" disabled="#{not (uiSesion.nuevoActivo and bean.nuevoActivo)}"
                              icon="ui-icon-newwin"  />  
@@ -25,7 +25,6 @@
                              actionListener="#{bean.eliminar()}">
                 <p:confirm header="Eliminar Información" message="¿ Desea Eliminar ?" icon="ui-icon-alert"/>  
             </p:commandButton>
-
         </p:toolbarGroup>  
     </p:toolbar>
     <p:spacer height="10"/> 

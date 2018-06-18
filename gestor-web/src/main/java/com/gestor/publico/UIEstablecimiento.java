@@ -13,6 +13,7 @@ import com.gestor.publico.controlador.GestorEstablecimiento;
 import com.gestor.publico.controlador.GestorMunicipios;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -52,7 +53,7 @@ public class UIEstablecimiento implements Serializable {
 
     @PostConstruct
     public void init() {
-//        this.cargarEstablecimientosInstitucion();
+        this.cargarEstablecimientosInstitucion();
         this.cargarMunicipios();
 //        this.cargarInstitucionesUsuario();
 //        this.cargarParametros();
@@ -62,8 +63,6 @@ public class UIEstablecimiento implements Serializable {
         establecimiento = (Establecimiento) UtilJSF.getBean("varEstablecimiento");
         establecimientoList.remove(establecimiento);
     }
-
-  
 
     public void guardarEstablecimiento() {
         try {
@@ -185,11 +184,20 @@ public class UIEstablecimiento implements Serializable {
 //
 //    }
     public void limpiar() {
-//        this.cargarEstablecimientosInstitucion();
+        this.cargarEstablecimientosInstitucion();
         this.cargarMunicipios();
 //        this.cargarInstitucionesUsuario();
 //        this.cargarParametros();
         this.establecimiento = new Establecimiento();
+    }
+
+    private void cargarEstablecimientosInstitucion() {
+        try {
+            this.establecimientoList = new ArrayList<>();
+            this.establecimientoList.addAll((Collection<? extends Establecimiento>) gestorEstablecimiento.cargarListaEstablecimientos());
+        } catch (Exception ex) {
+            UtilLog.generarLog(this.getClass(), ex);
+        }
     }
 
 //    public void asignarResolucion() {
@@ -284,6 +292,7 @@ public class UIEstablecimiento implements Serializable {
 //    }
     private void cargarMunicipios() {
         try {
+            gestorMunicipios = new GestorMunicipios();
             this.getMunicipiosList().addAll(gestorMunicipios.cargarMunicipios());
         } catch (Exception ex) {
             UtilLog.generarLog(this.getClass(), ex);
