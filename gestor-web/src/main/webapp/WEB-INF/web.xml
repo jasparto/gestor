@@ -22,7 +22,7 @@
     </context-param>
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-        <location>/paginas/snoop.jsp</location>
+        <location>/paginas/sesion.html</location>
     </error-page>
     <session-config>
         <session-timeout>-1</session-timeout>
