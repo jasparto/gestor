@@ -41,7 +41,6 @@ public class PrimeFacesPickListConverter implements Converter {
     public String getAsString(FacesContext facesContext, UIComponent component, Object value) {
         PickList p = (PickList) component;
         DualListModel dl = (DualListModel) p.getValue();
-        // return String.valueOf(dl.getSource().indexOf(value));
         return value.toString();
     }
 }

@@ -14,8 +14,6 @@ import com.gestor.publico.controlador.GestorMunicipios;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -30,33 +28,20 @@ import javax.faces.bean.SessionScoped;
 
 public class UIEstablecimiento implements Serializable {
 
-//    @ManagedProperty("#{gestorEstablecimiento}")
     private GestorEstablecimiento gestorEstablecimiento;
-//    @ManagedProperty("#{gestorGeneral}")
     private GestorGeneral gestorGeneral;
-//    @ManagedProperty("#{gestorMunicipios}")
     private GestorMunicipios gestorMunicipios;
-//    @ManagedProperty("#{gestorFacturas}")
 
     private Establecimiento establecimiento = new Establecimiento();
 
-//    private Servicios servicios = new Servicios();
-//    private List<Servicios> serviciosList = new ArrayList<>();
     private List<Establecimiento> establecimientoList = new ArrayList<>();
 
-//    private DualListModel<TipoRecurso> tipoRecursoDualList = new DualListModel<>();
-//    private DualListModel<Seccion> seccionDualList = new DualListModel<>();
     private List<Municipios> municipiosList = new ArrayList<>();
-//    private List<Institucion> institucionList = new ArrayList<>();
-//    private List<Parametros> parametrosList;
-//    private Parametros parametrosNuevo = new Parametros();
 
     @PostConstruct
     public void init() {
         this.cargarEstablecimientosInstitucion();
         this.cargarMunicipios();
-//        this.cargarInstitucionesUsuario();
-//        this.cargarParametros();
     }
 
     public void subirItemEstablecimiento() {
@@ -90,7 +75,6 @@ public class UIEstablecimiento implements Serializable {
         }
 
     }
-
 
     public void limpiar() {
         this.cargarEstablecimientosInstitucion();

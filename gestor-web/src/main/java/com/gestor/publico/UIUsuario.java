@@ -4,7 +4,6 @@
  */
 package com.gestor.publico;
 
-import com.gestor.controller.Propiedades;
 import com.gestor.entity.App;
 import com.gestor.entity.UtilJSF;
 import com.gestor.entity.UtilLog;
@@ -14,7 +13,6 @@ import com.gestor.publico.controlador.GestorEstablecimiento;
 import com.gestor.publico.controlador.GestorUsuario;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -122,8 +120,7 @@ public class UIUsuario {
 
             usuarioValido = gestorUsuario.validarUsuario(usuarios.getUsuario(), usuarios.getClave());
             if (usuarioValido) {
-                //usuarios = this.cargarDatosUsuario(usuarios);
-
+                
                 usuarios = gestorUsuario.cargarDatosUsuario(usuarios, App.USUARIOS_FILTRO_USUARIO);
                 usuarios.setListaEstablecimientos((List<Establecimiento>) gestorEstablecimiento.cargarListaEstablecimientosUsuario(usuarios.getUsuariosPK().getDocumentoUsuario()));
 
@@ -133,11 +130,6 @@ public class UIUsuario {
                 }
                 e = this.cargarEstablecimiento(usuarios.getEstablecimiento().getCodigoEstablecimiento());
 
-//                if (establecimiento.getPrefijo() == null || establecimiento.getPrefijo().equalsIgnoreCase("")) {
-//                    throw new Exception("No se pudieron cargar los prefijos.", UtilLog.TW_VALIDACION);
-//                }
-//                Properties propiedades = Propiedades.getInstancia().getPropiedades();
-//                Sesion.RUTA_SERVICIO = propiedades.getProperty("urlServicio");
                 sesion.setUsuarios((Usuarios) usuarios.clone());
                 sesion.setEstablecimiento(e);
                 usuarios = new Usuarios();
