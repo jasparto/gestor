@@ -7,7 +7,7 @@
     <p:toolbar style="height: 35px;"> 
         
         <p:toolbarGroup align="center" style="margin: auto auto;">
-            <p:commandButton id="nuevo" actionListener="#{bean.nuevo()}" value="Nuevo" title="Nuevo" disabled="#{not (uiSesion.nuevoActivo and bean.nuevoActivo)}"
+            <p:commandButton id="nuevo" action="#{bean.nuevo()}" value="Nuevo" title="Nuevo" disabled="#{not (uiSesion.nuevoActivo and bean.nuevoActivo)}"
                              icon="ui-icon-newwin"  />  
             <p:spacer width="10"/>
 

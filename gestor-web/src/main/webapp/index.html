@@ -3,128 +3,218 @@
     <head>
         <title>Start Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="refresh" content="0; url=ingreso.jsf" />
+        <meta http-equiv="refresh" content="1; url=ingreso.jsf" />
         <style>
-            #container
-            {
-                text-align: center;
+            .cssload-cube, .cssload-face {
+                width: 49px;
+                height: 49px;
             }
-            #main
-            {
-                display: inline-block;
-            }
-            @keyframes lds-gear {
-                0% {
-                    -webkit-transform: rotate(0deg);
-                    transform: rotate(0deg);
-                }
-                50% {
-                    -webkit-transform: rotate(180deg);
-                    transform: rotate(180deg);
-                }
-                100% {
-                    -webkit-transform: rotate(360deg);
-                    transform: rotate(360deg);
-                }
-            }
-            @-webkit-keyframes lds-gear {
-                0% {
-                    -webkit-transform: rotate(0deg);
-                    transform: rotate(0deg);
-                }
-                50% {
-                    -webkit-transform: rotate(180deg);
-                    transform: rotate(180deg);
-                }
-                100% {
-                    -webkit-transform: rotate(360deg);
-                    transform: rotate(360deg);
-                }
-            }
-            .lds-gear > div {
-                -webkit-transform-origin: 100px 100px;
-                transform-origin: 100px 100px;
-                -webkit-animation: lds-gear 1s infinite linear;
-                animation: lds-gear 1s infinite linear;
+
+            .cssload-cube {
+                display:block;
+                margin:97px auto;
                 position: relative;
+                transform-style: preserve-3d;
+                -o-transform-style: preserve-3d;
+                -ms-transform-style: preserve-3d;
+                -webkit-transform-style: preserve-3d;
+                -moz-transform-style: preserve-3d;
+                transform: rotateX(45deg) rotate(45deg);
+                -o-transform: rotateX(45deg) rotate(45deg);
+                -ms-transform: rotateX(45deg) rotate(45deg);
+                -webkit-transform: rotateX(45deg) rotate(45deg);
+                -moz-transform: rotateX(45deg) rotate(45deg);
+                animation: magic 2.3s ease-in-out infinite both;
+                -o-animation: magic 2.3s ease-in-out infinite both;
+                -ms-animation: magic 2.3s ease-in-out infinite both;
+                -webkit-animation: magic 2.3s ease-in-out infinite both;
+                -moz-animation: magic 2.3s ease-in-out infinite both;
             }
-            .lds-gear > div div {
+
+
+
+            .cssload-face {
                 position: absolute;
-                width: 26px;
-                height: 192px;
-                background: #5c9ddb;
-                left: 100px;
-                top: 100px;
-                -webkit-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
+                width: 49px;
+                height: 49px;
+                transform-style: preserve-3d;
+                -o-transform-style: preserve-3d;
+                -ms-transform-style: preserve-3d;
+                -webkit-transform-style: preserve-3d;
+                -moz-transform-style: preserve-3d;
+                transform-style: preserve-3d;
             }
-            .lds-gear > div div:nth-child(1) {
-                width: 152px;
-                height: 152px;
-                border-radius: 50%;
+            .cssload-face:before, .cssload-face:after {
+                display: block;
+                content: "";
+                background-color: inherit;
+                position: absolute;
+                width: 49px;
+                height: 49px;
+                transform-style: preserve-3d;
+                -o-transform-style: preserve-3d;
+                -ms-transform-style: preserve-3d;
+                -webkit-transform-style: preserve-3d;
+                -moz-transform-style: preserve-3d;
+                transform-style: preserve-3d;
             }
-            .lds-gear > div div:nth-child(3) {
-                -webkit-transform: translate(-50%, -50%) rotate(30deg);
-                transform: translate(-50%, -50%) rotate(30deg);
+
+            .cssload-z {
+                background: rgb(36,148,155);
+                transform: translateZ(24px);
+                -o-transform: translateZ(24px);
+                -ms-transform: translateZ(24px);
+                -webkit-transform: translateZ(24px);
+                -moz-transform: translateZ(24px);
             }
-            .lds-gear > div div:nth-child(4) {
-                -webkit-transform: translate(-50%, -50%) rotate(60deg);
-                transform: translate(-50%, -50%) rotate(60deg);
+
+            .cssload-x {
+                background-color: rgb(214,57,53);
             }
-            .lds-gear > div div:nth-child(5) {
-                -webkit-transform: translate(-50%, -50%) rotate(90deg);
-                transform: translate(-50%, -50%) rotate(90deg);
+            .x:after {
+                transform: rotateX(90deg) translateZ(24px);
+                -o-transform: rotateX(90deg) translateZ(24px);
+                -ms-transform: rotateX(90deg) translateZ(24px);
+                -webkit-transform: rotateX(90deg) translateZ(24px);
+                -moz-transform: rotateX(90deg) translateZ(24px);
             }
-            .lds-gear > div div:nth-child(6) {
-                -webkit-transform: translate(-50%, -50%) rotate(120deg);
-                transform: translate(-50%, -50%) rotate(120deg);
+            .cssload-x:before {
+                transform: rotateX(90deg) translateZ(-24px);
+                -o-transform: rotateX(90deg) translateZ(-24px);
+                -ms-transform: rotateX(90deg) translateZ(-24px);
+                -webkit-transform: rotateX(90deg) translateZ(-24px);
+                -moz-transform: rotateX(90deg) translateZ(-24px);
             }
-            .lds-gear > div div:nth-child(7) {
-                -webkit-transform: translate(-50%, -50%) rotate(150deg);
-                transform: translate(-50%, -50%) rotate(150deg);
+
+            .cssload-y {
+                background-color: rgb(231,156,16);
             }
-            .lds-gear > div div:nth-child(8) {
-                width: 80px;
-                height: 80px;
-                background: #fff;
-                border-radius: 50%;
+            .cssload-y:after {
+                transform: rotateY(90deg) translateZ(24px);
+                -o-transform: rotateY(90deg) translateZ(24px);
+                -ms-transform: rotateY(90deg) translateZ(24px);
+                -webkit-transform: rotateY(90deg) translateZ(24px);
+                -moz-transform: rotateY(90deg) translateZ(24px);
             }
-            .lds-gear {
-                width: 59px !important;
-                height: 59px !important;
-                -webkit-transform: translate(-29.5px, -29.5px) scale(0.295) translate(29.5px, 29.5px);
-                transform: translate(-29.5px, -29.5px) scale(0.295) translate(29.5px, 29.5px);
+            .cssload-y:before {
+                transform: rotateY(90deg) translateZ(-24px);
+                -o-transform: rotateY(90deg) translateZ(-24px);
+                -ms-transform: rotateY(90deg) translateZ(-24px);
+                -webkit-transform: rotateY(90deg) translateZ(-24px);
+                -moz-transform: rotateY(90deg) translateZ(-24px);
+            }
+
+
+            @keyframes magic {
+                16% {
+                    transform: rotateX(45deg) rotate(45deg) scaleX(3);
+                }
+                33% {
+                    transform: rotateX(45deg) rotate(45deg) scaleX(3) scaleY(3);
+                }
+                50% {
+                    transform: rotateX(45deg) rotate(45deg) scaleX(1) scaleY(3);
+                }
+                66% {
+                    transform: rotateX(45deg) rotate(45deg) scaleX(3) scaleY(3) scaleZ(3);
+                }
+                83% {
+                    transform: rotateX(45deg) rotate(45deg) scaleY(3);
+                }
+            }
+
+            @-o-keyframes magic {
+                16% {
+                    -o-transform: rotateX(45deg) rotate(45deg) scaleX(3);
+                }
+                33% {
+                    -o-transform: rotateX(45deg) rotate(45deg) scaleX(3) scaleY(3);
+                }
+                50% {
+                    -o-transform: rotateX(45deg) rotate(45deg) scaleX(1) scaleY(3);
+                }
+                66% {
+                    -o-transform: rotateX(45deg) rotate(45deg) scaleX(3) scaleY(3) scaleZ(3);
+                }
+                83% {
+                    -o-transform: rotateX(45deg) rotate(45deg) scaleY(3);
+                }
+            }
+
+            @-ms-keyframes magic {
+                16% {
+                    -ms-transform: rotateX(45deg) rotate(45deg) scaleX(3);
+                }
+                33% {
+                    -ms-transform: rotateX(45deg) rotate(45deg) scaleX(3) scaleY(3);
+                }
+                50% {
+                    -ms-transform: rotateX(45deg) rotate(45deg) scaleX(1) scaleY(3);
+                }
+                66% {
+                    -ms-transform: rotateX(45deg) rotate(45deg) scaleX(3) scaleY(3) scaleZ(3);
+                }
+                83% {
+                    -ms-transform: rotateX(45deg) rotate(45deg) scaleY(3);
+                }
+            }
+
+            @-webkit-keyframes magic {
+                16% {
+                    -webkit-transform: rotateX(45deg) rotate(45deg) scaleX(3);
+                }
+                33% {
+                    -webkit-transform: rotateX(45deg) rotate(45deg) scaleX(3) scaleY(3);
+                }
+                50% {
+                    -webkit-transform: rotateX(45deg) rotate(45deg) scaleX(1) scaleY(3);
+                }
+                66% {
+                    -webkit-transform: rotateX(45deg) rotate(45deg) scaleX(3) scaleY(3) scaleZ(3);
+                }
+                83% {
+                    -webkit-transform: rotateX(45deg) rotate(45deg) scaleY(3);
+                }
+            }
+
+            @-moz-keyframes magic {
+                16% {
+                    -moz-transform: rotateX(45deg) rotate(45deg) scaleX(3);
+                }
+                33% {
+                    -moz-transform: rotateX(45deg) rotate(45deg) scaleX(3) scaleY(3);
+                }
+                50% {
+                    -moz-transform: rotateX(45deg) rotate(45deg) scaleX(1) scaleY(3);
+                }
+                66% {
+                    -moz-transform: rotateX(45deg) rotate(45deg) scaleX(3) scaleY(3) scaleZ(3);
+                }
+                83% {
+                    -moz-transform: rotateX(45deg) rotate(45deg) scaleY(3);
+                }
             }
         </style>
     </head>
     <body>
         <br></br><br></br><br></br><br></br><br></br><br></br>
-        <center>
-            <h1>
-                <em style="font-size:30px;  color:#05233d; font-family: Trebuchet MS, Arial, Helvetica, sans-serif;">Gestor</em>
-            </h1>
-            <br></br><br></br>
-        </center>
-        <center>
-            <div id="container">
-                <div id="main">
-                    <div class="lds-css" >
-                        <div class="lds-gear" style="height:100%;">
-                            <div align="center">
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
-                        </div>
-                    </div>
+    <center>
+        <h1>
+            <em style="font-size:30px;  color:#05233d; font-family: Trebuchet MS, Arial, Helvetica, sans-serif;">Gestor</em>
+        </h1>
+        <br></br><br></br>
+    </center>
+    <center>
+        <div id="container">
+            <div id="main">
+                <div class="cssload-cube">
+                    <div class="cssload-face cssload-x"></div>
+                    <div class="cssload-face cssload-y"></div>	
+                    <div class="cssload-face cssload-z"></div>	
                 </div>
             </div>
+        </div>
 
-        </center>
-    </body>
+    </center>
+</body>
 </html>

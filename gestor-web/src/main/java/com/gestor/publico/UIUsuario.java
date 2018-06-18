@@ -44,6 +44,11 @@ public class UIUsuario {
     private String clave;
     private Establecimiento establecimiento;
 
+    private boolean guardarActivo = false;
+    private boolean nuevoActivo = true;
+    private boolean eliminarActivo = false;
+    private boolean consultarActivo = false;
+
     public UIUsuario() {
         this.itemsEstablecimiento = new ArrayList<>();
         this.itemsRoles = new ArrayList<>();
@@ -127,7 +132,7 @@ public class UIUsuario {
                     break;
                 }
                 e = this.cargarEstablecimiento(usuarios.getEstablecimiento().getCodigoEstablecimiento());
-                
+
 //                if (establecimiento.getPrefijo() == null || establecimiento.getPrefijo().equalsIgnoreCase("")) {
 //                    throw new Exception("No se pudieron cargar los prefijos.", UtilLog.TW_VALIDACION);
 //                }
@@ -172,7 +177,10 @@ public class UIUsuario {
         try {
             Usuarios usuario = (Usuarios) UtilJSF.getBean("usuarios");
             Establecimiento establecimiento = (Establecimiento) ((Sesion) UtilJSF.getBean("sesion")).getEstablecimiento();
-            usuario.setUsuario(usuarioBuscar);
+            if (usuarioBuscar == null || !usuarioBuscar.contains("-")) {
+                UtilMSG.addWarningMsg("Usuario no encontrado.");
+            }
+            usuario.setUsuario(usuarioBuscar.split("-")[0].trim());
             usuario = this.cargarDatosUsuario(establecimiento, usuario);
             for (Roles r : itemsRoles) {
                 if (usuario.getRoles() != null && usuario.getRoles().getCodigoRol() == r.getCodigoRol()) {
@@ -186,6 +194,7 @@ public class UIUsuario {
             this.itemsDualEstablecimientos = new DualListModel<>((List<String>) this.removerElementosAsignados(establecimientosDisponibles, establecimientosAsignados), establecimientosAsignados);
 
             UtilJSF.setBean("usuarios", usuario, UtilJSF.SESSION_SCOPE);
+            this.guardarActivo=true;
         } catch (Exception ex) {
             UtilMSG.addErrorMsg("Error al cargar el usuario");
             UtilLog.generarLog(this.getClass(), ex);
@@ -244,7 +253,16 @@ public class UIUsuario {
         return listaEstablecimientosAsignados;
     }
 
-    public void nuevo() {
+    public String volverUsuario() {
+        return ("/usuario/usuarios.xhtml?faces-redirect=false");
+    }
+
+    public String nuevo() {
+        UtilJSF.setBean("usuarios", new Usuarios(), UtilJSF.SESSION_SCOPE);
+        return ("/usuario/usuarios-nuevo.xhtml?faces-redirect=false");
+    }
+
+    public void nuevoCrear() {
         Usuarios usuario = (Usuarios) UtilJSF.getBean("usuarios");
         Establecimiento establecimiento = (Establecimiento) ((Sesion) UtilJSF.getBean("sesion")).getEstablecimiento();
         try {
@@ -286,6 +304,7 @@ public class UIUsuario {
             this.usuarioBuscar = null;
             UtilJSF.setBean("usuarios", usuario, UtilJSF.SESSION_SCOPE);
             UtilMSG.addSuccessMsg("Usuario modificado correctamente");
+            guardarActivo=false;
         } catch (Exception ex) {
             if (UtilLog.causaControlada(ex)) {
                 UtilMSG.addWarningMsg(ex.getMessage());
@@ -405,6 +424,62 @@ public class UIUsuario {
      */
     public void setEstablecimiento(Establecimiento establecimiento) {
         this.establecimiento = establecimiento;
+    }
+
+    /**
+     * @return the guardarActivo
+     */
+    public boolean isGuardarActivo() {
+        return guardarActivo;
+    }
+
+    /**
+     * @param guardarActivo the guardarActivo to set
+     */
+    public void setGuardarActivo(boolean guardarActivo) {
+        this.guardarActivo = guardarActivo;
+    }
+
+    /**
+     * @return the nuevoActivo
+     */
+    public boolean isNuevoActivo() {
+        return nuevoActivo;
+    }
+
+    /**
+     * @param nuevoActivo the nuevoActivo to set
+     */
+    public void setNuevoActivo(boolean nuevoActivo) {
+        this.nuevoActivo = nuevoActivo;
+    }
+
+    /**
+     * @return the eliminarActivo
+     */
+    public boolean isEliminarActivo() {
+        return eliminarActivo;
+    }
+
+    /**
+     * @param eliminarActivo the eliminarActivo to set
+     */
+    public void setEliminarActivo(boolean eliminarActivo) {
+        this.eliminarActivo = eliminarActivo;
+    }
+
+    /**
+     * @return the consultarActivo
+     */
+    public boolean isConsultarActivo() {
+        return consultarActivo;
+    }
+
+    /**
+     * @param consultarActivo the consultarActivo to set
+     */
+    public void setConsultarActivo(boolean consultarActivo) {
+        this.consultarActivo = consultarActivo;
     }
 
 }

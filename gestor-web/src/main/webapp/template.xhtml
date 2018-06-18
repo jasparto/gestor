@@ -31,7 +31,9 @@
                         </p:panelGrid>
                     </div>
                     <div>
-                        <p:messages id="messagesUp" showDetail="true" autoUpdate="true" closable="true" showSummary="false"/>
+                        <p:messages id="messagesUp" showDetail="true" closable="true" showSummary="false">
+                            <p:autoUpdate/>
+                        </p:messages>
                     </div>
                 </h:form>
             </div>
@@ -53,7 +55,9 @@
                 <div id="msn" align="center">
                     <br/>
                     <h:panelGrid columns="1">
-                        <p:messages id="messages" showDetail="true" autoUpdate="true" showSummary="false">
+                        
+                        <p:messages id="messages" showDetail="true" showSummary="false">
+                            <p:autoUpdate/>
                             <p:effect type="pulsate" event="load" delay="1000"/>
                         </p:messages>
                     </h:panelGrid>
