@@ -80,7 +80,7 @@ public class Establecimiento implements Serializable {
         this.tipoEstablecimiento = tipoEstablecimiento;
     }
 
-    public int getCodigoEstablecimiento() {
+    public Integer getCodigoEstablecimiento() {
         return codigoEstablecimiento;
     }
 

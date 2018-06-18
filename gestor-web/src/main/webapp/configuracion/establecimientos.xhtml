@@ -52,8 +52,6 @@
                             <p:column  headerText="Dirección" />
                             <p:column  headerText="Telefono" />
                             <p:column  headerText="Correo" />
-                            <p:column  headerText="Fecha Cierre Diario" />
-                            <p:column  headerText="Tipo Establecimiento" />
                             <p:column  headerText="Modificar" />
                         </p:row> 
                     </p:columnGroup>
@@ -80,12 +78,7 @@
                     <p:column>
                         <h:outputText value="#{varEstablecimiento.correo}"/>
                     </p:column>
-                    <p:column>
-                        <h:outputText value="#{varEstablecimiento.fechaCierreDiario}"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{varEstablecimiento.tipoEstablecimiento}"/>
-                    </p:column>
+                    
                     <p:column>
                         <p:commandButton icon="ui-icon-plus" title="Modificar Establecimiento" update="formEstablecimientos"
                                          action="#{uiEstablecimiento.subirItemEstablecimiento()}"/>

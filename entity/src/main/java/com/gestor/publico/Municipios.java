@@ -44,8 +44,9 @@ public class Municipios implements Serializable {
     public Municipios() {
     }
 
-    public Municipios(String codigoMunicipio) {
+    public Municipios(String codigoMunicipio, String nombre) {
         this.codigoMunicipio = codigoMunicipio;
+        this.nombre = nombre;
     }
 
     public String getCodigoMunicipio() {
@@ -110,5 +111,5 @@ public class Municipios implements Serializable {
     public void setCodigoDepartamento(String codigoDepartamento) {
         this.codigoDepartamento = codigoDepartamento;
     }
-    
+
 }

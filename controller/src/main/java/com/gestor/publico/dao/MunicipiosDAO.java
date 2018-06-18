@@ -38,9 +38,8 @@ public class MunicipiosDAO {
             rs = consulta.ejecutar(sql);
             ArrayList<Municipios> municipioses = new ArrayList<>();
             while (rs.next()) {
-                Municipios m = new Municipios(rs.getString("codigo_municipio"));
+                Municipios m = new Municipios(rs.getString("codigo_municipio"), rs.getString("nombre"));
                 m.setCodigoDepartamento(rs.getString("codigo_departamento"));
-                m.setNombre(rs.getString("nombre"));
                 municipioses.add(m);
             }
             return municipioses;

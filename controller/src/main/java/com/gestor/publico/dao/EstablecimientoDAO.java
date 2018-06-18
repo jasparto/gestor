@@ -6,6 +6,7 @@
 package com.gestor.publico.dao;
 
 import com.gestor.publico.Establecimiento;
+import com.gestor.publico.Municipios;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -101,13 +102,20 @@ public class EstablecimientoDAO {
         try {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
-                    "SELECT codigo_establecimiento, codigo_municipio, nombre, nit, direccion, "
-                    + " telefono, correo"
-                    + " FROM establecimiento"
+                    "SELECT codigo_establecimiento, codigo_municipio, E.nombre, E.nit, E.direccion, "
+                    + " E.telefono, E.correo, M.nombre AS nom_municipio"
+                    + " FROM establecimiento E"
+                    + " JOIN municipios M USING (codigo_municipio)"
             );
             rs = consulta.ejecutar(sql);
             while (rs.next()) {
-                listaEstablecimientos.add(new Establecimiento(rs.getInt("codigo_establecimiento"), rs.getString("nombre")));
+                Establecimiento e = new Establecimiento(rs.getInt("codigo_establecimiento"), rs.getString("nombre"));
+                e.setMunicipios(new Municipios(rs.getString("codigo_municipio"), rs.getString("nom_municipio")));
+                e.setNit(rs.getString("nit"));
+                e.setDireccion(rs.getString("direccion"));
+                e.setTelefono(rs.getString("telefono"));
+                e.setCorreo(rs.getString("correo"));
+                listaEstablecimientos.add(e);
             }
             return listaEstablecimientos;
         } finally {
@@ -155,9 +163,12 @@ public class EstablecimientoDAO {
                     "INSERT INTO establecimiento("
                     + " codigo_establecimiento, codigo_municipio, nombre, nit, direccion, "
                     + " telefono, correo, fecha_cierre_diario, tipo_establecimiento)"
-                    + " VALUES (" + establecimiento.getCodigoEstablecimiento()+ ", '" + establecimiento.getMunicipios().getCodigoMunicipio() + "',"
+                    + " VALUES (" + establecimiento.getCodigoEstablecimiento() + ", '" + establecimiento.getMunicipios().getCodigoMunicipio() + "',"
                     + " '" + establecimiento.getNombre() + "', '" + establecimiento.getNit() + "', '" + establecimiento.getDireccion() + "',"
                     + " '" + establecimiento.getTelefono() + "', '" + establecimiento.getCorreo() + "', current_date-1, 'I')"
+                    + " ON CONFLICT (codigo_establecimiento) DO UPDATE"
+                    + " SET codigo_municipio=EXCLUDED.codigo_municipio, nombre=EXCLUDED.nombre, nit=EXCLUDED.nit, "
+                    + " direccion=EXCLUDED.direccion, telefono=EXCLUDED.telefono, correo=EXCLUDED.correo, fecha_cierre_diario=EXCLUDED.fecha_cierre_diario, tipo_establecimiento=EXCLUDED.tipo_establecimiento"
             );
             consulta.actualizar(sql);
         } finally {
