@@ -15,15 +15,17 @@
         <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
         <param-value>true</param-value>
     </context-param>
-    
+        
     <context-param>  
         <param-name>primefaces.THEME</param-name>  
         <param-value>afternoon</param-value>  
     </context-param>
-    <error-page>
-        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-        <location>/paginas/sesion.html</location>
-    </error-page>
+    
+<!--    <context-param>
+        <param-name>primefaces.THEME</param-name>  
+        <param-value>ui-lightness</param-value>  
+    </context-param>-->
+    
     <session-config>
         <session-timeout>-1</session-timeout>
     </session-config>

@@ -13,5 +13,6 @@ public class App {
 
     public static final String USUARIOS_FILTRO_USUARIO = "USUARIO";
     public static final String USUARIOS_FILTRO_DOCUMENTO = "DOCUMENTO";
+    public static final String EVALUACION_ESTADO_ABIERTO = "A";
 
 }

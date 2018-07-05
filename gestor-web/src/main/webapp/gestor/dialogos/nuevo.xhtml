@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"                
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <div style="margin-top: 10px; text-align: center;">
+        <h3>                
+            <h:outputText value="¿ Desea iniciar una nueva auto-evalución ?"/>
+        </h3>
+
+        <h:panelGrid columns="1" cellspacing="10">
+            <p:outputLabel for="calFechaEvaluacion" value="Fecha Evaluación"/>
+            <p:calendar id="calFechaEvaluacion" mode="inline" value="#{evaluacion.fecha}" 
+                        required="true" requiredMessage="Indica la fecha de la evaluación."/>
+
+        </h:panelGrid>
+
+        <p:commandButton value="SI" action="#{uiEvaluacion.procesarEvaluacion()}" 
+                         process="@parent" icon="ui-icon-check" />
+        <p:commandButton value="NO" oncomplete="PF('dialog').hide();" icon="ui-icon-closethick"/>
+    </div>
+
+
+</ui:composition>

@@ -8,7 +8,7 @@
         <p:spacer height="5"/> 
         <p:toolbarGroup align="center" style="margin: auto auto;">
             <p:commandButton id="nuevo" action="#{bean.nuevo()}" value="Nuevo" title="Nuevo" disabled="#{not (uiSesion.nuevoActivo and bean.nuevoActivo)}"
-                             icon="ui-icon-newwin"  />  
+                             icon="ui-icon-newwin"  update="#{bean.componentesRefrescar}"/>  
             <p:spacer width="10"/>
 
             <p:commandButton id="consultar" value="Consultar" title="Consultar" icon="ui-icon-search" disabled="#{not (uiSesion.consultarActivo and bean.consultarActivo)}"

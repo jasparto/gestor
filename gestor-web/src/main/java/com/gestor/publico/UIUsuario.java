@@ -105,7 +105,7 @@ public class UIUsuario {
         }
     }
 
-    public String validarUsuario() {
+    public String validarUsuario() throws Exception {
         Sesion sesion = new Sesion();
         Usuarios usuarios = new Usuarios();
 
@@ -120,7 +120,7 @@ public class UIUsuario {
 
             usuarioValido = gestorUsuario.validarUsuario(usuarios.getUsuario(), usuarios.getClave());
             if (usuarioValido) {
-                
+
                 usuarios = gestorUsuario.cargarDatosUsuario(usuarios, App.USUARIOS_FILTRO_USUARIO);
                 usuarios.setListaEstablecimientos((List<Establecimiento>) gestorEstablecimiento.cargarListaEstablecimientosUsuario(usuarios.getUsuariosPK().getDocumentoUsuario()));
 
