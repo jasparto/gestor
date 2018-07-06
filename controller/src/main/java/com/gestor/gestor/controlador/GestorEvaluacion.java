@@ -46,17 +46,15 @@ public class GestorEvaluacion extends Gestor {
         }
     }
 
-    public List<Evaluacion> cargarEvaluacionList(Integer codigoEstablecimiento, String s) throws Exception {
+    public List<Evaluacion> cargarEvaluacionList(Integer codigoEstablecimiento, String mostrarEvaluaciones) throws Exception {
         try {
             this.abrirConexion();
-
             EvaluacionDAO evaluacionDAO = new EvaluacionDAO(conexion);
-            if (s.equalsIgnoreCase("S")) {
+            if (mostrarEvaluaciones != null && mostrarEvaluaciones.equalsIgnoreCase("S")) {
                 return evaluacionDAO.cargarEvaluacionList();
             } else {
                 return evaluacionDAO.cargarEvaluacionList(codigoEstablecimiento);
             }
-
         } finally {
             this.cerrarConexion();
         }

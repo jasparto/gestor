@@ -8,6 +8,8 @@ package com.gestor.gestor.dao;
 import com.gestor.entity.UtilFecha;
 import com.gestor.gestor.Evaluacion;
 import com.gestor.gestor.EvaluacionPK;
+import com.gestor.publico.Usuarios;
+import com.gestor.publico.UsuariosPK;
 import conexion.Consulta;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -55,14 +57,17 @@ public class EvaluacionDAO {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
                     "SELECT cod_evaluacion, codigo_establecimiento, documento_usuario, fecha,"
-                    + " fecha_registro, estado"
+                    + " fecha_registro, estado,"
+                    + " U.documento_usuario, U.nombre, U.apellido"
                     + " FROM gestor.evaluacion"
+                    + " JOIN public.usuarios U USING (documento_usuario)"
             );
             rs = consulta.ejecutar(sql);
             List<Evaluacion> evaluacions = new ArrayList<>();
             while (rs.next()) {
                 Evaluacion e = new Evaluacion(new EvaluacionPK(rs.getLong("cod_evaluacion"), rs.getInt("codigo_establecimiento")), rs.getString("documento_usuario"),
                         rs.getDate("fecha"), rs.getDate("fecha_registro"), rs.getString("estado"));
+                e.setUsuarios(new Usuarios(new UsuariosPK(rs.getString("documento_usuario")), rs.getString("nombre"), rs.getString("apellido")));
                 evaluacions.add(e);
             }
             return evaluacions;
@@ -83,8 +88,10 @@ public class EvaluacionDAO {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
                     "SELECT cod_evaluacion, codigo_establecimiento, documento_usuario, fecha,"
-                    + " fecha_registro, estado"
+                    + " fecha_registro, estado,"
+                    + " U.documento_usuario, U.nombre, U.apellido"
                     + " FROM gestor.evaluacion"
+                    + " JOIN public.usuarios U USING (documento_usuario)"
                     + " WHERE codigo_establecimiento=" + codigoEstablecimiento
             );
             rs = consulta.ejecutar(sql);
@@ -92,6 +99,7 @@ public class EvaluacionDAO {
             while (rs.next()) {
                 Evaluacion e = new Evaluacion(new EvaluacionPK(rs.getLong("cod_evaluacion"), rs.getInt("codigo_establecimiento")), rs.getString("documento_usuario"),
                         rs.getDate("fecha"), rs.getDate("fecha_registro"), rs.getString("estado"));
+                e.setUsuarios(new Usuarios(new UsuariosPK(rs.getString("documento_usuario")), rs.getString("nombre"), rs.getString("apellido")));
                 evaluacions.add(e);
             }
             return evaluacions;

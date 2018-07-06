@@ -10,6 +10,7 @@ import com.gestor.entity.UtilLog;
 import com.gestor.entity.UtilMSG;
 import com.gestor.modelo.Sesion;
 import com.gestor.publico.controlador.GestorEstablecimiento;
+import com.gestor.publico.controlador.GestorConfiguracion;
 import com.gestor.publico.controlador.GestorUsuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +115,7 @@ public class UIUsuario {
         try {
             GestorUsuario gestorUsuario = new GestorUsuario();
             GestorEstablecimiento gestorEstablecimiento = new GestorEstablecimiento();
+            GestorConfiguracion gestorConfiguracion = new GestorConfiguracion();
             usuarios.setUsuario(usuario);
             usuarios.setClave(clave);
             usuarios.setEstablecimiento(establecimiento);
@@ -132,6 +134,7 @@ public class UIUsuario {
 
                 sesion.setUsuarios((Usuarios) usuarios.clone());
                 sesion.setEstablecimiento(e);
+                sesion.setParametros(gestorConfiguracion.cargarConfiguracion());
                 usuarios = new Usuarios();
                 UtilJSF.setBean("usuarios", usuarios, UtilJSF.SESSION_SCOPE);
                 UtilJSF.setBean("sesion", sesion, UtilJSF.SESSION_SCOPE);

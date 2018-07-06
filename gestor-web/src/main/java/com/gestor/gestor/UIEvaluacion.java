@@ -11,6 +11,7 @@ import com.gestor.entity.Dialogo;
 import com.gestor.entity.UtilJSF;
 import com.gestor.entity.UtilLog;
 import com.gestor.entity.UtilMSG;
+import com.gestor.gestor.controlador.GestorCiclo;
 import com.gestor.gestor.controlador.GestorEvaluacion;
 import com.gestor.modelo.Sesion;
 import java.util.Date;
@@ -53,11 +54,29 @@ public class UIEvaluacion {
         UtilJSF.setBean("evaluacion", new Evaluacion(), UtilJSF.SESSION_SCOPE);
     }
 
-    public void procesarEvaluacion() {
+    public String continuarEvaluacion() {
+        try {
+            GestorCiclo gestorCiclos = new GestorCiclo();
+            Evaluacion e = (Evaluacion) UtilJSF.getBean("varEvaluacion");
+            UtilJSF.setBean("evaluacion", e, UtilJSF.SESSION_SCOPE);
+
+            e.setCiclos(gestorCiclos.cargarListaCiclos());
+
+            this.nuevoActivo = Boolean.FALSE;
+            this.guardarActivo = Boolean.TRUE;
+            return ("/gestor/evaluacion.xhtml?faces-redirect=true");
+        } catch (Exception e) {
+        }
+
+        return "";
+    }
+
+    public String procesarEvaluacion() {
         try {
             Sesion sesion = (Sesion) UtilJSF.getBean("sesion");
             GestorEvaluacion gestorEvaluacion = new GestorEvaluacion();
             GestorGeneral gestorGeneral = new GestorGeneral();
+            GestorCiclo gestorCiclos = new GestorCiclo();
 
             Evaluacion evaluacion = (Evaluacion) UtilJSF.getBean("evaluacion");
             Evaluacion e = new Evaluacion(new EvaluacionPK(gestorGeneral.nextval(GestorGeneral.GESTOR_EVALUACION_COD_EVALUACION_SEQ), sesion.getEstablecimiento().getCodigoEstablecimiento()),
@@ -66,14 +85,22 @@ public class UIEvaluacion {
             e.setFecha(evaluacion.getFecha());
             e = gestorEvaluacion.validarEvaluacion(e);
             gestorEvaluacion.procesarEvaluacion(e);
-            UtilMSG.addSuccessMsg("");
 
+            e.setCiclos(gestorCiclos.cargarListaCiclos());
+
+            UtilMSG.addSuccessMsg("Auto-evaluación creada, código: " + e.getEvaluacionPK().getCodEvaluacion());
+            UtilJSF.setBean("evaluacion", e, UtilJSF.SESSION_SCOPE);
+
+            this.nuevoActivo = Boolean.FALSE;
+            this.guardarActivo = Boolean.TRUE;
+            return ("/gestor/evaluacion.xhtml?faces-redirect=true");
         } catch (Exception e) {
             if (UtilLog.causaControlada(e)) {
             } else {
                 UtilLog.generarLog(this.getClass(), e);
             }
         }
+        return "";
     }
 
     /**
@@ -84,7 +111,7 @@ public class UIEvaluacion {
             try {
                 Sesion s = (Sesion) UtilJSF.getBean("sesion");
                 GestorEvaluacion gestorEvaluacion = new GestorEvaluacion();
-                evaluacionList = gestorEvaluacion.cargarEvaluacionList(s.getEstablecimiento().getCodigoEstablecimiento(), "S");
+                evaluacionList = gestorEvaluacion.cargarEvaluacionList(s.getEstablecimiento().getCodigoEstablecimiento(), s.getParametros().get(App.CONFIGURACION_MOSTRAR_EVALUACIONES).toString());
             } catch (Exception e) {
                 UtilLog.generarLog(this.getClass(), e);
             }

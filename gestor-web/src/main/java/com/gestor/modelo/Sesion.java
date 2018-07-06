@@ -27,6 +27,7 @@ public class Sesion {
     private boolean logueado;
     private HashMap parametros = new HashMap();
     private HashMap<Integer, Boolean> permisos = new HashMap<>();
+    
 
     /**
      * @return the dialogo

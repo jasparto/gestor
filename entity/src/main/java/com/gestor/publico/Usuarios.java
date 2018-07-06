@@ -73,6 +73,13 @@ public class Usuarios implements Serializable, Cloneable {
         this.usuariosPK = new UsuariosPK(documentoUsuario);
     }
 
+    public Usuarios(UsuariosPK usuariosPK, String nombre, String apellido) {
+        this.usuariosPK = usuariosPK;
+        this.nombre = nombre;
+        this.apellido = apellido;
+    }
+    
+
     public UsuariosPK getUsuariosPK() {
         return usuariosPK;
     }

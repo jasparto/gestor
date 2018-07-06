@@ -11,43 +11,30 @@
     <ui:define name="content">
         <h:form enctype="multipart/form-data" id="formEvaluacion" style="font-size: small;">
 
-            <p:panel id="panelEstablecimientos"  header="Auto-evaluación Estandares Mínimos" >
+            <p:panel header="Evaluacion (#{evaluacion.evaluacionPK.codEvaluacion})" >
 
-                <p:dataTable  value="#{uiEvaluacion.evaluacionList}" var="varEvaluacion" emptyMessage="No hay evaluaciones generadas."
-                              rowStyleClass="Centro">
+                <p:dataGrid var="varCiclo" value="#{evaluacion.ciclos}" columns="2" layout="grid"
+                            rows="4" paginator="true" id="dtCiclos"
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            >
 
-                    <p:columnGroup type="header">  
-                        <p:row>  
-                            <p:column headerText="Código"/>
-                            <p:column  headerText="Evaluador"/>
-                            <p:column  headerText="Fecha Evaluación"/>
-                            <p:column  headerText="Fecha Creación" />
-                            <p:column  headerText="Estado" />
-                        </p:row> 
-                    </p:columnGroup>
+                    <f:facet name="header">
+                        Ciclos Evaluar
+                    </f:facet>
 
+                    <p:panel header="#{varCiclo.nombre}" style="text-align:center">
+                        <h:panelGrid columns="1" style="width:100%">
+                            <p:graphicImage name="/resources/imagenes/ciclos/#{varCiclo.codCiclo}.gif"/> 
 
-                    <p:column>
-                        <h:outputText value="#{varEvaluacion.evaluacionPK.codEvaluacion}"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{varEvaluacion.usuarios.nombre} #{varEvaluacion.usuarios.apellido}"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{varEvaluacion.fecha}"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{varEvaluacion.fechaRegistro}"/>
-                    </p:column>
-                    <p:column>
-                        <h:outputText value="#{varEvaluacion.estado}"/>
-                    </p:column>
+                            <h:outputText value="Evaluar Ciclo" />
 
-                    <p:column>
-                        <p:commandButton icon="ui-icon-plus" title="Continuar Evaluación" 
-                                         update="formEvaluacion"/>
-                    </p:column>
-                </p:dataTable>
+                            <p:commandLink update=":formEvaluacion:dialog" oncomplete="PF('dialog').show()" title="Evaluar Ciclo">
+                                <h:outputText styleClass="ui-icon ui-icon-gear" style="margin:0 auto;" />
+                            </p:commandLink>
+                        </h:panelGrid>
+                    </p:panel>
+
+                </p:dataGrid>
 
             </p:panel>
 

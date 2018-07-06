@@ -30,7 +30,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "evaluacion")
 @NamedQueries({
-@NamedQuery(name = "Evaluacion.findAll", query = "SELECT e FROM Evaluacion e")})
+    @NamedQuery(name = "Evaluacion.findAll", query = "SELECT e FROM Evaluacion e")})
 @ManagedBean
 @SessionScoped
 public class Evaluacion implements Serializable {
@@ -53,6 +53,8 @@ public class Evaluacion implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluacion")
     private List<EvaluacionPuntajes> evaluacionPuntajesList;
     
+    private List<Ciclo> ciclos;
+
     private Usuarios usuarios;
 
     public Evaluacion() {
@@ -75,7 +77,6 @@ public class Evaluacion implements Serializable {
         this.fechaRegistro = fechaRegistro;
         this.estado = estado;
     }
-    
 
     public Evaluacion(Long codEvaluacion, int codigoEstablecimiento) {
         this.evaluacionPK = new EvaluacionPK(codEvaluacion, codigoEstablecimiento);
@@ -111,6 +112,16 @@ public class Evaluacion implements Serializable {
 
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public String getEstadoCompleto() {
+        switch (estado) {
+            case "A":
+                return "ABIERTO";
+            case "C":
+                return "CERRADO";
+        }
+        return estado;
     }
 
     public String getEstado() {
@@ -167,5 +178,19 @@ public class Evaluacion implements Serializable {
     public void setUsuarios(Usuarios usuarios) {
         this.usuarios = usuarios;
     }
-    
+
+    /**
+     * @return the ciclos
+     */
+    public List<Ciclo> getCiclos() {
+        return ciclos;
+    }
+
+    /**
+     * @param ciclos the ciclos to set
+     */
+    public void setCiclos(List<Ciclo> ciclos) {
+        this.ciclos = ciclos;
+    }
+
 }
