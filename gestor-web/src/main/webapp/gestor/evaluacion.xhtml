@@ -22,14 +22,14 @@
                         Ciclos Evaluar
                     </f:facet>
 
-                    <p:panel header="#{varCiclo.nombre}" style="text-align:center">
+                    <p:panel header="#{varCiclo.nombre}" style="text-align:center" >
                         <h:panelGrid columns="1" style="width:100%">
-                            <p:graphicImage name="/resources/imagenes/ciclos/#{varCiclo.codCiclo}.gif"/> 
+                            <p:graphicImage url="/resources/imagenes/ciclos/#{varCiclo.codCiclo}.png"/> 
 
                             <h:outputText value="Evaluar Ciclo" />
 
                             <p:commandLink update=":formEvaluacion:dialog" oncomplete="PF('dialog').show()" title="Evaluar Ciclo">
-                                <h:outputText styleClass="ui-icon ui-icon-gear" style="margin:0 auto;" />
+                                <h:outputText styleClass="ui-icon ui-icon-newwin" style="margin:0 auto;" />
                             </p:commandLink>
                         </h:panelGrid>
                     </p:panel>
