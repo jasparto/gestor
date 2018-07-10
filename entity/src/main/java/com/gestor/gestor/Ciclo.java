@@ -7,6 +7,8 @@ package com.gestor.gestor;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,7 +26,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "ciclo")
 @NamedQueries({
-    @NamedQuery(name = "Ciclo.findAll", query = "SELECT c FROM Ciclo c")})
+    @NamedQuery(name = "Ciclo.findAll", query = "SELECT c FROM Ciclo c")
+})
+@ManagedBean
+@SessionScoped
+
 public class Ciclo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,6 +42,8 @@ public class Ciclo implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ciclo")
+    
+    
     private List<Seccion> seccionList;
 
     public Ciclo() {
@@ -98,5 +106,5 @@ public class Ciclo implements Serializable {
     public String toString() {
         return "com.gestor.gestor.Ciclo[ codCiclo=" + codCiclo + " ]";
     }
-    
+
 }

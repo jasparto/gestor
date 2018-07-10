@@ -7,6 +7,8 @@ package com.gestor.gestor;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -25,7 +27,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "seccion")
 @NamedQueries({
-    @NamedQuery(name = "Seccion.findAll", query = "SELECT s FROM Seccion s")})
+    @NamedQuery(name = "Seccion.findAll", query = "SELECT s FROM Seccion s")
+})
+@ManagedBean
+@SessionScoped
+
 public class Seccion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,9 +44,13 @@ public class Seccion implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "peso")
     private Double peso;
+    private String imagen;
+    private Integer orden;
+
     @JoinColumn(name = "cod_ciclo", referencedColumnName = "cod_ciclo", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Ciclo ciclo;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "seccion")
     private List<SeccionDetalle> seccionDetalleList;
 
@@ -49,6 +59,15 @@ public class Seccion implements Serializable {
 
     public Seccion(SeccionPK seccionPK) {
         this.seccionPK = seccionPK;
+    }
+
+    public Seccion(SeccionPK seccionPK, String nombre, Boolean activo, Double peso, String imagen, Integer orden) {
+        this.seccionPK = seccionPK;
+        this.nombre = nombre;
+        this.activo = activo;
+        this.peso = peso;
+        this.imagen = imagen;
+        this.peso = peso;
     }
 
     public Seccion(String codCiclo, int codSeccion) {
@@ -127,5 +146,33 @@ public class Seccion implements Serializable {
     public String toString() {
         return "com.gestor.gestor.Seccion[ seccionPK=" + seccionPK + " ]";
     }
-    
+
+    /**
+     * @return the imagen
+     */
+    public String getImagen() {
+        return imagen;
+    }
+
+    /**
+     * @param imagen the imagen to set
+     */
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    /**
+     * @return the orden
+     */
+    public Integer getOrden() {
+        return orden;
+    }
+
+    /**
+     * @param orden the orden to set
+     */
+    public void setOrden(Integer orden) {
+        this.orden = orden;
+    }
+
 }

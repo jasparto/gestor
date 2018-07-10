@@ -6,43 +6,49 @@
 package com.gestor.gestor.dao;
 
 import com.gestor.gestor.Ciclo;
+import com.gestor.gestor.Seccion;
+import com.gestor.gestor.SeccionPK;
 import conexion.Consulta;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
  *
  * @author juliano
  */
-public class CicloDAO {
+public class SeccionDAO {
 
     private Connection conexion;
 
-    public CicloDAO(Connection conexion) {
+    public SeccionDAO(Connection conexion) {
         this.conexion = conexion;
     }
 
-    public List<Ciclo> cargarListaCiclos() throws SQLException {
+    public List<Seccion> cargarListaSeccion(String codCiclo) throws SQLException {
         ResultSet rs = null;
         Consulta consulta = null;
         try {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
-                    "SELECT cod_ciclo, nombre"
-                    + " FROM gestor.ciclo;"
+                    "SELECT cod_ciclo, cod_seccion, nombre, activo, peso, imagen, orden"
+                    + " FROM gestor.seccion"
+                    + " WHERE cod_ciclo='" + codCiclo + "'"
+                    + " ORDER BY orden"
             );
 
             rs = consulta.ejecutar(sql);
-            List<Ciclo> ciclos = new ArrayList<>();
+            List<Seccion> seccions = new ArrayList<>();
             while (rs.next()) {
-                Ciclo c = new Ciclo(rs.getString("cod_ciclo"), rs.getString("nombre"));
-                ciclos.add(c);
+                Seccion s = new Seccion(new SeccionPK(rs.getString("cod_ciclo"), rs.getInt("cod_seccion")), rs.getString("nombre"), rs.getBoolean("activo"), rs.getDouble("peso"),
+                        rs.getString("imagen"), rs.getInt("orden")
+                );
+
+                seccions.add(s);
             }
-            return ciclos;
+            return seccions;
         } finally {
             if (rs != null) {
                 rs.close();
@@ -52,6 +58,5 @@ public class CicloDAO {
             }
         }
     }
-
 
 }

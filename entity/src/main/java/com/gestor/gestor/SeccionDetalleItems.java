@@ -25,7 +25,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "seccion_detalle_items")
 @NamedQueries({
-    @NamedQuery(name = "SeccionDetalleItems.findAll", query = "SELECT s FROM SeccionDetalleItems s")})
+    @NamedQuery(name = "SeccionDetalleItems.findAll", query = "SELECT s FROM SeccionDetalleItems s")
+})
 public class SeccionDetalleItems implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,7 +35,12 @@ public class SeccionDetalleItems implements Serializable {
     @Column(name = "detalle")
     private String detalle;
     @Column(name = "peso")
-    private Integer peso;
+    private Double peso;
+
+    private Boolean activo;
+    private String imagen;
+    private Integer orden;
+
     @ManyToMany(mappedBy = "seccionDetalleItemsList")
     private List<EvaluacionPuntajes> evaluacionPuntajesList;
     @JoinColumns({
@@ -55,6 +61,15 @@ public class SeccionDetalleItems implements Serializable {
         this.seccionDetalleItemsPK = new SeccionDetalleItemsPK(codCiclo, codSeccion, codDetalle, codItem);
     }
 
+    public SeccionDetalleItems(SeccionDetalleItemsPK seccionDetalleItemsPK, String detalle, Double peso, Boolean activo, String imagen, Integer orden) {
+        this.seccionDetalleItemsPK = seccionDetalleItemsPK;
+        this.detalle = detalle;
+        this.peso = peso;
+        this.activo = activo;
+        this.imagen = imagen;
+        this.orden = orden;
+    }
+
     public SeccionDetalleItemsPK getSeccionDetalleItemsPK() {
         return seccionDetalleItemsPK;
     }
@@ -69,14 +84,6 @@ public class SeccionDetalleItems implements Serializable {
 
     public void setDetalle(String detalle) {
         this.detalle = detalle;
-    }
-
-    public Integer getPeso() {
-        return peso;
-    }
-
-    public void setPeso(Integer peso) {
-        this.peso = peso;
     }
 
     public List<EvaluacionPuntajes> getEvaluacionPuntajesList() {
@@ -119,5 +126,61 @@ public class SeccionDetalleItems implements Serializable {
     public String toString() {
         return "com.gestor.gestor.SeccionDetalleItems[ seccionDetalleItemsPK=" + seccionDetalleItemsPK + " ]";
     }
-    
+
+    /**
+     * @return the peso
+     */
+    public Double getPeso() {
+        return peso;
+    }
+
+    /**
+     * @param peso the peso to set
+     */
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    /**
+     * @return the activo
+     */
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    /**
+     * @param activo the activo to set
+     */
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
+
+    /**
+     * @return the imagen
+     */
+    public String getImagen() {
+        return imagen;
+    }
+
+    /**
+     * @param imagen the imagen to set
+     */
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    /**
+     * @return the orden
+     */
+    public Integer getOrden() {
+        return orden;
+    }
+
+    /**
+     * @param orden the orden to set
+     */
+    public void setOrden(Integer orden) {
+        this.orden = orden;
+    }
+
 }

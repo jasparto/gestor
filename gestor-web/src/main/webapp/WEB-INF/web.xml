@@ -23,11 +23,11 @@
     
 <!--    <context-param>
         <param-name>primefaces.THEME</param-name>  
-        <param-value>ui-lightness</param-value>  
-    </context-param>-->
-    
+        <param-value>flick</param-value>  
+    </context-param>
+    -->
     <session-config>
-        <session-timeout>-1</session-timeout>
+        <session-timeout>-1</session-timeout>   
     </session-config>
     
     <error-page>

@@ -55,6 +55,10 @@ public class UISesion {
         return true;
 //        return ((Sesion) UtilJSF.getBean("sesion")).getPermisos().get(UtilBinario.PERMISO_CREAR);
     }
+    
+    public boolean isCancelarActivo() {
+        return true;
+    }
 
     /**
      * @return the eliminarActivo

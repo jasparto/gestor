@@ -21,6 +21,10 @@
             </p:commandButton>
             <p:spacer width="10"/>
             
+            <p:commandButton id="cancelar" action="#{bean.cancelar()}" value="Cancelar" title="Cancelar" disabled="#{not (uiSesion.cancelarActivo and bean.cancelarActivo)}"
+                             icon="ui-icon-newwin"  update="#{bean.componentesRefrescar}"/>  
+            <p:spacer width="10"/>
+            
             <p:commandButton id="eliminar" value="Eliminar" title="Eliminar" icon="ui-icon-trash" disabled="#{not (uiSesion.eliminarActivo and bean.eliminarActivo)}"
                              actionListener="#{bean.eliminar()}">
                 <p:confirm header="Eliminar Información" message="¿ Desea Eliminar ?" icon="ui-icon-alert"/>  

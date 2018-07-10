@@ -45,7 +45,7 @@ public class UsuarioDAO {
             if (rs.next()) {
                 claveActual = rs.getString("clave");
             } else {
-                throw new Exception("usuarioNoExiste", UtilLog.TW_VALIDACION);
+                throw new Exception("El usuario " + usuario + ", no existe por favor verifique.", UtilLog.TW_VALIDACION);
             }
             sql = "SELECT md5('" + clave + "') AS claveIngresada";
             rs = consulta.ejecutar(sql);

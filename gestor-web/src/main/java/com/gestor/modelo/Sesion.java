@@ -5,11 +5,12 @@
  */
 package com.gestor.modelo;
 
-
 import com.gestor.entity.Dialogo;
+import com.gestor.gestor.Ciclo;
 import com.gestor.publico.Establecimiento;
 import com.gestor.publico.Usuarios;
 import java.util.HashMap;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -25,9 +26,10 @@ public class Sesion {
     private Usuarios usuarios;
     private Establecimiento establecimiento;
     private boolean logueado;
-    private HashMap parametros = new HashMap();
+//    private HashMap parametros = new HashMap();
+    private HashMap configuracion = new HashMap();
     private HashMap<Integer, Boolean> permisos = new HashMap<>();
-    
+    private List<Ciclo> ciclos;
 
     /**
      * @return the dialogo
@@ -72,21 +74,6 @@ public class Sesion {
     }
 
     /**
-     * @return the parametros
-     */
-    public HashMap getParametros() {
-        return parametros;
-    }
-
-    /**
-     * @param parametros the parametros to set
-     */
-    public void setParametros(HashMap parametros) {
-        this.parametros = parametros;
-    }
-
-
-    /**
      * @return the permisos
      */
     public HashMap<Integer, Boolean> getPermisos() {
@@ -112,5 +99,33 @@ public class Sesion {
      */
     public void setEstablecimiento(Establecimiento establecimiento) {
         this.establecimiento = establecimiento;
+    }
+
+    /**
+     * @return the configuracion
+     */
+    public HashMap getConfiguracion() {
+        return configuracion;
+    }
+
+    /**
+     * @param configuracion the configuracion to set
+     */
+    public void setConfiguracion(HashMap configuracion) {
+        this.configuracion = configuracion;
+    }
+
+    /**
+     * @return the ciclos
+     */
+    public List<Ciclo> getCiclos() {
+        return ciclos;
+    }
+
+    /**
+     * @param ciclos the ciclos to set
+     */
+    public void setCiclos(List<Ciclo> ciclos) {
+        this.ciclos = ciclos;
     }
 }

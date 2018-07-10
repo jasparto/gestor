@@ -9,24 +9,25 @@
                 >
 
     <ui:define name="content">
-        <h:form enctype="multipart/form-data" id="formEvaluacion" style="font-size: small;">
+        <h:form enctype="multipart/form-data" id="formSeccion" style="font-size: small;">
 
-            <p:panel header="Evaluacion (#{evaluacion.evaluacionPK.codEvaluacion})" >
+            <p:panel header="Evaluacion (#{evaluacion.evaluacionPK.codEvaluacion}) - Ciclo #{ciclo.nombre}" >
 
-                <p:dataGrid var="varCiclo" value="#{evaluacion.ciclos}" columns="2" layout="grid"
-                            rows="4" paginator="true" id="dtCiclos"
+                <p:dataGrid var="varSeccion" value="#{ciclo.seccionList}" columns="2" layout="grid"
+                            rows="4" paginator="true" id="dtSeccion"
                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                             >
 
                     <f:facet name="header">
-                        Ciclos Evaluar
+                        Seccion Evaluar
                     </f:facet>
 
-                    <p:panel header="#{varCiclo.nombre}" style="text-align:center" >
+                    <p:panel header="#{varSeccion.nombre}" style="text-align:center" >
                         <h:panelGrid columns="1" style="width:100%">
-                            <p:commandLink action="#{uiEvaluacion.cargarSeccion()}" oncomplete="alert('#{varCiclo.codCiclo}');" title="Evaluar Ciclo">
-                                <p:graphicImage url="/resources/imagenes/ciclos/#{varCiclo.codCiclo}.png"/> 
-                                <h:outputText styleClass="ui-icon ui-icon-newwin" style="margin:0 auto;" />
+                            <p:commandLink action="#{uiEvaluacion.cargarSeccionDetalle()}" oncomplete="alert('#{varSeccion.seccionPK.codSeccion}');" title="Evaluar Ciclo">
+                                <p:graphicImage url="/resources/imagenes/ciclos/#{varSeccion.imagen}"/> 
+                                <h:outputText styleClass="ui-icon ui-icon-newwin" style="margin:0 auto;" value="/resources/imagenes/ciclos/#{varSeccion.imagen}"/>
+                                <h:outputText  value="/resources/imagenes/ciclos/#{varSeccion.imagen}"/>
                             </p:commandLink>
                         </h:panelGrid>
                     </p:panel>

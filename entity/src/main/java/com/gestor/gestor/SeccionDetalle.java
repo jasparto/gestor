@@ -7,6 +7,8 @@ package com.gestor.gestor;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -26,7 +28,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "seccion_detalle")
 @NamedQueries({
-    @NamedQuery(name = "SeccionDetalle.findAll", query = "SELECT s FROM SeccionDetalle s")})
+    @NamedQuery(name = "SeccionDetalle.findAll", query = "SELECT s FROM SeccionDetalle s")
+})
+@ManagedBean
+@SessionScoped
+
 public class SeccionDetalle implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,6 +45,10 @@ public class SeccionDetalle implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "peso")
     private Double peso;
+
+    private Boolean activo;
+    private String imagen;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "seccionDetalle")
     private List<SeccionDetalleItems> seccionDetalleItemsList;
     @JoinColumns({
@@ -56,6 +66,15 @@ public class SeccionDetalle implements Serializable {
 
     public SeccionDetalle(String codCiclo, int codSeccion, int codDetalle) {
         this.seccionDetallePK = new SeccionDetallePK(codCiclo, codSeccion, codDetalle);
+    }
+
+    public SeccionDetalle(SeccionDetallePK seccionDetallePK, String nombre, Integer orden, Double peso, String imagen, Boolean activo) {
+        this.seccionDetallePK = seccionDetallePK;
+        this.nombre = nombre;
+        this.orden = orden;
+        this.peso = peso;
+        this.imagen = imagen;
+        this.activo = activo;
     }
 
     public SeccionDetallePK getSeccionDetallePK() {
@@ -130,5 +149,33 @@ public class SeccionDetalle implements Serializable {
     public String toString() {
         return "com.gestor.gestor.SeccionDetalle[ seccionDetallePK=" + seccionDetallePK + " ]";
     }
-    
+
+    /**
+     * @return the activo
+     */
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    /**
+     * @param activo the activo to set
+     */
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
+
+    /**
+     * @return the imagen
+     */
+    public String getImagen() {
+        return imagen;
+    }
+
+    /**
+     * @param imagen the imagen to set
+     */
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
 }

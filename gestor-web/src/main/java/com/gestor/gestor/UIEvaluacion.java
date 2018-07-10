@@ -36,6 +36,7 @@ public class UIEvaluacion {
     private boolean nuevoActivo = true;
     private boolean eliminarActivo = false;
     private boolean consultarActivo = false;
+    private boolean cancelarActivo = false;
 
     public String nuevo() {
         try {
@@ -56,19 +57,41 @@ public class UIEvaluacion {
 
     public String continuarEvaluacion() {
         try {
+            Sesion sesion = (Sesion) UtilJSF.getBean("sesion");
+
             GestorCiclo gestorCiclos = new GestorCiclo();
             Evaluacion e = (Evaluacion) UtilJSF.getBean("varEvaluacion");
-            UtilJSF.setBean("evaluacion", e, UtilJSF.SESSION_SCOPE);
 
-            e.setCiclos(gestorCiclos.cargarListaCiclos());
+            e.setCiclos(sesion.getCiclos());
 
             this.nuevoActivo = Boolean.FALSE;
-            this.guardarActivo = Boolean.TRUE;
+            this.guardarActivo = this.cancelarActivo = Boolean.TRUE;
+
+            UtilJSF.setBean("evaluacion", e, UtilJSF.SESSION_SCOPE);
+
             return ("/gestor/evaluacion.xhtml?faces-redirect=true");
         } catch (Exception e) {
         }
 
         return "";
+    }
+
+    public String cargarSeccion() {
+        Ciclo c = (Ciclo) UtilJSF.getBean("varCiclo");
+        UtilJSF.setBean("ciclo", c, UtilJSF.SESSION_SCOPE);
+        return ("/gestor/seccion.xhtml?faces-redirect=true");
+    }
+
+    public String cargarSeccionDetalle() {
+        Seccion s = (Seccion) UtilJSF.getBean("varSeccion");
+        UtilJSF.setBean("seccion", s, UtilJSF.SESSION_SCOPE);
+        return ("/gestor/seccion-detalle.xhtml?faces-redirect=true");
+    }
+
+    public String cargarSeccionDetalleItems() {
+        SeccionDetalle sd = (SeccionDetalle) UtilJSF.getBean("varSeccionDetalle");
+        UtilJSF.setBean("seccionDetalle", sd, UtilJSF.SESSION_SCOPE);
+        return ("/gestor/seccion-detalle-items.xhtml?faces-redirect=true");
     }
 
     public String procesarEvaluacion() {
@@ -86,13 +109,14 @@ public class UIEvaluacion {
             e = gestorEvaluacion.validarEvaluacion(e);
             gestorEvaluacion.procesarEvaluacion(e);
 
-            e.setCiclos(gestorCiclos.cargarListaCiclos());
+            e.setCiclos(sesion.getCiclos());
 
             UtilMSG.addSuccessMsg("Auto-evaluación creada, código: " + e.getEvaluacionPK().getCodEvaluacion());
             UtilJSF.setBean("evaluacion", e, UtilJSF.SESSION_SCOPE);
 
             this.nuevoActivo = Boolean.FALSE;
-            this.guardarActivo = Boolean.TRUE;
+            this.guardarActivo = this.cancelarActivo = Boolean.TRUE;
+            
             return ("/gestor/evaluacion.xhtml?faces-redirect=true");
         } catch (Exception e) {
             if (UtilLog.causaControlada(e)) {
@@ -111,7 +135,7 @@ public class UIEvaluacion {
             try {
                 Sesion s = (Sesion) UtilJSF.getBean("sesion");
                 GestorEvaluacion gestorEvaluacion = new GestorEvaluacion();
-                evaluacionList = gestorEvaluacion.cargarEvaluacionList(s.getEstablecimiento().getCodigoEstablecimiento(), s.getParametros().get(App.CONFIGURACION_MOSTRAR_EVALUACIONES).toString());
+                evaluacionList = gestorEvaluacion.cargarEvaluacionList(s.getEstablecimiento().getCodigoEstablecimiento(), s.getConfiguracion().get(App.CONFIGURACION_MOSTRAR_EVALUACIONES).toString());
             } catch (Exception e) {
                 UtilLog.generarLog(this.getClass(), e);
             }
@@ -131,6 +155,10 @@ public class UIEvaluacion {
     }
 
     public void guardar() {
+    }
+    
+    public String cancelar() {
+        return ("/gestor/evaluaciones.xhtml?faces-redirect=true");
     }
 
     public void eliminar() {
@@ -194,6 +222,20 @@ public class UIEvaluacion {
 
     public String getComponentesRefrescar() {
         return COMPONENTES_REFRESCAR;
+    }
+
+    /**
+     * @return the cancelarActivo
+     */
+    public boolean isCancelarActivo() {
+        return cancelarActivo;
+    }
+
+    /**
+     * @param cancelarActivo the cancelarActivo to set
+     */
+    public void setCancelarActivo(boolean cancelarActivo) {
+        this.cancelarActivo = cancelarActivo;
     }
 
 }

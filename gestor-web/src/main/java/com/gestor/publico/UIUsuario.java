@@ -4,6 +4,7 @@
  */
 package com.gestor.publico;
 
+import com.gestor.controller.GestorGeneral;
 import com.gestor.entity.App;
 import com.gestor.entity.UtilJSF;
 import com.gestor.entity.UtilLog;
@@ -116,6 +117,9 @@ public class UIUsuario {
             GestorUsuario gestorUsuario = new GestorUsuario();
             GestorEstablecimiento gestorEstablecimiento = new GestorEstablecimiento();
             GestorConfiguracion gestorConfiguracion = new GestorConfiguracion();
+            GestorGeneral gestorGeneral = new GestorGeneral();
+            
+            
             usuarios.setUsuario(usuario);
             usuarios.setClave(clave);
             usuarios.setEstablecimiento(establecimiento);
@@ -134,7 +138,8 @@ public class UIUsuario {
 
                 sesion.setUsuarios((Usuarios) usuarios.clone());
                 sesion.setEstablecimiento(e);
-                sesion.setParametros(gestorConfiguracion.cargarConfiguracion());
+                sesion.setConfiguracion(gestorConfiguracion.cargarConfiguracion());
+                sesion.setCiclos(gestorGeneral.cargarCiclosEvaluacion());
                 usuarios = new Usuarios();
                 UtilJSF.setBean("usuarios", usuarios, UtilJSF.SESSION_SCOPE);
                 UtilJSF.setBean("sesion", sesion, UtilJSF.SESSION_SCOPE);

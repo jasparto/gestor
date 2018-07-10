@@ -10,17 +10,18 @@ package com.gestor.web;
  * @author juliano
  */
 public class UI {
-    
+
     public static final String COMPONENTES_REFRESCAR = "";
 
     private boolean guardarActivo = false;
     private boolean nuevoActivo = true;
-    private boolean eliminarActivo = false;
     private boolean consultarActivo = false;
-    
+    private boolean cancelarActivo = false;
+    private boolean eliminarActivo = false;
+
     public void nuevo() {
     }
-    
+
     public void consultar() {
     }
 
@@ -29,7 +30,7 @@ public class UI {
 
     public void eliminar() {
     }
-    
+
     public String getComponentesRefrescar() {
         return COMPONENTES_REFRESCAR;
     }
@@ -88,5 +89,19 @@ public class UI {
      */
     public void setConsultarActivo(boolean consultarActivo) {
         this.consultarActivo = consultarActivo;
+    }
+
+    /**
+     * @return the cancelarActivo
+     */
+    public boolean isCancelarActivo() {
+        return cancelarActivo;
+    }
+
+    /**
+     * @param cancelarActivo the cancelarActivo to set
+     */
+    public void setCancelarActivo(boolean cancelarActivo) {
+        this.cancelarActivo = cancelarActivo;
     }
 }
