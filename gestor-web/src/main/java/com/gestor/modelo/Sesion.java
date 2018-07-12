@@ -7,6 +7,7 @@ package com.gestor.modelo;
 
 import com.gestor.entity.Dialogo;
 import com.gestor.gestor.Ciclo;
+import com.gestor.gestor.Puntajes;
 import com.gestor.publico.Establecimiento;
 import com.gestor.publico.Usuarios;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class Sesion {
     private HashMap configuracion = new HashMap();
     private HashMap<Integer, Boolean> permisos = new HashMap<>();
     private List<Ciclo> ciclos;
+    private List<Puntajes> puntajesList;
 
     /**
      * @return the dialogo
@@ -127,5 +129,19 @@ public class Sesion {
      */
     public void setCiclos(List<Ciclo> ciclos) {
         this.ciclos = ciclos;
+    }
+
+    /**
+     * @return the puntajesList
+     */
+    public List<Puntajes> getPuntajesList() {
+        return puntajesList;
+    }
+
+    /**
+     * @param puntajesList the puntajesList to set
+     */
+    public void setPuntajesList(List<Puntajes> puntajesList) {
+        this.puntajesList = puntajesList;
     }
 }

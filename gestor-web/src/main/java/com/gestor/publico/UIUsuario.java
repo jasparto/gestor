@@ -9,6 +9,7 @@ import com.gestor.entity.App;
 import com.gestor.entity.UtilJSF;
 import com.gestor.entity.UtilLog;
 import com.gestor.entity.UtilMSG;
+import com.gestor.gestor.controlador.GestorPuntajes;
 import com.gestor.modelo.Sesion;
 import com.gestor.publico.controlador.GestorEstablecimiento;
 import com.gestor.publico.controlador.GestorConfiguracion;
@@ -118,8 +119,8 @@ public class UIUsuario {
             GestorEstablecimiento gestorEstablecimiento = new GestorEstablecimiento();
             GestorConfiguracion gestorConfiguracion = new GestorConfiguracion();
             GestorGeneral gestorGeneral = new GestorGeneral();
-            
-            
+            GestorPuntajes gestorPuntajes = new GestorPuntajes();
+                    
             usuarios.setUsuario(usuario);
             usuarios.setClave(clave);
             usuarios.setEstablecimiento(establecimiento);
@@ -140,6 +141,7 @@ public class UIUsuario {
                 sesion.setEstablecimiento(e);
                 sesion.setConfiguracion(gestorConfiguracion.cargarConfiguracion());
                 sesion.setCiclos(gestorGeneral.cargarCiclosEvaluacion());
+                sesion.setPuntajesList(gestorPuntajes.cargarPuntajes(e.getCodigoEstablecimiento()));
                 usuarios = new Usuarios();
                 UtilJSF.setBean("usuarios", usuarios, UtilJSF.SESSION_SCOPE);
                 UtilJSF.setBean("sesion", sesion, UtilJSF.SESSION_SCOPE);

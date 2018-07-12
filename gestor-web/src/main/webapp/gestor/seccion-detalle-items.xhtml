@@ -13,8 +13,8 @@
 
             <p:panel header="Evaluacion (#{evaluacion.evaluacionPK.codEvaluacion}) - Ciclo #{ciclo.nombre} - Seccion #{seccion.nombre} - Seccion Detalle #{seccionDetalle.nombre}" >
 
-                <p:dataGrid var="varSeccionDetalleItems" value="#{seccionDetalle.seccionDetalleItemsList}" columns="2" layout="grid"
-                            rows="4" paginator="true" id="dtSeccionDetalleItems"
+                <p:dataGrid var="varSeccionDetalleItems" value="#{seccionDetalle.seccionDetalleItemsList}" columns="1" layout="grid"
+                            rows="1" paginator="true" id="dtSeccionDetalleItems"
                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                             >
 
@@ -29,6 +29,21 @@
                                 <h:outputText styleClass="ui-icon ui-icon-newwin" style="margin:0 auto;" />
                             </p:commandLink>
                         </h:panelGrid>
+                        <p:selectOneRadio value="#{varSeccionDetalleItems.evaluacionPuntajes.descripcion}" layout="responsive" columns="4">
+                            <f:selectItems value="#{varSeccionDetalleItems.evaluacionPuntajesItems}" var="c" itemLabel="#{descripcion}" itemValue="#{descripcion}"/>
+                        </p:selectOneRadio>
+                        <p:outputLabel for="console" value="Console:" />
+                        <center>
+                            <p:selectOneRadio id="console" >
+                                <f:selectItem itemLabel="Cumple Totalmente" itemValue="CT" />
+                                <f:selectItem itemLabel="No Cumple" itemValue="NC" />
+                                <f:selectItem itemLabel="Justifica" itemValue="JU" />
+                                <f:selectItem itemLabel="No Justifica" itemValue="NJ" />
+                            </p:selectOneRadio>
+                        </center>
+
+
+
                     </p:panel>
 
                 </p:dataGrid>

@@ -64,11 +64,21 @@ public class EvaluacionPuntajes implements Serializable {
     public EvaluacionPuntajes() {
     }
 
+    public EvaluacionPuntajes(EvaluacionPuntajesPK evaluacionPuntajesPK, String descripcion, Boolean planAccion, Boolean capacitacion, Boolean califica) {
+        this.evaluacionPuntajesPK = evaluacionPuntajesPK;
+        this.descripcion = descripcion;
+        this.planAccion = planAccion;
+        this.capacitacion = capacitacion;
+        this.califica = califica;
+    }
+    
+    
+
     public EvaluacionPuntajes(EvaluacionPuntajesPK evaluacionPuntajesPK) {
         this.evaluacionPuntajesPK = evaluacionPuntajesPK;
     }
 
-    public EvaluacionPuntajes(short codigoEstablecimiento, int codEvaluacion, String codPuntaje) {
+    public EvaluacionPuntajes(short codigoEstablecimiento, Long codEvaluacion, String codPuntaje) {
         this.evaluacionPuntajesPK = new EvaluacionPuntajesPK(codigoEstablecimiento, codEvaluacion, codPuntaje);
     }
 

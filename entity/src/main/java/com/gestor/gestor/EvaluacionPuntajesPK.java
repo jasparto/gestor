@@ -19,10 +19,10 @@ public class EvaluacionPuntajesPK implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "codigo_establecimiento")
-    private short codigoEstablecimiento;
+    private int codigoEstablecimiento;
     @Basic(optional = false)
     @Column(name = "cod_evaluacion")
-    private int codEvaluacion;
+    private Long codEvaluacion;
     @Basic(optional = false)
     @Column(name = "cod_puntaje")
     private String codPuntaje;
@@ -30,25 +30,25 @@ public class EvaluacionPuntajesPK implements Serializable {
     public EvaluacionPuntajesPK() {
     }
 
-    public EvaluacionPuntajesPK(short codigoEstablecimiento, int codEvaluacion, String codPuntaje) {
+    public EvaluacionPuntajesPK(int codigoEstablecimiento, Long codEvaluacion, String codPuntaje) {
         this.codigoEstablecimiento = codigoEstablecimiento;
         this.codEvaluacion = codEvaluacion;
         this.codPuntaje = codPuntaje;
     }
 
-    public short getCodigoEstablecimiento() {
+    public int getCodigoEstablecimiento() {
         return codigoEstablecimiento;
     }
 
-    public void setCodigoEstablecimiento(short codigoEstablecimiento) {
+    public void setCodigoEstablecimiento(int codigoEstablecimiento) {
         this.codigoEstablecimiento = codigoEstablecimiento;
     }
 
-    public int getCodEvaluacion() {
+    public Long getCodEvaluacion() {
         return codEvaluacion;
     }
 
-    public void setCodEvaluacion(int codEvaluacion) {
+    public void setCodEvaluacion(Long codEvaluacion) {
         this.codEvaluacion = codEvaluacion;
     }
 
@@ -64,7 +64,7 @@ public class EvaluacionPuntajesPK implements Serializable {
     public int hashCode() {
         int hash = 0;
         hash += (int) codigoEstablecimiento;
-        hash += (int) codEvaluacion;
+        hash += codEvaluacion;
         hash += (codPuntaje != null ? codPuntaje.hashCode() : 0);
         return hash;
     }
@@ -92,5 +92,5 @@ public class EvaluacionPuntajesPK implements Serializable {
     public String toString() {
         return "com.gestor.gestor.EvaluacionPuntajesPK[ codigoEstablecimiento=" + codigoEstablecimiento + ", codEvaluacion=" + codEvaluacion + ", codPuntaje=" + codPuntaje + " ]";
     }
-    
+
 }

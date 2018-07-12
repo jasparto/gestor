@@ -19,7 +19,7 @@ public class PuntajesPK implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "codigo_establecimiento")
-    private short codigoEstablecimiento;
+    private int codigoEstablecimiento;
     @Basic(optional = false)
     @Column(name = "cod_puntaje")
     private String codPuntaje;
@@ -27,16 +27,16 @@ public class PuntajesPK implements Serializable {
     public PuntajesPK() {
     }
 
-    public PuntajesPK(short codigoEstablecimiento, String codPuntaje) {
+    public PuntajesPK(int codigoEstablecimiento, String codPuntaje) {
         this.codigoEstablecimiento = codigoEstablecimiento;
         this.codPuntaje = codPuntaje;
     }
 
-    public short getCodigoEstablecimiento() {
+    public int getCodigoEstablecimiento() {
         return codigoEstablecimiento;
     }
 
-    public void setCodigoEstablecimiento(short codigoEstablecimiento) {
+    public void setCodigoEstablecimiento(int codigoEstablecimiento) {
         this.codigoEstablecimiento = codigoEstablecimiento;
     }
 

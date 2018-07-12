@@ -106,6 +106,7 @@ public class UIEvaluacion {
                     sesion.getUsuarios().getUsuariosPK().getDocumentoUsuario(), new Date(), new Date(), App.EVALUACION_ESTADO_ABIERTO);
 
             e.setFecha(evaluacion.getFecha());
+            e.setEvaluacionPuntajesList(gestorEvaluacion.generarEvaluacionPuntajes(sesion.getEstablecimiento().getCodigoEstablecimiento(), e.getEvaluacionPK().getCodEvaluacion(), sesion.getPuntajesList()));
             e = gestorEvaluacion.validarEvaluacion(e);
             gestorEvaluacion.procesarEvaluacion(e);
 
@@ -116,7 +117,7 @@ public class UIEvaluacion {
 
             this.nuevoActivo = Boolean.FALSE;
             this.guardarActivo = this.cancelarActivo = Boolean.TRUE;
-            
+
             return ("/gestor/evaluacion.xhtml?faces-redirect=true");
         } catch (Exception e) {
             if (UtilLog.causaControlada(e)) {
@@ -156,7 +157,7 @@ public class UIEvaluacion {
 
     public void guardar() {
     }
-    
+
     public String cancelar() {
         return ("/gestor/evaluaciones.xhtml?faces-redirect=true");
     }

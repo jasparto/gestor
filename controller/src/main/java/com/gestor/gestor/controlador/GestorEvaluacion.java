@@ -8,8 +8,15 @@ package com.gestor.gestor.controlador;
 import com.gestor.controller.Gestor;
 import com.gestor.entity.UtilLog;
 import com.gestor.gestor.Evaluacion;
+import com.gestor.gestor.EvaluacionPuntajes;
+import com.gestor.gestor.EvaluacionPuntajesPK;
+import com.gestor.gestor.Puntajes;
 import com.gestor.gestor.dao.EvaluacionDAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -40,7 +47,15 @@ public class GestorEvaluacion extends Gestor {
 
             EvaluacionDAO evaluacionDAO = new EvaluacionDAO(conexion);
             evaluacionDAO.upsertEvaluacion(e);
-
+            e.getEvaluacionPuntajesList().forEach((ep) -> {
+                try {
+                    evaluacionDAO.insertEvaluacionPuntajes(ep);
+                } catch (SQLException ex) {
+                    Logger.getLogger(GestorEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+        } catch (Exception ex) {
+            throw ex;
         } finally {
             this.cerrarConexion();
         }
@@ -58,5 +73,15 @@ public class GestorEvaluacion extends Gestor {
         } finally {
             this.cerrarConexion();
         }
+    }
+
+    public List<EvaluacionPuntajes> generarEvaluacionPuntajes(int codigoEstablecimiento, Long codEvaluacion, List<Puntajes> puntajesList) {
+        List<EvaluacionPuntajes> evaluacionPuntajeses = new ArrayList<>();
+        puntajesList.forEach((p) -> {
+            EvaluacionPuntajes evaluacionPuntajes = new EvaluacionPuntajes(new EvaluacionPuntajesPK(codigoEstablecimiento, codEvaluacion, p.getPuntajesPK().getCodPuntaje()), p.getDescripcion(),
+                    p.getPlanAccion(), p.getCapacitacion(), p.getCalifica());
+            evaluacionPuntajeses.add(evaluacionPuntajes);
+        });
+        return evaluacionPuntajeses;
     }
 }

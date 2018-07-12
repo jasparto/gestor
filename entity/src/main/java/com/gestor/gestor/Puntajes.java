@@ -23,7 +23,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "puntajes")
 @NamedQueries({
-    @NamedQuery(name = "Puntajes.findAll", query = "SELECT p FROM Puntajes p")})
+    @NamedQuery(name = "Puntajes.findAll", query = "SELECT p FROM Puntajes p")
+})
 public class Puntajes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,9 +50,22 @@ public class Puntajes implements Serializable {
         this.puntajesPK = puntajesPK;
     }
 
-    public Puntajes(short codigoEstablecimiento, String codPuntaje) {
+    public Puntajes(int codigoEstablecimiento, String codPuntaje) {
         this.puntajesPK = new PuntajesPK(codigoEstablecimiento, codPuntaje);
     }
+
+    public Puntajes(PuntajesPK puntajesPK, String descripcion, Boolean planAccion, Boolean capacitacion, Boolean activo, Boolean califica) {
+        this.puntajesPK = puntajesPK;
+        this.descripcion = descripcion;
+        this.planAccion = planAccion;
+        this.capacitacion = capacitacion;
+        this.activo = activo;
+        this.califica = califica;
+    }
+    
+    
+    
+    
 
     public PuntajesPK getPuntajesPK() {
         return puntajesPK;

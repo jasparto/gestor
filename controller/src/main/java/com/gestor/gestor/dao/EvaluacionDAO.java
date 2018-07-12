@@ -8,6 +8,7 @@ package com.gestor.gestor.dao;
 import com.gestor.entity.UtilFecha;
 import com.gestor.gestor.Evaluacion;
 import com.gestor.gestor.EvaluacionPK;
+import com.gestor.gestor.EvaluacionPuntajes;
 import com.gestor.publico.Usuarios;
 import com.gestor.publico.UsuariosPK;
 import conexion.Consulta;
@@ -108,6 +109,26 @@ public class EvaluacionDAO {
             if (rs != null) {
                 rs.close();
             }
+            if (consulta != null) {
+                consulta.desconectar();
+            }
+        }
+    }
+
+    public void insertEvaluacionPuntajes(EvaluacionPuntajes ep) throws SQLException {
+        Consulta consulta = null;
+        try {
+            consulta = new Consulta(this.conexion);
+            StringBuilder sql = new StringBuilder(
+                    "INSERT INTO gestor.evaluacion_puntajes("
+                    + " codigo_establecimiento, cod_evaluacion, cod_puntaje, descripcion, "
+                    + " plan_accion, capacitacion, califica)"
+                    + " VALUES (" + ep.getEvaluacionPuntajesPK().getCodigoEstablecimiento() + ", " + ep.getEvaluacionPuntajesPK().getCodEvaluacion()
+                    + " , '" + ep.getEvaluacionPuntajesPK().getCodPuntaje() + "', '" + ep.getDescripcion() + "'"
+                    + " , " + ep.getPlanAccion() + ", " + ep.getCapacitacion() + ", " + ep.getCalifica() + ");"
+            );
+            consulta.actualizar(sql);
+        } finally {
             if (consulta != null) {
                 consulta.desconectar();
             }

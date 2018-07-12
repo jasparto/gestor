@@ -49,6 +49,11 @@ public class SeccionDetalleItems implements Serializable {
         @JoinColumn(name = "cod_ciclo", referencedColumnName = "cod_ciclo", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private SeccionDetalle seccionDetalle;
+    private EvaluacionPuntajes evaluacionPuntajes = new EvaluacionPuntajes();
+    private List<String> evaluacionPuntajesItems;
+    
+    
+            
 
     public SeccionDetalleItems() {
     }
@@ -181,6 +186,34 @@ public class SeccionDetalleItems implements Serializable {
      */
     public void setOrden(Integer orden) {
         this.orden = orden;
+    }
+
+    /**
+     * @return the evaluacionPuntajes
+     */
+    public EvaluacionPuntajes getEvaluacionPuntajes() {
+        return evaluacionPuntajes;
+    }
+
+    /**
+     * @param evaluacionPuntajes the evaluacionPuntajes to set
+     */
+    public void setEvaluacionPuntajes(EvaluacionPuntajes evaluacionPuntajes) {
+        this.evaluacionPuntajes = evaluacionPuntajes;
+    }
+
+    /**
+     * @return the evaluacionPuntajesItems
+     */
+    public List<String> getEvaluacionPuntajesItems() {
+        return evaluacionPuntajesItems;
+    }
+
+    /**
+     * @param evaluacionPuntajesItems the evaluacionPuntajesItems to set
+     */
+    public void setEvaluacionPuntajesItems(List<String> evaluacionPuntajesItems) {
+        this.evaluacionPuntajesItems = evaluacionPuntajesItems;
     }
 
 }
