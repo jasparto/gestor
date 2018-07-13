@@ -10,6 +10,86 @@
             white-space: nowrap;
             width: auto !important;
         }
+
+
+    </style>
+
+    <style>
+/*        .colorFondo{
+            background: #CEE3F6;
+        }
+        .colorFondo2{
+            background: #FFFFFF;
+        }
+        .colorFondoRojo{
+            background: #ff6767;
+        }
+        .colorFondoVerde{
+            background: #95fb93;
+        }*/
+
+        body{
+            font-size: 10px;
+        }
+
+        table #tGeneral th {
+            background-color: #CEE3F6;
+            width: 100%;
+            padding: 2px;
+            text-align: left;
+        }
+        table #tPrincipal{
+            width: 100%;
+            padding: 2px;
+        }
+        .paneles{
+            width: 100%; 
+            padding: 2px;
+        }
+
+        .ui-widget-content .titulos{
+            font-weight: bold;
+            padding: 2px;
+            background: #CEE3F6 !important;
+        }
+        .ui-menu {
+            width: auto;
+            padding: .3em;
+            position: relative;
+            outline: 0 none;
+        }
+        .ui-selectonemenu{
+            display: inline-block;
+            position: relative;
+            min-width: 80% !important;
+            zoom: 1;
+            cursor: pointer;
+            padding-right: 2em;
+        }
+        .ui-selectonemenu-items-wrapper{
+            overflow-x: hidden !important;
+        }
+        .ui-menu ,.ui-menu-child{
+            border: 1px solid #77d5f7;
+            background: #0078ae url("/gestor/faces/javax.faces.resource/images/ui-bg_glass_45_0078ae_1x400.png?ln=primefaces-start") 50% 50% repeat-x;
+            font-weight: normal;
+        }
+
+        .ui-menu a {
+            color: #fff;
+        }
+
+/*        .ui-widget-content .ui-icon {
+            background-image: url("/gestor/faces/javax.faces.resource/images/ui-icons_e0fdff_256x240.png?ln=primefaces-start");
+        }
+
+        .ui-menuitem-active .ui-state-hover .ui-icon {
+            background-image: url("/gestor/faces/javax.faces.resource/images/ui-icons_0078ae_256x240.png?ln=primefaces-start");
+        }
+        .ui-widget-content .ui-state-hover .ui-icon{
+            background-image: url("/gestor/faces/javax.faces.resource/images/ui-icons_0078ae_256x240.png?ln=primefaces-start");
+        }*/
+
     </style>
 
 
@@ -39,9 +119,9 @@
                 </p:submenu>
             </p:column>
         </p:submenu>
-        
+
         <p:menuitem value="Cerrar Sesión" action="#{uiSesion.cerrarSesion()}" icon="ui-icon-close" />
-        
+
 
     </p:megaMenu>
 

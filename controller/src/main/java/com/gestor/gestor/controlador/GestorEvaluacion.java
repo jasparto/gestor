@@ -84,4 +84,39 @@ public class GestorEvaluacion extends Gestor {
         });
         return evaluacionPuntajeses;
     }
+
+    public List<EvaluacionPuntajes> cargarEvaluacionPuntajes(int codigoEstablecimiento, Long codEvaluacion) throws Exception {
+        List<EvaluacionPuntajes> evaluacionPuntajeses = new ArrayList<>();
+        try {
+            this.abrirConexion();
+            EvaluacionDAO evaluacionDAO = new EvaluacionDAO(conexion);
+            return evaluacionDAO.cargarEvaluacionPuntajes(codigoEstablecimiento, codEvaluacion);
+
+        } finally {
+            this.cerrarConexion();
+        }
+
+    }
+
+    public EvaluacionPuntajes cargarEvaluacionPuntajes(int codigoEstablecimiento, Long codEvaluacion, String descripcion) throws Exception {
+        try {
+            this.abrirConexion();
+            EvaluacionDAO evaluacionDAO = new EvaluacionDAO(conexion);
+            return evaluacionDAO.cargarEvaluacionPuntajes(codigoEstablecimiento, codEvaluacion, descripcion);
+
+        } finally {
+            this.cerrarConexion();
+        }
+    }
+
+    public Integer avanceEvaluacion(int codigoEstablecimiento, Long codEvaluacion) throws Exception {
+        try {
+            this.abrirConexion();
+            EvaluacionDAO evaluacionDAO = new EvaluacionDAO(conexion);
+            return evaluacionDAO.avanceEvaluacion(codigoEstablecimiento, codEvaluacion);
+
+        } finally {
+            this.cerrarConexion();
+        }
+    }
 }

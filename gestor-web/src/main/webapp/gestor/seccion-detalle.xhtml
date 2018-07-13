@@ -11,7 +11,23 @@
     <ui:define name="content">
         <h:form enctype="multipart/form-data" id="formSeccionDetalle" style="font-size: small;">
 
-            <p:panel header="Evaluacion (#{evaluacion.evaluacionPK.codEvaluacion}) - Ciclo #{ciclo.nombre} - Seccion #{seccion.nombre}" >
+            <p:panel>
+                
+                <f:facet name="header">
+                    <h:outputText value="Código Evaluacion: #{evaluacion.evaluacionPK.codEvaluacion}"/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacion}" labelTemplate="{value}%" displayOnly="true" interval="10"/>
+                    <br/>
+                    <p:button outcome="evaluacion" icon="ui-icon-arrowthickstop-1-w" title="Ciclos"
+                              style="font-size: 9px;"/>
+                    <p:spacer width="10px;"/>
+                    <p:button outcome="seccion" value="CICLO #{ciclo.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;"/>
+                    <p:spacer width="10px;"/>
+                    <p:button outcome="seccion-detalle" value="SECCIÓN #{seccion.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;"
+                              rendered="#{not empty seccion.seccionPK.codSeccion}" styleClass="ui-state-active" disabled="true"/>
+                    <p:spacer width="10px;"/>
+                    <p:button outcome="seccion-detalle-items" value="ITEM #{seccionDetalle.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;"
+                              rendered="#{not empty seccionDetalle.seccionDetallePK.codDetalle}"/>
+                </f:facet>
 
                 <p:dataGrid var="varSeccionDetalle" value="#{seccion.seccionDetalleList}" columns="2" layout="grid"
                             rows="4" paginator="true" id="dtSeccionDetalle"
@@ -19,16 +35,17 @@
                             >
 
                     <f:facet name="header">
-                        Seccion Detalle Evaluar
+                        Seccion Detalle Evaluar (#{seccion.nombre})
                     </f:facet>
 
                     <p:panel header="#{varSeccionDetalle.nombre}" style="text-align:center" >
                         <h:panelGrid columns="1" style="width:100%">
-                            <p:commandLink action="#{uiEvaluacion.cargarSeccionDetalleItems()}" oncomplete="alert('#{varSeccionDetalle.seccionDetallePK.codSeccion}');" title="Evaluar Ciclo">
+                            <p:commandLink action="#{uiEvaluacion.cargarSeccionDetalleItems()}" title="Evaluar Detalle">
                                 <p:graphicImage url="/resources/imagenes/ciclos/#{varSeccionDetalle.imagen}"/> 
                                 <h:outputText styleClass="ui-icon ui-icon-newwin" style="margin:0 auto;" />
                             </p:commandLink>
                         </h:panelGrid>
+                        <p align="left">#{varSeccionDetalle.detalle}</p>
                     </p:panel>
 
                 </p:dataGrid>

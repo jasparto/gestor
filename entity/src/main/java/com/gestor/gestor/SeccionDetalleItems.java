@@ -32,6 +32,9 @@ public class SeccionDetalleItems implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected SeccionDetalleItemsPK seccionDetalleItemsPK;
+
+    private String nombre;
+
     @Column(name = "detalle")
     private String detalle;
     @Column(name = "peso")
@@ -49,11 +52,8 @@ public class SeccionDetalleItems implements Serializable {
         @JoinColumn(name = "cod_ciclo", referencedColumnName = "cod_ciclo", insertable = false, updatable = false)})
     @ManyToOne(optional = false)
     private SeccionDetalle seccionDetalle;
-    private EvaluacionPuntajes evaluacionPuntajes = new EvaluacionPuntajes();
+    private EvaluacionPuntajes evaluacionPuntajes = new EvaluacionPuntajes(new EvaluacionPuntajesPK());
     private List<String> evaluacionPuntajesItems;
-    
-    
-            
 
     public SeccionDetalleItems() {
     }
@@ -66,8 +66,9 @@ public class SeccionDetalleItems implements Serializable {
         this.seccionDetalleItemsPK = new SeccionDetalleItemsPK(codCiclo, codSeccion, codDetalle, codItem);
     }
 
-    public SeccionDetalleItems(SeccionDetalleItemsPK seccionDetalleItemsPK, String detalle, Double peso, Boolean activo, String imagen, Integer orden) {
+    public SeccionDetalleItems(SeccionDetalleItemsPK seccionDetalleItemsPK, String nombre, String detalle, Double peso, Boolean activo, String imagen, Integer orden) {
         this.seccionDetalleItemsPK = seccionDetalleItemsPK;
+        this.nombre = nombre;
         this.detalle = detalle;
         this.peso = peso;
         this.activo = activo;
@@ -214,6 +215,20 @@ public class SeccionDetalleItems implements Serializable {
      */
     public void setEvaluacionPuntajesItems(List<String> evaluacionPuntajesItems) {
         this.evaluacionPuntajesItems = evaluacionPuntajesItems;
+    }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
 }

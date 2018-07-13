@@ -58,7 +58,7 @@ public class UtilMSG {
     }
 
     public static String getSupportMsg() {
-        return "Si el problema persiste contactenos para asistirle.";
+        return "Error no controlado intente nuevamente. Si el problema persiste contactenos para asistirle.";
     }
 
     public static void addSuccesMsg() {

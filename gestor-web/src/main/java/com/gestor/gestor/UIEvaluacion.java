@@ -13,7 +13,9 @@ import com.gestor.entity.UtilLog;
 import com.gestor.entity.UtilMSG;
 import com.gestor.gestor.controlador.GestorCiclo;
 import com.gestor.gestor.controlador.GestorEvaluacion;
+import com.gestor.gestor.controlador.GestorSeccionDetalleItems;
 import com.gestor.modelo.Sesion;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -60,9 +62,34 @@ public class UIEvaluacion {
             Sesion sesion = (Sesion) UtilJSF.getBean("sesion");
 
             GestorCiclo gestorCiclos = new GestorCiclo();
+            GestorEvaluacion gestorEvaluacion = new GestorEvaluacion();
+            GestorSeccionDetalleItems gestorSeccionDetalleItems = new GestorSeccionDetalleItems();
+
             Evaluacion e = (Evaluacion) UtilJSF.getBean("varEvaluacion");
 
             e.setCiclos(sesion.getCiclos());
+            e.setEvaluacionPuntajesList(gestorEvaluacion.cargarEvaluacionPuntajes(e.getEvaluacionPK().getCodigoEstablecimiento(), e.getEvaluacionPK().getCodEvaluacion()));
+
+            List<String> evaluacionPuntajesItems = new ArrayList<>();
+            for (EvaluacionPuntajes ep : e.getEvaluacionPuntajesList()) {
+                evaluacionPuntajesItems.add(ep.getDescripcion());
+            }
+
+            for (Ciclo c : e.getCiclos()) {
+                for (Seccion s : c.getSeccionList()) {
+                    for (SeccionDetalle sd : s.getSeccionDetalleList()) {
+                        for (SeccionDetalleItems sdi : sd.getSeccionDetalleItemsList()) {
+                            sdi.setEvaluacionPuntajesItems(evaluacionPuntajesItems);
+
+                            EvaluacionPuntajeSeccionDetalleCombos epsc = new EvaluacionPuntajeSeccionDetalleCombos(
+                                    e.getEvaluacionPK().getCodEvaluacion(), e.getEvaluacionPK().getCodigoEstablecimiento(),
+                                    sdi.getSeccionDetalleItemsPK().getCodCiclo(), sdi.getSeccionDetalleItemsPK().getCodSeccion(), sdi.getSeccionDetalleItemsPK().getCodDetalle(), sdi.getSeccionDetalleItemsPK().getCodItem());
+
+                            sdi.getEvaluacionPuntajes().setDescripcion(gestorSeccionDetalleItems.cargarDescripcionEvaluacionPuntajes(epsc.getEvaluacionPuntajeSeccionDetalleCombosPK()));
+                        }
+                    }
+                }
+            }
 
             this.nuevoActivo = Boolean.FALSE;
             this.guardarActivo = this.cancelarActivo = Boolean.TRUE;
@@ -79,6 +106,8 @@ public class UIEvaluacion {
     public String cargarSeccion() {
         Ciclo c = (Ciclo) UtilJSF.getBean("varCiclo");
         UtilJSF.setBean("ciclo", c, UtilJSF.SESSION_SCOPE);
+        UtilJSF.setBean("seccion", new Seccion(), UtilJSF.SESSION_SCOPE);
+        UtilJSF.setBean("seccionDetalle", new SeccionDetalle(), UtilJSF.SESSION_SCOPE);
         return ("/gestor/seccion.xhtml?faces-redirect=true");
     }
 
@@ -92,6 +121,27 @@ public class UIEvaluacion {
         SeccionDetalle sd = (SeccionDetalle) UtilJSF.getBean("varSeccionDetalle");
         UtilJSF.setBean("seccionDetalle", sd, UtilJSF.SESSION_SCOPE);
         return ("/gestor/seccion-detalle-items.xhtml?faces-redirect=true");
+    }
+
+    public void guardarSeccionDetalleItems() {
+        SeccionDetalleItems sdi = (SeccionDetalleItems) UtilJSF.getBean("varSeccionDetalleItems");
+        System.out.println("d=>" + sdi.getEvaluacionPuntajes().getDescripcion());
+        try {
+            GestorEvaluacion gestorEvaluacion = new GestorEvaluacion();
+            GestorSeccionDetalleItems gestorSeccionDetalleItems = new GestorSeccionDetalleItems();
+            Evaluacion e = (Evaluacion) UtilJSF.getBean("evaluacion");
+            EvaluacionPuntajes evaluacionPuntajes = gestorEvaluacion.cargarEvaluacionPuntajes(e.getEvaluacionPK().getCodigoEstablecimiento(), e.getEvaluacionPK().getCodEvaluacion(), sdi.getEvaluacionPuntajes().getDescripcion());
+            EvaluacionPuntajeSeccionDetalleCombos epsc = new EvaluacionPuntajeSeccionDetalleCombos(
+                    e.getEvaluacionPK().getCodEvaluacion(), e.getEvaluacionPK().getCodigoEstablecimiento(), evaluacionPuntajes.getEvaluacionPuntajesPK().getCodPuntaje(),
+                    sdi.getSeccionDetalleItemsPK().getCodCiclo(), sdi.getSeccionDetalleItemsPK().getCodSeccion(), sdi.getSeccionDetalleItemsPK().getCodDetalle(), sdi.getSeccionDetalleItemsPK().getCodItem()
+            );
+            gestorSeccionDetalleItems.upsertEvaluacionPuntajeSeccionDetalleCombos(epsc);
+
+        } catch (Exception e) {
+            UtilMSG.addErrorMsg(UtilMSG.getSupportMsg());
+            UtilLog.generarLog(this.getClass(), e);
+        }
+
     }
 
     public String procesarEvaluacion() {
@@ -111,6 +161,21 @@ public class UIEvaluacion {
             gestorEvaluacion.procesarEvaluacion(e);
 
             e.setCiclos(sesion.getCiclos());
+
+            List<String> evaluacionPuntajesItems = new ArrayList<>();
+            for (EvaluacionPuntajes ep : e.getEvaluacionPuntajesList()) {
+                evaluacionPuntajesItems.add(ep.getDescripcion());
+            }
+
+            for (Ciclo c : e.getCiclos()) {
+                for (Seccion s : c.getSeccionList()) {
+                    for (SeccionDetalle sd : s.getSeccionDetalleList()) {
+                        for (SeccionDetalleItems sdi : sd.getSeccionDetalleItemsList()) {
+                            sdi.setEvaluacionPuntajesItems(evaluacionPuntajesItems);
+                        }
+                    }
+                }
+            }
 
             UtilMSG.addSuccessMsg("Auto-evaluación creada, código: " + e.getEvaluacionPK().getCodEvaluacion());
             UtilJSF.setBean("evaluacion", e, UtilJSF.SESSION_SCOPE);
@@ -140,7 +205,6 @@ public class UIEvaluacion {
             } catch (Exception e) {
                 UtilLog.generarLog(this.getClass(), e);
             }
-
         }
         return evaluacionList;
     }
@@ -159,6 +223,7 @@ public class UIEvaluacion {
     }
 
     public String cancelar() {
+        evaluacionList.clear();
         return ("/gestor/evaluaciones.xhtml?faces-redirect=true");
     }
 
@@ -237,6 +302,17 @@ public class UIEvaluacion {
      */
     public void setCancelarActivo(boolean cancelarActivo) {
         this.cancelarActivo = cancelarActivo;
+    }
+
+    public Integer getAvanceEvaluacion() {
+        try {
+            Evaluacion e = (Evaluacion) UtilJSF.getBean("evaluacion");
+            GestorEvaluacion gestorEvaluacion = new GestorEvaluacion();
+            return gestorEvaluacion.avanceEvaluacion(e.getEvaluacionPK().getCodigoEstablecimiento(), e.getEvaluacionPK().getCodEvaluacion());
+        } catch (Exception e) {
+            UtilLog.generarLog(this.getClass(), e);
+        }
+        return Integer.MIN_VALUE;
     }
 
 }

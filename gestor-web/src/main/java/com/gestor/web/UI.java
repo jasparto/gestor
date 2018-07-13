@@ -27,12 +27,15 @@ public class UI {
 
     public void guardar() {
     }
+    
+    public void cancelar() {
+    }
 
     public void eliminar() {
     }
 
     public String getComponentesRefrescar() {
-        return COMPONENTES_REFRESCAR;
+        return COMPONENTES_REFRESCAR;   
     }
 
     /**

@@ -40,6 +40,7 @@ public class SeccionDetalle implements Serializable {
     protected SeccionDetallePK seccionDetallePK;
     @Column(name = "nombre")
     private String nombre;
+    private String detalle;
     @Column(name = "orden")
     private Integer orden;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -68,9 +69,10 @@ public class SeccionDetalle implements Serializable {
         this.seccionDetallePK = new SeccionDetallePK(codCiclo, codSeccion, codDetalle);
     }
 
-    public SeccionDetalle(SeccionDetallePK seccionDetallePK, String nombre, Integer orden, Double peso, String imagen, Boolean activo) {
+    public SeccionDetalle(SeccionDetallePK seccionDetallePK, String nombre, String detalle, Integer orden, Double peso, String imagen, Boolean activo) {
         this.seccionDetallePK = seccionDetallePK;
         this.nombre = nombre;
+        this.detalle = detalle;
         this.orden = orden;
         this.peso = peso;
         this.imagen = imagen;
@@ -176,6 +178,20 @@ public class SeccionDetalle implements Serializable {
      */
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    /**
+     * @return the detalle
+     */
+    public String getDetalle() {
+        return detalle;
+    }
+
+    /**
+     * @param detalle the detalle to set
+     */
+    public void setDetalle(String detalle) {
+        this.detalle = detalle;
     }
 
 }

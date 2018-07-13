@@ -32,7 +32,7 @@ public class SeccionDetalleDAO {
         try {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
-                    "SELECT cod_ciclo, cod_seccion, cod_detalle, nombre, orden, peso, imagen, activo"
+                    "SELECT cod_ciclo, cod_seccion, cod_detalle, nombre, detalle, orden, peso, imagen, activo"
                     + " FROM gestor.seccion_detalle"
                     + " WHERE cod_ciclo='" + codCiclo + "' AND cod_seccion=" + codSeccion
                     + " ORDER BY orden"
@@ -42,7 +42,7 @@ public class SeccionDetalleDAO {
             List<SeccionDetalle> seccionDetalles = new ArrayList<>();
             while (rs.next()) {
                 SeccionDetalle sd = new SeccionDetalle(new SeccionDetallePK(rs.getString("cod_ciclo"), rs.getInt("cod_seccion"), rs.getInt("cod_detalle")),
-                        rs.getString("nombre"), rs.getInt("orden"), rs.getDouble("peso"), rs.getString("imagen"), rs.getBoolean("activo"));
+                        rs.getString("nombre"), rs.getString("detalle"), rs.getInt("orden"), rs.getDouble("peso"), rs.getString("imagen"), rs.getBoolean("activo"));
                 seccionDetalles.add(sd);
             }
             return seccionDetalles;

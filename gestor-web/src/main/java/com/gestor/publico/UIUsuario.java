@@ -48,7 +48,11 @@ public class UIUsuario {
     private boolean guardarActivo = false;
     private boolean nuevoActivo = true;
     private boolean eliminarActivo = false;
+    private boolean cancelarActivo = false;
     private boolean consultarActivo = false;
+    
+    public void cancelar() {
+    }
 
     public UIUsuario() {
         this.itemsEstablecimiento = new ArrayList<>();
@@ -487,6 +491,20 @@ public class UIUsuario {
      */
     public void setConsultarActivo(boolean consultarActivo) {
         this.consultarActivo = consultarActivo;
+    }
+
+    /**
+     * @return the cancelarActivo
+     */
+    public boolean isCancelarActivo() {
+        return cancelarActivo;
+    }
+
+    /**
+     * @param cancelarActivo the cancelarActivo to set
+     */
+    public void setCancelarActivo(boolean cancelarActivo) {
+        this.cancelarActivo = cancelarActivo;
     }
 
 }

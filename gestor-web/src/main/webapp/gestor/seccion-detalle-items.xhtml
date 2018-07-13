@@ -11,7 +11,23 @@
     <ui:define name="content">
         <h:form enctype="multipart/form-data" id="formSeccionDetalleItems" style="font-size: small;">
 
-            <p:panel header="Evaluacion (#{evaluacion.evaluacionPK.codEvaluacion}) - Ciclo #{ciclo.nombre} - Seccion #{seccion.nombre} - Seccion Detalle #{seccionDetalle.nombre}" >
+            <p:panel>
+
+                <f:facet name="header">
+                    <h:outputText value="Código Evaluacion: #{evaluacion.evaluacionPK.codEvaluacion}"/>
+                    <p:progressBar id="pbAvance" value="#{uiEvaluacion.avanceEvaluacion}" labelTemplate="{value}%" displayOnly="true" interval="10"/>
+                    <br/>
+                    <p:button outcome="evaluacion" icon="ui-icon-arrowthickstop-1-w" title="Ciclos"
+                              style="font-size: 9px;"/>
+                    <p:spacer width="10px;"/>
+                    <p:button outcome="seccion" value="CICLO #{ciclo.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;"/>
+                    <p:spacer width="10px;"/>
+                    <p:button outcome="seccion-detalle" value="SECCIÓN #{seccion.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;"
+                              rendered="#{not empty seccion.seccionPK.codSeccion}"/>
+                    <p:spacer width="10px;"/>
+                    <p:button outcome="seccion-detalle-items" value="ITEM #{seccionDetalle.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;"
+                              rendered="#{not empty seccionDetalle.seccionDetallePK.codDetalle}" styleClass="ui-state-active" disabled="true"/>
+                </f:facet>
 
                 <p:dataGrid var="varSeccionDetalleItems" value="#{seccionDetalle.seccionDetalleItemsList}" columns="1" layout="grid"
                             rows="1" paginator="true" id="dtSeccionDetalleItems"
@@ -19,30 +35,27 @@
                             >
 
                     <f:facet name="header">
-                        Seccion Detalle Evaluar
+                        Seccion Detalle Evaluar (#{seccionDetalle.nombre}")
                     </f:facet>
 
-                    <p:panel header="#{varSeccionDetalleItems.detalle}" style="text-align:center" >
-                        <h:panelGrid columns="1" style="width:100%">
-                            <p:commandLink  oncomplete="alert('#{varSeccionDetalleItems.seccionDetalleItemsPK.codItem}');" title="Evaluar Ciclo">
-                                <p:graphicImage url="/resources/imagenes/ciclos/#{varSeccionDetalleItems.imagen}"/> 
-                                <h:outputText styleClass="ui-icon ui-icon-newwin" style="margin:0 auto;" />
-                            </p:commandLink>
-                        </h:panelGrid>
-                        <p:selectOneRadio value="#{varSeccionDetalleItems.evaluacionPuntajes.descripcion}" layout="responsive" columns="4">
-                            <f:selectItems value="#{varSeccionDetalleItems.evaluacionPuntajesItems}" var="c" itemLabel="#{descripcion}" itemValue="#{descripcion}"/>
-                        </p:selectOneRadio>
-                        <p:outputLabel for="console" value="Console:" />
+                    <p:panel header="#{varSeccionDetalleItems.nombre}" style="text-align:left" >
                         <center>
-                            <p:selectOneRadio id="console" >
-                                <f:selectItem itemLabel="Cumple Totalmente" itemValue="CT" />
-                                <f:selectItem itemLabel="No Cumple" itemValue="NC" />
-                                <f:selectItem itemLabel="Justifica" itemValue="JU" />
-                                <f:selectItem itemLabel="No Justifica" itemValue="NJ" />
+                            <p align="left">#{varSeccionDetalleItems.detalle}</p>
+                            <br/>
+                            <p:outputLabel for="sorPuntaje" value="Puntaje Posible" />
+                            <p:selectOneRadio id="sorPuntaje" value="#{varSeccionDetalleItems.evaluacionPuntajes.descripcion}" layout="responsive" columns="4">
+                                <f:selectItems value="#{varSeccionDetalleItems.evaluacionPuntajesItems}" var="c" itemLabel="#{descripcion}" itemValue="#{descripcion}"/>
+                                <p:ajax event="change" process="@this" listener="#{uiEvaluacion.guardarSeccionDetalleItems()}" update=":formSeccionDetalleItems:pbAvance"/>
                             </p:selectOneRadio>
+
                         </center>
-
-
+                        <br/>
+                        <p:commandLink  oncomplete="alert('#{varSeccionDetalleItems.seccionDetalleItemsPK.codItem}');" title="Ver Criterio y Modo de Verificación" >
+                            <p:graphicImage url="/resources/imagenes/ciclos/#{varSeccionDetalleItems.imagen}" width="8%"/> 
+                            <h:panelGrid columns="1">
+                                <p:outputLabel value="Ver Criterio y Modo de Verificación" style="text-align: left"/>
+                            </h:panelGrid>
+                        </p:commandLink>
 
                     </p:panel>
 

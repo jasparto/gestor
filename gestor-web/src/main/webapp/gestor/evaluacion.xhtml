@@ -11,7 +11,24 @@
     <ui:define name="content">
         <h:form enctype="multipart/form-data" id="formEvaluacion" style="font-size: small;">
 
-            <p:panel header="Evaluacion (#{evaluacion.evaluacionPK.codEvaluacion})" >
+            <p:panel>
+
+                <f:facet name="header">
+                    <h:outputText value="Código Evaluacion: #{evaluacion.evaluacionPK.codEvaluacion}"/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacion}" labelTemplate="{value}%" displayOnly="true" interval="10"/>
+                    <br/>
+                    <p:button outcome="evaluacion" icon="ui-icon-arrowthickstop-1-w" title="Ciclos"
+                              style="font-size: 9px;" styleClass="ui-state-active" disabled="true"/>
+                    <p:spacer width="10px;"/>
+                    <p:button outcome="seccion" value="CICLO #{ciclo.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;" 
+                              rendered="#{not empty ciclo.codCiclo}"/>
+                    <p:spacer width="10px;"/>
+                    <p:button outcome="seccion-detalle" value="SECCIÓN #{seccion.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;"
+                              rendered="#{not empty seccion.seccionPK.codSeccion}"/>
+                    <p:spacer width="10px;"/>
+                    <p:button outcome="seccion-detalle-items" value="ITEM #{seccionDetalle.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;"
+                              rendered="#{not empty seccionDetalle.seccionDetallePK.codDetalle}"/>
+                </f:facet>
 
                 <p:dataGrid var="varCiclo" value="#{evaluacion.ciclos}" columns="2" layout="grid"
                             rows="4" paginator="true" id="dtCiclos"
@@ -24,7 +41,7 @@
 
                     <p:panel header="#{varCiclo.nombre}" style="text-align:center" >
                         <h:panelGrid columns="1" style="width:100%">
-                            <p:commandLink action="#{uiEvaluacion.cargarSeccion()}" oncomplete="alert('#{varCiclo.codCiclo}');" title="Evaluar Ciclo">
+                            <p:commandLink action="#{uiEvaluacion.cargarSeccion()}" title="Evaluar Ciclo">
                                 <p:graphicImage url="/resources/imagenes/ciclos/#{varCiclo.codCiclo}.png"/> 
                                 <h:outputText styleClass="ui-icon ui-icon-newwin" style="margin:0 auto;" />
                             </p:commandLink>
