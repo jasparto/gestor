@@ -19,7 +19,8 @@ public class GestorPropiedades {
             p.setProperty("urlbd", "jdbc:postgresql://localhost:5432/gestor");
             p.setProperty("controlador", "org.postgresql.Driver");
             p.setProperty("usuario", "postgres");
-            p.setProperty("clave", "postgres");
+//            p.setProperty("clave", "postgres");
+            p.setProperty("clave", "1234");
 
         } catch (Exception e) {
             throw e;
