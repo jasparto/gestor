@@ -21,8 +21,8 @@
                     </p:autoComplete>
                 </h:panelGrid>
             </p:panel>
-
-            <p:outputPanel id="panelDatosUsuario" rendered="#{not empty uiUsuario.usuarioBuscar}" style="font-size: small; ">
+            
+            <p:outputPanel id="panelDatosUsuario" rendered="#{not empty usuarios.usuariosPK.documentoUsuario}" style="font-size: small; ">
                 <h:outputText value="#{uiUsuario.usuarioBuscar != null?'Configuración actual para':''} #{uiUsuario.usuarioBuscar}"/>
 
                 <p:tabView orientation="left" activeIndex="0" rendered="#{not empty usuarios.usuariosPK.documentoUsuario}" 

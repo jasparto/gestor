@@ -50,7 +50,7 @@ public class UIUsuario {
     private boolean eliminarActivo = false;
     private boolean cancelarActivo = false;
     private boolean consultarActivo = false;
-    
+
     public void cancelar() {
     }
 
@@ -124,7 +124,7 @@ public class UIUsuario {
             GestorConfiguracion gestorConfiguracion = new GestorConfiguracion();
             GestorGeneral gestorGeneral = new GestorGeneral();
             GestorPuntajes gestorPuntajes = new GestorPuntajes();
-                    
+
             usuarios.setUsuario(usuario);
             usuarios.setClave(clave);
             usuarios.setEstablecimiento(establecimiento);
@@ -300,13 +300,19 @@ public class UIUsuario {
         Usuarios usuario = (Usuarios) UtilJSF.getBean("usuarios");
         Establecimiento establecimiento = (Establecimiento) ((Sesion) UtilJSF.getBean("sesion")).getEstablecimiento();
         try {
-            if (usuario.getRoles() == null || usuario.getRoles().getCodigoRol() == 0) {
-                UtilMSG.addWarningMsg("Por favor seleccione el rol del usuario, contacte al adminsitrador del sistema.");
+            if (usuario.getRoles() == null || usuario.getRoles().getCodigoRol() == null
+                    || usuario.getRoles().getCodigoRol() == 0) {
+                UtilMSG.addWarningMsg("Por favor seleccione el rol del usuario.");
                 return;
             }
 
             GestorUsuario gestorUsuario = new GestorUsuario();
             usuario.setListaEstablecimientos(this.cargarEstablecimientosAsignados());
+
+            if (usuario.getListaEstablecimientos() == null || usuario.getListaEstablecimientos().isEmpty()) {
+                UtilMSG.addWarningMsg("Es necesario asignar por lo menos una empresa, para almacenar el rol del usuario.");
+            }
+
             gestorUsuario.almacenarUsuario(establecimiento, usuario);
             gestorUsuario.almacenarEstablecimientosUsuario(usuario);
             gestorUsuario.almacenarRolUsuario(establecimiento, usuario);

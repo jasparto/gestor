@@ -45,6 +45,7 @@ public class Ciclo implements Serializable {
     
     
     private List<Seccion> seccionList;
+    private Evaluacion evaluacion;
 
     public Ciclo() {
     }
@@ -105,6 +106,20 @@ public class Ciclo implements Serializable {
     @Override
     public String toString() {
         return "com.gestor.gestor.Ciclo[ codCiclo=" + codCiclo + " ]";
+    }
+
+    /**
+     * @return the evaluacion
+     */
+    public Evaluacion getEvaluacion() {
+        return evaluacion;
+    }
+
+    /**
+     * @param evaluacion the evaluacion to set
+     */
+    public void setEvaluacion(Evaluacion evaluacion) {
+        this.evaluacion = evaluacion;
     }
 
 }

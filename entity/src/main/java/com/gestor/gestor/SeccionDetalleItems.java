@@ -27,7 +27,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "SeccionDetalleItems.findAll", query = "SELECT s FROM SeccionDetalleItems s")
 })
-public class SeccionDetalleItems implements Serializable {
+public class SeccionDetalleItems implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -230,5 +230,12 @@ public class SeccionDetalleItems implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 
 }

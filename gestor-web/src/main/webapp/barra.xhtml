@@ -17,7 +17,7 @@
             <p:spacer width="10"/>
             
             <p:commandButton id="guardar" value="Guardar" title="Guardar" icon="ui-icon-disk" disabled="#{not (uiSesion.guardarActivo and bean.guardarActivo)}"
-                             actionListener="#{bean.guardar()}" update="#{bean.componentesRefrescar}">
+                             action="#{bean.guardar()}" update="#{bean.componentesRefrescar}">
             </p:commandButton>
             <p:spacer width="10"/>
             

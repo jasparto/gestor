@@ -18,6 +18,8 @@ import com.gestor.modelo.Sesion;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -33,12 +35,15 @@ public class UIEvaluacion {
     public static final String COMPONENTES_REFRESCAR = "dialog";
 
     private List<Evaluacion> evaluacionList;
+    private List<SeccionDetalleItems> resumenEvaluacionList;
 
     private boolean guardarActivo = false;
     private boolean nuevoActivo = true;
     private boolean eliminarActivo = false;
     private boolean consultarActivo = false;
     private boolean cancelarActivo = false;
+
+    private boolean finalizarActivo = false;
 
     public String nuevo() {
         try {
@@ -219,7 +224,39 @@ public class UIEvaluacion {
     public void consultar() {
     }
 
-    public void guardar() {
+    public String guardar() {
+        try {
+            this.resumenEvaluacionList = new ArrayList<>();
+            GestorEvaluacion gestorEvaluacion = new GestorEvaluacion();
+            Evaluacion e = (Evaluacion) UtilJSF.getBean("evaluacion");
+            for (Ciclo c : e.getCiclos()) {
+                c.setEvaluacion(e);
+                for (Seccion s : c.getSeccionList()) {
+                    s.setCiclo(c);
+                    for (SeccionDetalle sd : s.getSeccionDetalleList()) {
+                        sd.setSeccion(s);
+                        for (SeccionDetalleItems sdi : sd.getSeccionDetalleItemsList()) {
+                            sdi.setSeccionDetalle(sd);
+                            if (sdi.getEvaluacionPuntajes() != null && sdi.getEvaluacionPuntajes().getDescripcion() != null && !sdi.getEvaluacionPuntajes().getDescripcion().equalsIgnoreCase("")) {
+                                sdi.setEvaluacionPuntajes(gestorEvaluacion.cargarEvaluacionPuntajes(e.getEvaluacionPK().getCodigoEstablecimiento(), e.getEvaluacionPK().getCodEvaluacion(), sdi.getEvaluacionPuntajes().getDescripcion()));
+                            }
+                            resumenEvaluacionList.add((SeccionDetalleItems) sdi.clone());
+                        }
+                    }
+                }
+            }
+
+            if (this.getAvanceEvaluacion() >= 100) {
+                this.finalizarActivo = Boolean.TRUE;
+            } else {
+                UtilMSG.addWarningMsg("La evaluación no se puede finalizar hasta completarla.");
+            }
+
+            return ("/gestor/evaluacion-guardar.xhtml?faces-redirect=true");
+        } catch (Exception ex) {
+            UtilLog.generarLog(this.getClass(), ex);
+        }
+        return "";
     }
 
     public String cancelar() {
@@ -228,6 +265,10 @@ public class UIEvaluacion {
     }
 
     public void eliminar() {
+    }
+
+    public String volverEvaluacion() {
+        return ("/gestor/evaluacion.xhtml?faces-redirect=true");
     }
 
     /**
@@ -313,6 +354,34 @@ public class UIEvaluacion {
             UtilLog.generarLog(this.getClass(), e);
         }
         return Integer.MIN_VALUE;
+    }
+
+    /**
+     * @return the resumenEvaluacionList
+     */
+    public List<SeccionDetalleItems> getResumenEvaluacionList() {
+        return resumenEvaluacionList;
+    }
+
+    /**
+     * @param resumenEvaluacionList the resumenEvaluacionList to set
+     */
+    public void setResumenEvaluacionList(List<SeccionDetalleItems> resumenEvaluacionList) {
+        this.resumenEvaluacionList = resumenEvaluacionList;
+    }
+
+    /**
+     * @return the finalizarActivo
+     */
+    public boolean isFinalizarActivo() {
+        return finalizarActivo;
+    }
+
+    /**
+     * @param finalizarActivo the finalizarActivo to set
+     */
+    public void setFinalizarActivo(boolean finalizarActivo) {
+        this.finalizarActivo = finalizarActivo;
     }
 
 }

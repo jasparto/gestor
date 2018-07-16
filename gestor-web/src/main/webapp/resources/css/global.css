@@ -193,3 +193,11 @@ root {
     vertical-align: top;
     text-align: center;
 }
+
+
+.ui-progressbar .ui-widget-header {
+    /*background: #3b6e84;*/
+    /*background: #ffe600;*/
+    background: #f47920;
+    /*background: #7fb80e;*/
+}
