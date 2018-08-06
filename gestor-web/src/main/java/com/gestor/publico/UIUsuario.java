@@ -146,6 +146,7 @@ public class UIUsuario {
                 sesion.setConfiguracion(gestorConfiguracion.cargarConfiguracion());
                 sesion.setCiclos(gestorGeneral.cargarCiclosEvaluacion());
                 sesion.setPuntajesList(gestorPuntajes.cargarPuntajes(e.getCodigoEstablecimiento()));
+                sesion.setEstablecimientoList(usuarios.getListaEstablecimientos());
                 usuarios = new Usuarios();
                 UtilJSF.setBean("usuarios", usuarios, UtilJSF.SESSION_SCOPE);
                 UtilJSF.setBean("sesion", sesion, UtilJSF.SESSION_SCOPE);

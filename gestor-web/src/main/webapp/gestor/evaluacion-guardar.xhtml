@@ -30,48 +30,40 @@
                 <p:column headerText="Item" filterBy="#{varResumenActa.nombre}">
                     <h:outputText value="#{varResumenActa.nombre}" />
                 </p:column>
-                <p:column headerText="Item Detalle" filterBy="#{varResumenActa.detalle}">
+                <p:column headerText="Item Detalle" filterBy="#{varResumenActa.detalle}" width="25%;">
                     <h:outputText value="#{varResumenActa.detalle}" />
                 </p:column>
-                <p:column headerText="Calificación" filterBy="#{varResumenActa.evaluacionPuntajes.descripcion}"
-                          filterMatchMode="equals">
-                    <f:facet name="filter">
-                        <p:selectOneButton onchange="PF('resumenActaTable').filter()">
-                            <f:converter converterId="javax.faces.Boolean" />
-                            <f:selectItem itemLabel="CT" itemValue="CT" />
-                            <f:selectItem itemLabel="NC" itemValue="NC" />
-                            <f:selectItem itemLabel="JU" itemValue="JU" />
-                            <f:selectItem itemLabel="NJ" itemValue="NJ" />
-                        </p:selectOneButton>
-                    </f:facet>
-                    <p:selectOneRadio id="sorPuntaje" value="#{varResumenActa.evaluacionPuntajes.descripcion}" layout="responsive" columns="4">
+                <p:column headerText="Calificación">
+                    <p:selectOneRadio id="sorPuntaje" value="#{varResumenActa.evaluacionPuntajes.descripcion}" layout="responsive" columns="4"
+                                      disabled="true" style="text-align: center; font-size: 10px; margin-top:0;">
                         <f:selectItems value="#{varResumenActa.evaluacionPuntajesItems}" var="c" 
                                        itemLabel="#{c eq 'Cumple Totalmente'?'CT':c eq 'No Cumple'?'NC':c eq 'Justifica'?'JU':c eq 'No Justifica'?'NJ':c}" 
-                                       itemValue="#{descripcion}"/>
+                                       />
                     </p:selectOneRadio>
                 </p:column>
                 <p:column headerText="Plan Acción" filterBy="#{varResumenActa.evaluacionPuntajes.planAccion}"
                           filterMatchMode="equals">
                     <f:facet name="filter">
-                        <p:selectOneButton onchange="PF('resumenActaTable').filter()">
+                        <p:selectOneButton onchange="PF('resumenActaTable').filter()" style="font-size: 10px;" >
                             <f:converter converterId="javax.faces.Boolean" />
                             <f:selectItem itemLabel="SI" itemValue="true" />
                             <f:selectItem itemLabel="NO" itemValue="false" />
                         </p:selectOneButton>
                     </f:facet>
-                    <p:selectBooleanButton value="#{varResumenActa.evaluacionPuntajes.planAccion}" onLabel="SI" offLabel="NO" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+                    <p:selectBooleanButton value="#{varResumenActa.evaluacionPuntajes.planAccion}" onLabel="SI" offLabel="NO" onIcon="ui-icon-check" offIcon="ui-icon-close" />
                 </p:column>
                 <p:column headerText="Capacitación"
                           filterBy="#{varResumenActa.evaluacionPuntajes.capacitacion}"
                           filterMatchMode="equals">
                     <f:facet name="filter">
-                        <p:selectOneButton onchange="PF('resumenActaTable').filter()">
+                        <p:selectOneButton onchange="PF('resumenActaTable').filter()"
+                                           style="font-size: 10px;">
                             <f:converter converterId="javax.faces.Boolean" />
                             <f:selectItem itemLabel="SI" itemValue="true" />
                             <f:selectItem itemLabel="NO" itemValue="false" />
                         </p:selectOneButton>
                     </f:facet>
-                    <p:selectBooleanButton value="#{varResumenActa.evaluacionPuntajes.capacitacion}" onLabel="SI" offLabel="NO" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px"/>
+                    <p:selectBooleanButton value="#{varResumenActa.evaluacionPuntajes.capacitacion}" onLabel="SI" offLabel="NO" onIcon="ui-icon-check" offIcon="ui-icon-close" />
                 </p:column>
 
             </p:dataTable>

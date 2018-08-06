@@ -5,6 +5,7 @@
  */
 package com.gestor.gestor;
 
+import com.gestor.publico.Establecimiento;
 import com.gestor.publico.Usuarios;
 import java.io.Serializable;
 import java.util.Date;
@@ -54,8 +55,12 @@ public class Evaluacion implements Serializable {
     private List<EvaluacionPuntajes> evaluacionPuntajesList;
     
     private List<Ciclo> ciclos;
-
     private Usuarios usuarios;
+    private Establecimiento establecimiento;
+
+    public Evaluacion(Date fecha) {
+        this.fecha = fecha;
+    }
 
     public Evaluacion() {
     }
@@ -191,6 +196,20 @@ public class Evaluacion implements Serializable {
      */
     public void setCiclos(List<Ciclo> ciclos) {
         this.ciclos = ciclos;
+    }
+
+    /**
+     * @return the establecimiento
+     */
+    public Establecimiento getEstablecimiento() {
+        return establecimiento;
+    }
+
+    /**
+     * @param establecimiento the establecimiento to set
+     */
+    public void setEstablecimiento(Establecimiento establecimiento) {
+        this.establecimiento = establecimiento;
     }
 
 }

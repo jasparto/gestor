@@ -30,7 +30,7 @@ import javax.persistence.TemporalType;
 @Table(name = "establecimiento")
 @NamedQueries({
     @NamedQuery(name = "Establecimiento.findAll", query = "SELECT e FROM Establecimiento e")})
-public class Establecimiento implements Serializable {
+public class Establecimiento implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -190,5 +190,12 @@ public class Establecimiento implements Serializable {
     public void setMunicipios(Municipios municipios) {
         this.municipios = municipios;
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 
 }

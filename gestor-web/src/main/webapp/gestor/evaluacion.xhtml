@@ -16,7 +16,12 @@
 
                 <f:facet name="header">
                     <h:outputText value="Código Evaluacion: #{evaluacion.evaluacionPK.codEvaluacion}"/>
-                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacion}" labelTemplate="{value}%" displayOnly="true" interval="10"/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacion}" labelTemplate="Avance Evaluación {value}%" displayOnly="true" interval="10"/>
+                    <br/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionPlanear}" labelTemplate="Planear {value}%" displayOnly="true" interval="10" style="width: 50%;"/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionHacer}" labelTemplate="Hacer {value}%" displayOnly="true" interval="10" style="width: 50%;"/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionVerificar}" labelTemplate="Verificar {value}%" displayOnly="true" interval="10" style="width: 50%;"/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionActuar}" labelTemplate="Actuar {value}%" displayOnly="true" interval="10" style="width: 50%;"/>
                     <br/>
                     <p:button outcome="evaluacion" icon="ui-icon-arrowthickstop-1-w" title="Ciclos"
                               style="font-size: 9px;" styleClass="ui-state-active" disabled="true"/>

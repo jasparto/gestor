@@ -20,6 +20,7 @@
                         <p:row>  
                             <p:column  headerText="Opciones" />
                             <p:column headerText="Código"/>
+                            <p:column  headerText="Empresa"/>
                             <p:column  headerText="Evaluador"/>
                             <p:column  headerText="Fecha Evaluación"/>
                             <p:column  headerText="Fecha Creación" />
@@ -35,6 +36,9 @@
 
                     <p:column>
                         <h:outputText value="#{varEvaluacion.evaluacionPK.codEvaluacion}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{varEvaluacion.establecimiento.nombre}"/>
                     </p:column>
                     <p:column>
                         <h:outputText value="#{varEvaluacion.usuarios.nombre} #{varEvaluacion.usuarios.apellido}"/>

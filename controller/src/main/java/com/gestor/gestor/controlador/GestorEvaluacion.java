@@ -49,10 +49,10 @@ public class GestorEvaluacion extends Gestor {
             evaluacionDAO.upsertEvaluacion(e);
             e.getEvaluacionPuntajesList().forEach((ep) -> {
                 try {
-                    evaluacionDAO.insertEvaluacionPuntajes(ep);
+                evaluacionDAO.insertEvaluacionPuntajes(ep);
                 } catch (SQLException ex) {
                     Logger.getLogger(GestorEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            }
             });
         } catch (Exception ex) {
             throw ex;
@@ -114,6 +114,17 @@ public class GestorEvaluacion extends Gestor {
             this.abrirConexion();
             EvaluacionDAO evaluacionDAO = new EvaluacionDAO(conexion);
             return evaluacionDAO.avanceEvaluacion(codigoEstablecimiento, codEvaluacion);
+
+        } finally {
+            this.cerrarConexion();
+        }
+    }
+    
+    public Integer avanceEvaluacionCiclo(int codigoEstablecimiento, Long codEvaluacion, String codCiclo) throws Exception {
+        try {
+            this.abrirConexion();
+            EvaluacionDAO evaluacionDAO = new EvaluacionDAO(conexion);
+            return evaluacionDAO.avanceEvaluacionCiclo(codigoEstablecimiento, codEvaluacion, codCiclo);
 
         } finally {
             this.cerrarConexion();

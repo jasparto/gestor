@@ -32,6 +32,7 @@ public class Sesion {
     private HashMap<Integer, Boolean> permisos = new HashMap<>();
     private List<Ciclo> ciclos;
     private List<Puntajes> puntajesList;
+    private List<Establecimiento> establecimientoList;
 
     /**
      * @return the dialogo
@@ -143,5 +144,19 @@ public class Sesion {
      */
     public void setPuntajesList(List<Puntajes> puntajesList) {
         this.puntajesList = puntajesList;
+    }
+
+    /**
+     * @return the establecimientoList
+     */
+    public List<Establecimiento> getEstablecimientoList() {
+        return establecimientoList;
+    }
+
+    /**
+     * @param establecimientoList the establecimientoList to set
+     */
+    public void setEstablecimientoList(List<Establecimiento> establecimientoList) {
+        this.establecimientoList = establecimientoList;
     }
 }

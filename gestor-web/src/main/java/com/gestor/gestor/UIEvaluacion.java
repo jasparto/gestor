@@ -15,6 +15,7 @@ import com.gestor.gestor.controlador.GestorCiclo;
 import com.gestor.gestor.controlador.GestorEvaluacion;
 import com.gestor.gestor.controlador.GestorSeccionDetalleItems;
 import com.gestor.modelo.Sesion;
+import com.gestor.publico.Establecimiento;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +37,7 @@ public class UIEvaluacion {
 
     private List<Evaluacion> evaluacionList;
     private List<SeccionDetalleItems> resumenEvaluacionList;
+    private Establecimiento establecimiento;
 
     private boolean guardarActivo = false;
     private boolean nuevoActivo = true;
@@ -45,11 +47,21 @@ public class UIEvaluacion {
 
     private boolean finalizarActivo = false;
 
+    public void seleccionarEstablecimiento() {
+        try {
+            Establecimiento e = (Establecimiento) UtilJSF.getBean("varEstablecimiento");
+            this.establecimiento = (Establecimiento) e.clone();
+        } catch (CloneNotSupportedException ex) {
+            UtilLog.generarLog(this.getClass(), ex);
+        }
+    }
+
     public String nuevo() {
         try {
             Sesion sesion = (Sesion) UtilJSF.getBean("sesion");
             sesion.setDialogo(new Dialogo("dialogos/nuevo.xhtml", "Nueva Evaluación", "clip"));
             UtilJSF.setBean("sesion", sesion, UtilJSF.SESSION_SCOPE);
+//            UtilJSF.setBean("evaluacion", new Evaluacion(new Date()), UtilJSF.SESSION_SCOPE);
             UtilJSF.execute("PF('dialog').show();");
         } catch (Exception e) {
             UtilLog.generarLog(this.getClass(), e);
@@ -148,6 +160,10 @@ public class UIEvaluacion {
         }
 
     }
+    
+    public void cancelarProcesarEvaluacion(){
+        this.establecimiento = new Establecimiento();
+    }
 
     public String procesarEvaluacion() {
         try {
@@ -157,6 +173,9 @@ public class UIEvaluacion {
             GestorCiclo gestorCiclos = new GestorCiclo();
 
             Evaluacion evaluacion = (Evaluacion) UtilJSF.getBean("evaluacion");
+            if (evaluacion.getFecha() == null) {
+                evaluacion.setFecha(new Date());
+            }
             Evaluacion e = new Evaluacion(new EvaluacionPK(gestorGeneral.nextval(GestorGeneral.GESTOR_EVALUACION_COD_EVALUACION_SEQ), sesion.getEstablecimiento().getCodigoEstablecimiento()),
                     sesion.getUsuarios().getUsuariosPK().getDocumentoUsuario(), new Date(), new Date(), App.EVALUACION_ESTADO_ABIERTO);
 
@@ -261,6 +280,7 @@ public class UIEvaluacion {
 
     public String cancelar() {
         evaluacionList.clear();
+        this.nuevoActivo = Boolean.TRUE;
         return ("/gestor/evaluaciones.xhtml?faces-redirect=true");
     }
 
@@ -356,6 +376,50 @@ public class UIEvaluacion {
         return Integer.MIN_VALUE;
     }
 
+    public Integer getAvanceEvaluacionPlanear() {
+        try {
+            Evaluacion e = (Evaluacion) UtilJSF.getBean("evaluacion");
+            GestorEvaluacion gestorEvaluacion = new GestorEvaluacion();
+            return gestorEvaluacion.avanceEvaluacionCiclo(e.getEvaluacionPK().getCodigoEstablecimiento(), e.getEvaluacionPK().getCodEvaluacion(), App.COD_CICLO_PLANEAR);
+        } catch (Exception e) {
+            UtilLog.generarLog(this.getClass(), e);
+        }
+        return Integer.MIN_VALUE;
+    }
+
+    public Integer getAvanceEvaluacionHacer() {
+        try {
+            Evaluacion e = (Evaluacion) UtilJSF.getBean("evaluacion");
+            GestorEvaluacion gestorEvaluacion = new GestorEvaluacion();
+            return gestorEvaluacion.avanceEvaluacionCiclo(e.getEvaluacionPK().getCodigoEstablecimiento(), e.getEvaluacionPK().getCodEvaluacion(), App.COD_CICLO_HACER);
+        } catch (Exception e) {
+            UtilLog.generarLog(this.getClass(), e);
+        }
+        return Integer.MIN_VALUE;
+    }
+
+    public Integer getAvanceEvaluacionVerificar() {
+        try {
+            Evaluacion e = (Evaluacion) UtilJSF.getBean("evaluacion");
+            GestorEvaluacion gestorEvaluacion = new GestorEvaluacion();
+            return gestorEvaluacion.avanceEvaluacionCiclo(e.getEvaluacionPK().getCodigoEstablecimiento(), e.getEvaluacionPK().getCodEvaluacion(), App.COD_CICLO_VERIFICAR);
+        } catch (Exception e) {
+            UtilLog.generarLog(this.getClass(), e);
+        }
+        return Integer.MIN_VALUE;
+    }
+
+    public Integer getAvanceEvaluacionActuar() {
+        try {
+            Evaluacion e = (Evaluacion) UtilJSF.getBean("evaluacion");
+            GestorEvaluacion gestorEvaluacion = new GestorEvaluacion();
+            return gestorEvaluacion.avanceEvaluacionCiclo(e.getEvaluacionPK().getCodigoEstablecimiento(), e.getEvaluacionPK().getCodEvaluacion(), App.COD_CICLO_ACTUAR);
+        } catch (Exception e) {
+            UtilLog.generarLog(this.getClass(), e);
+        }
+        return Integer.MIN_VALUE;
+    }
+
     /**
      * @return the resumenEvaluacionList
      */
@@ -382,6 +446,20 @@ public class UIEvaluacion {
      */
     public void setFinalizarActivo(boolean finalizarActivo) {
         this.finalizarActivo = finalizarActivo;
+    }
+
+    /**
+     * @return the establecimiento
+     */
+    public Establecimiento getEstablecimiento() {
+        return establecimiento;
+    }
+
+    /**
+     * @param establecimiento the establecimiento to set
+     */
+    public void setEstablecimiento(Establecimiento establecimiento) {
+        this.establecimiento = establecimiento;
     }
 
 }
