@@ -52,9 +52,9 @@
 
             </p:panel>
 
-            <p:dialog id="dialog" widgetVar="dialog" header="#{sesion.dialogo.header}" showEffect="#{sesion.dialogo.effect}" hideEffect="#{sesion.dialogo.effect}"
+            <p:dialog id="dialog" widgetVar="dialog" header="#{dialogo.header}" showEffect="#{dialogo.effect}" hideEffect="#{dialogo.effect}"
                       onHide="limpiarModal()">
-                <ui:include src="#{sesion.dialogo.src}"/>
+                <ui:include src="#{dialogo.src}"/>
             </p:dialog>
             <p:remoteCommand name="limpiarModal" action="#{uiSesion.limpiarDialogo()}"  update="dialog" />
 

@@ -5,10 +5,10 @@
  */
 package com.gestor.modelo;
 
-import com.gestor.entity.Dialogo;
 import com.gestor.gestor.Ciclo;
 import com.gestor.gestor.Puntajes;
 import com.gestor.publico.Establecimiento;
+import com.gestor.publico.Lista;
 import com.gestor.publico.Usuarios;
 import java.util.HashMap;
 import java.util.List;
@@ -23,31 +23,16 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class Sesion {
 
-    private Dialogo dialogo;
     private Usuarios usuarios;
     private Establecimiento establecimiento;
     private boolean logueado;
-//    private HashMap parametros = new HashMap();
     private HashMap configuracion = new HashMap();
     private HashMap<Integer, Boolean> permisos = new HashMap<>();
     private List<Ciclo> ciclos;
     private List<Puntajes> puntajesList;
     private List<Establecimiento> establecimientoList;
-
-    /**
-     * @return the dialogo
-     */
-    public Dialogo getDialogo() {
-        return dialogo;
-    }
-
-    /**
-     * @param dialogo the dialogo to set
-     */
-    public void setDialogo(Dialogo dialogo) {
-        this.dialogo = dialogo;
-    }
-
+    
+  
     /**
      * @return the usuarios
      */

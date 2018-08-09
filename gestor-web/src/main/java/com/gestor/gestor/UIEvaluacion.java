@@ -16,6 +16,9 @@ import com.gestor.gestor.controlador.GestorEvaluacion;
 import com.gestor.gestor.controlador.GestorSeccionDetalleItems;
 import com.gestor.modelo.Sesion;
 import com.gestor.publico.Establecimiento;
+import com.gestor.publico.EvaluacionAdjuntos;
+import com.gestor.publico.Lista;
+import com.gestor.publico.controlador.GestorLista;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +27,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -38,6 +42,8 @@ public class UIEvaluacion {
     private List<Evaluacion> evaluacionList;
     private List<SeccionDetalleItems> resumenEvaluacionList;
     private Establecimiento establecimiento;
+    private Lista seccionDetalleItemsOpcionesLista;
+    
 
     private boolean guardarActivo = false;
     private boolean nuevoActivo = true;
@@ -58,10 +64,8 @@ public class UIEvaluacion {
 
     public String nuevo() {
         try {
-            Sesion sesion = (Sesion) UtilJSF.getBean("sesion");
-            sesion.setDialogo(new Dialogo("dialogos/nuevo.xhtml", "Nueva Evaluación", "clip"));
-            UtilJSF.setBean("sesion", sesion, UtilJSF.SESSION_SCOPE);
-//            UtilJSF.setBean("evaluacion", new Evaluacion(new Date()), UtilJSF.SESSION_SCOPE);
+            Dialogo dialogo = new Dialogo("dialogos/nuevo.xhtml", "Nueva Evaluación", "clip");
+            UtilJSF.setBean("dialogo", dialogo, UtilJSF.SESSION_SCOPE);
             UtilJSF.execute("PF('dialog').show();");
         } catch (Exception e) {
             UtilLog.generarLog(this.getClass(), e);
@@ -71,7 +75,14 @@ public class UIEvaluacion {
 
     @PostConstruct
     public void init() {
-        UtilJSF.setBean("evaluacion", new Evaluacion(), UtilJSF.SESSION_SCOPE);
+        try {
+            this.seccionDetalleItemsOpcionesLista = new GestorLista().cargarLista(App.LISTA_SECCION_DETALLE_ITEMS_OPCIONES);
+            UtilJSF.setBean("evaluacion", new Evaluacion(), UtilJSF.SESSION_SCOPE);
+            UtilJSF.setBean("evaluacionAdjuntos", new EvaluacionAdjuntos(), UtilJSF.SESSION_SCOPE);
+            
+        } catch (Exception ex) {
+            UtilLog.generarLog(this.getClass(), ex);
+        }
     }
 
     public String continuarEvaluacion() {
@@ -93,15 +104,18 @@ public class UIEvaluacion {
             }
 
             for (Ciclo c : e.getCiclos()) {
+                c.setEvaluacion(e);
                 for (Seccion s : c.getSeccionList()) {
+                    s.setCiclo(c);
                     for (SeccionDetalle sd : s.getSeccionDetalleList()) {
+                        sd.setSeccion(s);
                         for (SeccionDetalleItems sdi : sd.getSeccionDetalleItemsList()) {
+                            sdi.setSeccionDetalle(sd);
                             sdi.setEvaluacionPuntajesItems(evaluacionPuntajesItems);
 
                             EvaluacionPuntajeSeccionDetalleCombos epsc = new EvaluacionPuntajeSeccionDetalleCombos(
                                     e.getEvaluacionPK().getCodEvaluacion(), e.getEvaluacionPK().getCodigoEstablecimiento(),
                                     sdi.getSeccionDetalleItemsPK().getCodCiclo(), sdi.getSeccionDetalleItemsPK().getCodSeccion(), sdi.getSeccionDetalleItemsPK().getCodDetalle(), sdi.getSeccionDetalleItemsPK().getCodItem());
-
                             sdi.getEvaluacionPuntajes().setDescripcion(gestorSeccionDetalleItems.cargarDescripcionEvaluacionPuntajes(epsc.getEvaluacionPuntajeSeccionDetalleCombosPK()));
                         }
                     }
@@ -160,8 +174,8 @@ public class UIEvaluacion {
         }
 
     }
-    
-    public void cancelarProcesarEvaluacion(){
+
+    public void cancelarProcesarEvaluacion() {
         this.establecimiento = new Establecimiento();
     }
 
@@ -192,9 +206,13 @@ public class UIEvaluacion {
             }
 
             for (Ciclo c : e.getCiclos()) {
+                c.setEvaluacion(evaluacion);
                 for (Seccion s : c.getSeccionList()) {
+                    s.setCiclo(c);
                     for (SeccionDetalle sd : s.getSeccionDetalleList()) {
+                        sd.setSeccion(s);
                         for (SeccionDetalleItems sdi : sd.getSeccionDetalleItemsList()) {
+                            sdi.setSeccionDetalle(sd);
                             sdi.setEvaluacionPuntajesItems(evaluacionPuntajesItems);
                         }
                     }
@@ -461,5 +479,21 @@ public class UIEvaluacion {
     public void setEstablecimiento(Establecimiento establecimiento) {
         this.establecimiento = establecimiento;
     }
+
+    /**
+     * @return the seccionDetalleItemsOpcionesLista
+     */
+    public Lista getSeccionDetalleItemsOpcionesLista() {
+        return seccionDetalleItemsOpcionesLista;
+    }
+
+    /**
+     * @param seccionDetalleItemsOpcionesLista the
+     * seccionDetalleItemsOpcionesLista to set
+     */
+    public void setSeccionDetalleItemsOpcionesLista(Lista seccionDetalleItemsOpcionesLista) {
+        this.seccionDetalleItemsOpcionesLista = seccionDetalleItemsOpcionesLista;
+    }
+
 
 }

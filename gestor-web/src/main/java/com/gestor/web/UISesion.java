@@ -34,9 +34,7 @@ public class UISesion {
     }
 
     public void limpiarDialogo() {
-        Sesion sesion = (Sesion) UtilJSF.getBean("sesion");
-        sesion.setDialogo(new Dialogo());
-        UtilJSF.setBean("sesion", sesion, UtilJSF.SESSION_SCOPE);
+        UtilJSF.setBean("dialogo", new Dialogo(), UtilJSF.SESSION_SCOPE);
     }
 
     /**

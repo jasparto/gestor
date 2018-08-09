@@ -50,22 +50,31 @@
 
                         </center>
                         <br/>
-                        <p:commandLink  oncomplete="alert('#{varSeccionDetalleItems.seccionDetalleItemsPK.codItem}');" title="Ver Criterio y Modo de Verificación" >
-                            <p:graphicImage url="/resources/imagenes/ciclos/#{varSeccionDetalleItems.imagen}" width="8%"/> 
-                            <h:panelGrid columns="1">
-                                <p:outputLabel value="Ver Criterio y Modo de Verificación" style="text-align: left"/>
+                        <p:dataGrid value="#{uiEvaluacion.seccionDetalleItemsOpcionesLista.listaDetalleList}" var="varSdiOpciones" styleClass="Centro"
+                                    layout="grid" columns="4">
+                            <h:panelGrid >
+                                <p:commandLink oncomplete="#{varSdiOpciones.getPropiedad('comando')}">
+                                    <p:graphicImage url="#{varSdiOpciones.getPropiedad('imagen')}" 
+                                                    width="30%"/> 
+                                </p:commandLink>
+                                <h:outputText value="#{varSdiOpciones.getPropiedad('descripcion')}" style="font-weight: bold; font-size: 70%;" />
+                                <p:remoteCommand name="mostrarAyudaItem" oncomplete="alert('hola')"/>
+                                <p:remoteCommand name="adjuntarSoporte" action="#{uiEvaluacionAdjuntos.adjuntarSoporte()}" update=":formSeccionDetalleItems:dialog"/>
+                                <p:remoteCommand name="planAccion" oncomplete="alert('hola plan accion')"/>
+                                <p:remoteCommand name="capacitacion" oncomplete="alert('hola capacitacion')"/>
                             </h:panelGrid>
-                        </p:commandLink>
+                        </p:dataGrid>
 
-                    </p:panel>
+
+                    </p:panel>  
 
                 </p:dataGrid>
 
             </p:panel>
 
-            <p:dialog id="dialog" widgetVar="dialog" header="#{sesion.dialogo.header}" showEffect="#{sesion.dialogo.effect}" hideEffect="#{sesion.dialogo.effect}"
+            <p:dialog id="dialog" widgetVar="dialog" header="#{dialogo.header}" showEffect="#{dialogo.effect}" hideEffect="#{dialogo.effect}"
                       onHide="limpiarModal()">
-                <ui:include src="#{sesion.dialogo.src}"/>
+                <ui:include src="#{dialogo.src}"/>
             </p:dialog>
             <p:remoteCommand name="limpiarModal" action="#{uiSesion.limpiarDialogo()}"  update="dialog" />
 
@@ -73,7 +82,7 @@
                 <ui:param name="bean" value="#{uiEvaluacion}"/>
             </ui:include>
         </h:form>
-
+        
     </ui:define>
 
 </ui:composition>

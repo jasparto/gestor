@@ -15,16 +15,19 @@
         <h:body id="template">
             <h:outputScript library="js" name="general.js"/>
             <h:outputStylesheet library="css" name="global.css"/> 
-            
+
             <style>
-            .ui-progressbar .ui-widget-header {
-                /*background: #3b6e84;*/
-                /*background: #ffe600;*/
-                background: #f47920;
-                /*background: #7fb80e;*/
-            }
-        </style>
-            
+                .ui-progressbar .ui-widget-header {
+                    /*background: #3b6e84;*/
+                    /*background: #ffe600;*/
+                    background: #f47920;
+                    /*background: #7fb80e;*/
+                }
+
+
+            </style>
+
+
             <br/>
             <div align="center">
                 <p:separator style="height: 3px"/>
@@ -64,7 +67,7 @@
                 <div id="msn" align="center">
                     <br/>
                     <h:panelGrid columns="1">
-                        
+
                         <p:messages id="messages" showDetail="true" showSummary="false">
                             <p:autoUpdate/>
                             <p:effect type="pulsate" event="load" delay="1000"/>

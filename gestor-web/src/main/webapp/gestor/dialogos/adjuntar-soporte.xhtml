@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"                
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <style type="text/css">
+        @media (max-width: 640px) { 
+            .ui-fileupload-files td{
+                display: inline-block;
+            }
+
+            .ui-fileupload-buttonbar .ui-button{
+                padding: 19px 30px 19px 30px !important
+            }
+
+            .ui-fileupload-buttonbar .ui-button .ui-button-text {
+                display: none;
+            }
+
+            .ui-fileupload-buttonbar .ui-button .ui-icon{
+                margin-left: 15px !important;
+            }
+        }
+    </style>
+    <div style="margin-top: 10px; text-align: center;">
+        <p:outputPanel id="opAdjunto">
+            <h3>                
+                <h:outputText value="Adjuntar Soportes"/>
+            </h3>
+
+            <br/>
+
+            <h:panelGrid id="pgAdjunto" columns="2" cellspacing="10">
+                <h:outputLabel value="Item Asociado: " style="font-weight: bold;"/>
+                <h:outputLabel value="#{uiEvaluacionAdjuntos.sdiSeleccionado.detalle}" />
+
+                <h:outputLabel value="Nombre: " style="font-weight: bold;"/>
+                <p:inputText value="#{evaluacionAdjuntos.nombre}" placeholder="Registra un nombre para identificar el adjunto">
+                    <p:ajax event="blur" process="@this"/>
+                </p:inputText>
+
+
+                <h:outputLabel value="Descripcion: " style="font-weight: bold;"/>
+                <p:inputTextarea value="#{evaluacionAdjuntos.descripcion}" placeholder="Registra la descripcion del adjunto">
+                    <p:ajax event="blur" process="@this"/>
+                </p:inputTextarea>
+
+                <h:outputLabel value="Archivo: " style="font-weight: bold;" />
+                <p:outputLabel id="olAdjunto" value="#{uiEvaluacionAdjuntos.file.fileName}" style="text-align: left"/>
+
+            </h:panelGrid>
+            <br/>
+
+            <p:fileUpload value="#{uiEvaluacionAdjuntos.file}" mode="advanced" skinSimple="true" label="Seleccionar" fileUploadListener="#{uiEvaluacionAdjuntos.cargarAdjunto}"
+                          auto="true"  update="pgAdjunto" immediate="true"/>
+        </p:outputPanel>
+
+        <br/>
+
+
+
+
+        <p:toolbar style="height: 45px;">
+            <p:toolbarGroup align="center" style="margin: auto auto;">
+                <h:panelGrid columns="2" cellspacing="10">
+                    <p:commandButton value="Guardar Soporte" icon="ui-icon-disk" action="#{uiEvaluacionAdjuntos.guardarAdjunto()}" process="@parent" update="opAdjunto"/>
+                    <p:commandButton value="Volver" icon="ui-icon-triangle-1-w" oncomplete="PF('dialog').hide();"/>
+                </h:panelGrid>
+            </p:toolbarGroup>
+        </p:toolbar> 
+
+
+
+
+    </div>
+
+
+
+
+
+</ui:composition>

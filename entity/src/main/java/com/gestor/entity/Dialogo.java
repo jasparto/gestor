@@ -6,11 +6,16 @@
 package com.gestor.entity;
 
 import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author juliano
  */
+@ManagedBean
+@SessionScoped
+
 public class Dialogo implements Serializable {
 
     public static String EFECTO = "clip";
