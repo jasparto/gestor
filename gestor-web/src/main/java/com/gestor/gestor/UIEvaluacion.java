@@ -14,6 +14,7 @@ import com.gestor.entity.UtilMSG;
 import com.gestor.gestor.controlador.GestorCiclo;
 import com.gestor.gestor.controlador.GestorEvaluacion;
 import com.gestor.gestor.controlador.GestorSeccionDetalleItems;
+import com.gestor.gestor.controlador.GestorSeccionDetalleItemsAyuda;
 import com.gestor.modelo.Sesion;
 import com.gestor.publico.Establecimiento;
 import com.gestor.publico.EvaluacionAdjuntos;
@@ -22,12 +23,9 @@ import com.gestor.publico.controlador.GestorLista;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -43,7 +41,7 @@ public class UIEvaluacion {
     private List<SeccionDetalleItems> resumenEvaluacionList;
     private Establecimiento establecimiento;
     private Lista seccionDetalleItemsOpcionesLista;
-    
+    private List<SeccionDetalleItemsAyuda> seccionDetalleItemsAyudas = new ArrayList<>();
 
     private boolean guardarActivo = false;
     private boolean nuevoActivo = true;
@@ -52,6 +50,29 @@ public class UIEvaluacion {
     private boolean cancelarActivo = false;
 
     private boolean finalizarActivo = false;
+
+    public void mostrarAyudaItem() {
+        try {
+            SeccionDetalleItems sdi = (SeccionDetalleItems) UtilJSF.getBean("varSeccionDetalleItems");
+            GestorSeccionDetalleItemsAyuda gestorSeccionDetalleItemsAyuda = new GestorSeccionDetalleItemsAyuda();
+            seccionDetalleItemsAyudas.addAll(
+                    gestorSeccionDetalleItemsAyuda.cargarSeccionDetalleItemsAyudas(
+                            new SeccionDetalleItemsAyudaPK(
+                                    sdi.getSeccionDetalleItemsPK().getCodCiclo(), sdi.getSeccionDetalleItemsPK().getCodSeccion(), sdi.getSeccionDetalleItemsPK().getCodDetalle(), sdi.getSeccionDetalleItemsPK().getCodItem()
+                            )
+                    )
+            );
+            if (seccionDetalleItemsAyudas != null && !seccionDetalleItemsAyudas.isEmpty()) {
+                Dialogo dialogo = new Dialogo("dialogos/ayuda-item.xhtml", "Indicaciones", "clip");
+                UtilJSF.setBean("dialogo", dialogo, UtilJSF.SESSION_SCOPE);
+                UtilJSF.execute("PF('dialog').show();");
+            } else {
+                UtilMSG.addWarningMsg("El ítem no tiene configurado criterios de verificación");
+            }
+        } catch (Exception e) {
+            UtilLog.generarLog(this.getClass(), e);
+        }
+    }
 
     public void seleccionarEstablecimiento() {
         try {
@@ -79,7 +100,7 @@ public class UIEvaluacion {
             this.seccionDetalleItemsOpcionesLista = new GestorLista().cargarLista(App.LISTA_SECCION_DETALLE_ITEMS_OPCIONES);
             UtilJSF.setBean("evaluacion", new Evaluacion(), UtilJSF.SESSION_SCOPE);
             UtilJSF.setBean("evaluacionAdjuntos", new EvaluacionAdjuntos(), UtilJSF.SESSION_SCOPE);
-            
+
         } catch (Exception ex) {
             UtilLog.generarLog(this.getClass(), ex);
         }
@@ -495,5 +516,18 @@ public class UIEvaluacion {
         this.seccionDetalleItemsOpcionesLista = seccionDetalleItemsOpcionesLista;
     }
 
+    /**
+     * @return the seccionDetalleItemsAyudas
+     */
+    public List<SeccionDetalleItemsAyuda> getSeccionDetalleItemsAyudas() {
+        return seccionDetalleItemsAyudas;
+    }
+
+    /**
+     * @param seccionDetalleItemsAyudas the seccionDetalleItemsAyudas to set
+     */
+    public void setSeccionDetalleItemsAyudas(List<SeccionDetalleItemsAyuda> seccionDetalleItemsAyudas) {
+        this.seccionDetalleItemsAyudas = seccionDetalleItemsAyudas;
+    }
 
 }

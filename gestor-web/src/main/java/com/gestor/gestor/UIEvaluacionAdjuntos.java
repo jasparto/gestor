@@ -17,11 +17,10 @@ import com.gestor.modelo.Sesion;
 import com.gestor.publico.EvaluacionAdjuntos;
 import com.gestor.publico.EvaluacionAdjuntosPK;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.event.FileUploadEvent;
@@ -38,6 +37,7 @@ public class UIEvaluacionAdjuntos {
 
     private UploadedFile file;
     private SeccionDetalleItems sdiSeleccionado;
+    private List<EvaluacionAdjuntos> evaluacionAdjuntosList = new ArrayList<>();
 
     public void adjuntarSoporte() {
         this.sdiSeleccionado = (SeccionDetalleItems) UtilJSF.getBean("varSeccionDetalleItems");
@@ -79,7 +79,7 @@ public class UIEvaluacionAdjuntos {
             evaluacionAdjuntos.setEstado(App.EVALUACION_ADJUNTOS_ESTADO_ACTIVO);
             evaluacionAdjuntos = gestorEvaluacionAdjuntos.validarEvaluacionAdjuntos(evaluacionAdjuntos);
             Properties p = Propiedades.getInstancia().getPropiedades();
-            String ruta = p.getProperty("rutaAdjunto") + File.separator + "E-" + this.sdiSeleccionado.getSeccionDetalle().getSeccion().getCiclo().getEvaluacion().getEvaluacionPK().getCodEvaluacion();
+            String ruta = p.getProperty("rutaAdjunto") + File.separator + App.ADJUNTO_PREFIJO + sdiSeleccionado.getSeccionDetalle().getSeccion().getCiclo().getEvaluacion().getEvaluacionPK().getCodEvaluacion();
             String rutaTemporal = p.getProperty("rutaTemporal") + File.separator + file.getFileName();
 
             File carpeta = new File(ruta);
@@ -132,5 +132,19 @@ public class UIEvaluacionAdjuntos {
      */
     public void setSdiSeleccionado(SeccionDetalleItems sdiSeleccionado) {
         this.sdiSeleccionado = sdiSeleccionado;
+    }
+
+    /**
+     * @return the evaluacionAdjuntosList
+     */
+    public List<EvaluacionAdjuntos> getEvaluacionAdjuntosList() {
+        return evaluacionAdjuntosList;
+    }
+
+    /**
+     * @param evaluacionAdjuntosList the evaluacionAdjuntosList to set
+     */
+    public void setEvaluacionAdjuntosList(List<EvaluacionAdjuntos> evaluacionAdjuntosList) {
+        this.evaluacionAdjuntosList = evaluacionAdjuntosList;
     }
 }

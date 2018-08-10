@@ -7,7 +7,7 @@
                 template="/template.xhtml">
     <ui:define name="content">       
         <h:form enctype="multipart/form-data" id="formNuevoUsuario" style="font-size: small;">
-            
+
             <h2>
                 Configuración de usuarios
             </h2>
@@ -21,7 +21,7 @@
                     </p:autoComplete>
                 </h:panelGrid>
             </p:panel>
-            
+
             <p:outputPanel id="panelDatosUsuario" rendered="#{not empty usuarios.usuariosPK.documentoUsuario}" style="font-size: small; ">
                 <h:outputText value="#{uiUsuario.usuarioBuscar != null?'Configuración actual para':''} #{uiUsuario.usuarioBuscar}"/>
 
@@ -68,20 +68,6 @@
 
                         </h:panelGrid>
                     </p:tab>
-                    <p:tab title="Empresas" > 
-                        <div class="contenedor" style="font-size: small">
-                            <p:pickList id="pickListEmpresas" value="#{uiUsuario.itemsDualEstablecimientos}"
-                                        var="dualEstablecimiento"  
-                                        itemLabel="#{dualEstablecimiento}"  
-                                        itemValue="#{dualEstablecimiento}"
-                                        addLabel="Agregar" addAllLabel="Agregar todos"
-                                        removeLabel="Remover" removeAllLabel="Remover Todos"
-                                        > 
-                                <f:facet name="sourceCaption">Empresas disponibles</f:facet>  
-                                <f:facet name="targetCaption">Empresas asignados</f:facet> 
-                            </p:pickList> 
-                        </div>
-                    </p:tab>   
                 </p:tabView>
 
             </p:outputPanel> 

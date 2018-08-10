@@ -42,6 +42,7 @@ public class Puntajes implements Serializable {
     private Boolean califica;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "puntajes")
     private List<EvaluacionPuntajes> evaluacionPuntajesList;
+    private Integer orden;
 
     public Puntajes() {
     }
@@ -54,18 +55,15 @@ public class Puntajes implements Serializable {
         this.puntajesPK = new PuntajesPK(codigoEstablecimiento, codPuntaje);
     }
 
-    public Puntajes(PuntajesPK puntajesPK, String descripcion, Boolean planAccion, Boolean capacitacion, Boolean activo, Boolean califica) {
+    public Puntajes(PuntajesPK puntajesPK, String descripcion, Boolean planAccion, Boolean capacitacion, Boolean activo, Boolean califica, Integer orden) {
         this.puntajesPK = puntajesPK;
         this.descripcion = descripcion;
         this.planAccion = planAccion;
         this.capacitacion = capacitacion;
         this.activo = activo;
         this.califica = califica;
+        this.orden = orden;
     }
-    
-    
-    
-    
 
     public PuntajesPK getPuntajesPK() {
         return puntajesPK;
@@ -147,5 +145,19 @@ public class Puntajes implements Serializable {
     public String toString() {
         return "com.gestor.gestor.Puntajes[ puntajesPK=" + puntajesPK + " ]";
     }
-    
+
+    /**
+     * @return the orden
+     */
+    public Integer getOrden() {
+        return orden;
+    }
+
+    /**
+     * @param orden the orden to set
+     */
+    public void setOrden(Integer orden) {
+        this.orden = orden;
+    }
+
 }

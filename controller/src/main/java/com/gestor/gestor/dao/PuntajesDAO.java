@@ -33,15 +33,16 @@ public class PuntajesDAO {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
                     "SELECT codigo_establecimiento, cod_puntaje, descripcion, plan_accion,"
-                    + " capacitacion, activo, califica"
+                    + " capacitacion, activo, califica, orden"
                     + " FROM gestor.puntajes"
                     + " WHERE codigo_establecimiento=" + codigoEstablecimiento
+                    + " ORDER BY orden"
             );
             rs = consulta.ejecutar(sql);
             List<Puntajes> puntajesList = new ArrayList<>();
             while (rs.next()) {
                 Puntajes p = new Puntajes(new PuntajesPK(rs.getInt("codigo_establecimiento"), rs.getString("cod_puntaje")), rs.getString("descripcion"),
-                        rs.getBoolean("plan_accion"), rs.getBoolean("capacitacion"), rs.getBoolean("activo"), rs.getBoolean("califica"));
+                        rs.getBoolean("plan_accion"), rs.getBoolean("capacitacion"), rs.getBoolean("activo"), rs.getBoolean("califica"), rs.getInt("orden"));
                 puntajesList.add(p);
             }
             return puntajesList;

@@ -79,19 +79,17 @@ public class GestorEvaluacion extends Gestor {
         List<EvaluacionPuntajes> evaluacionPuntajeses = new ArrayList<>();
         puntajesList.forEach((p) -> {
             EvaluacionPuntajes evaluacionPuntajes = new EvaluacionPuntajes(new EvaluacionPuntajesPK(codigoEstablecimiento, codEvaluacion, p.getPuntajesPK().getCodPuntaje()), p.getDescripcion(),
-                    p.getPlanAccion(), p.getCapacitacion(), p.getCalifica());
+                    p.getPlanAccion(), p.getCapacitacion(), p.getCalifica(), p.getOrden());
             evaluacionPuntajeses.add(evaluacionPuntajes);
         });
         return evaluacionPuntajeses;
     }
 
     public List<EvaluacionPuntajes> cargarEvaluacionPuntajes(int codigoEstablecimiento, Long codEvaluacion) throws Exception {
-        List<EvaluacionPuntajes> evaluacionPuntajeses = new ArrayList<>();
         try {
             this.abrirConexion();
             EvaluacionDAO evaluacionDAO = new EvaluacionDAO(conexion);
             return evaluacionDAO.cargarEvaluacionPuntajes(codigoEstablecimiento, codEvaluacion);
-
         } finally {
             this.cerrarConexion();
         }

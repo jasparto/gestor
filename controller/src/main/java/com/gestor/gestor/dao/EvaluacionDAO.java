@@ -149,15 +149,16 @@ public class EvaluacionDAO {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
                     "SELECT codigo_establecimiento, cod_evaluacion, cod_puntaje, descripcion,"
-                    + " plan_accion, capacitacion, califica"
+                    + " plan_accion, capacitacion, califica, orden"
                     + " FROM gestor.evaluacion_puntajes"
                     + " WHERE codigo_establecimiento=" + codigoEstablecimiento + " AND cod_evaluacion=" + codEvaluacion
+                    + " ORDER BY orden"
             );
             rs = consulta.ejecutar(sql);
             List<EvaluacionPuntajes> evaluacionPuntajeses = new ArrayList<>();
             while (rs.next()) {
                 EvaluacionPuntajes evaluacionPuntajes = new EvaluacionPuntajes(new EvaluacionPuntajesPK(rs.getInt("codigo_establecimiento"), rs.getLong("cod_evaluacion"), rs.getString("cod_puntaje")),
-                        rs.getString("descripcion"), rs.getBoolean("plan_accion"), rs.getBoolean("capacitacion"), rs.getBoolean("califica"));
+                        rs.getString("descripcion"), rs.getBoolean("plan_accion"), rs.getBoolean("capacitacion"), rs.getBoolean("califica"), rs.getInt("orden"));
                 evaluacionPuntajeses.add(evaluacionPuntajes);
             }
             return evaluacionPuntajeses;
@@ -179,15 +180,16 @@ public class EvaluacionDAO {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
                     "SELECT codigo_establecimiento, cod_evaluacion, cod_puntaje, descripcion,"
-                    + " plan_accion, capacitacion, califica"
+                    + " plan_accion, capacitacion, califica, orden"
                     + " FROM gestor.evaluacion_puntajes"
                     + " WHERE codigo_establecimiento=" + codigoEstablecimiento
                     + " AND cod_evaluacion=" + codEvaluacion + " AND descripcion='" + descripcion + "'"
+                    + " ORDER BY orden"
             );
             rs = consulta.ejecutar(sql);
             if (rs.next()) {
                 EvaluacionPuntajes evaluacionPuntajes = new EvaluacionPuntajes(new EvaluacionPuntajesPK(rs.getInt("codigo_establecimiento"), rs.getLong("cod_evaluacion"), rs.getString("cod_puntaje")),
-                        rs.getString("descripcion"), rs.getBoolean("plan_accion"), rs.getBoolean("capacitacion"), rs.getBoolean("califica"));
+                        rs.getString("descripcion"), rs.getBoolean("plan_accion"), rs.getBoolean("capacitacion"), rs.getBoolean("califica"), rs.getInt("orden"));
                 return evaluacionPuntajes;
             } else {
                 throw new Exception("No se pudo cargar el puntaje con descripción, " + descripcion, UtilLog.TW_RESTRICCION);

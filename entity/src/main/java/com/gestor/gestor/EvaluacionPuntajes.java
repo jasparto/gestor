@@ -40,6 +40,7 @@ public class EvaluacionPuntajes implements Serializable {
     private Boolean capacitacion;
     @Column(name = "califica")
     private Boolean califica;
+    private Integer orden;
     @JoinTable(name = "evaluacion_puntaje_seccion_detalle_combos", joinColumns = {
         @JoinColumn(name = "cod_evaluacion", referencedColumnName = "cod_evaluacion"),
         @JoinColumn(name = "codigo_establecimiento", referencedColumnName = "codigo_establecimiento"),
@@ -64,15 +65,14 @@ public class EvaluacionPuntajes implements Serializable {
     public EvaluacionPuntajes() {
     }
 
-    public EvaluacionPuntajes(EvaluacionPuntajesPK evaluacionPuntajesPK, String descripcion, Boolean planAccion, Boolean capacitacion, Boolean califica) {
+    public EvaluacionPuntajes(EvaluacionPuntajesPK evaluacionPuntajesPK, String descripcion, Boolean planAccion, Boolean capacitacion, Boolean califica, Integer orden) {
         this.evaluacionPuntajesPK = evaluacionPuntajesPK;
         this.descripcion = descripcion;
         this.planAccion = planAccion;
         this.capacitacion = capacitacion;
         this.califica = califica;
+        this.orden = orden;
     }
-    
-    
 
     public EvaluacionPuntajes(EvaluacionPuntajesPK evaluacionPuntajesPK) {
         this.evaluacionPuntajesPK = evaluacionPuntajesPK;
@@ -170,5 +170,19 @@ public class EvaluacionPuntajes implements Serializable {
     public String toString() {
         return "com.gestor.gestor.EvaluacionPuntajes[ evaluacionPuntajesPK=" + evaluacionPuntajesPK + " ]";
     }
-    
+
+    /**
+     * @return the orden
+     */
+    public Integer getOrden() {
+        return orden;
+    }
+
+    /**
+     * @param orden the orden to set
+     */
+    public void setOrden(Integer orden) {
+        this.orden = orden;
+    }
+
 }
