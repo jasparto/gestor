@@ -36,7 +36,7 @@
             <br/>
 
             <p:fileUpload value="#{uiEvaluacionAdjuntos.file}" mode="advanced" skinSimple="true" label="Seleccionar" fileUploadListener="#{uiEvaluacionAdjuntos.cargarAdjunto}"
-                          auto="true"  update="pgAdjunto" immediate="true"/>
+                          auto="true"  update="pgAdjunto" immediate="true" process="@this"/>
         </p:outputPanel>
 
         <br/>

@@ -58,7 +58,7 @@
                                                     width="30%"/> 
                                 </p:commandLink>
                                 <h:outputText value="#{varSdiOpciones.getPropiedad('descripcion')}" style="font-weight: bold; font-size: 70%;" />
-                                <p:remoteCommand name="mostrarAyudaItem" oncomplete="alert('hola')"/>
+                                <p:remoteCommand name="mostrarAyudaItem" oncomplete="#{uiEvaluacion.mostrarAyudaItem()}"/>
                                 <p:remoteCommand name="adjuntarSoporte" action="#{uiEvaluacionAdjuntos.adjuntarSoporte()}" update=":formSeccionDetalleItems:dialog"/>
                                 <p:remoteCommand name="planAccion" oncomplete="alert('hola plan accion')"/>
                                 <p:remoteCommand name="capacitacion" oncomplete="alert('hola capacitacion')"/>

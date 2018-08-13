@@ -24,10 +24,10 @@ public class GestorEvaluacionAdjuntos extends Gestor {
         if (evaluacionAdjuntos.getEvaluacionAdjuntosPK() == null) {
             throw new Exception("No se pudo cargar la información de la evaluación.", UtilLog.TW_VALIDACION);
         }
-        if (evaluacionAdjuntos.getNombre() == null || !evaluacionAdjuntos.getNombre().equalsIgnoreCase("")) {
+        if (evaluacionAdjuntos.getNombre() == null || evaluacionAdjuntos.getNombre().equalsIgnoreCase("")) {
             throw new Exception("Ingresa el nombre del adjunto.", UtilLog.TW_VALIDACION);
         }
-        if (evaluacionAdjuntos.getDescripcion() == null || !evaluacionAdjuntos.getDescripcion().equalsIgnoreCase("")) {
+        if (evaluacionAdjuntos.getDescripcion() == null || evaluacionAdjuntos.getDescripcion().equalsIgnoreCase("")) {
             throw new Exception("Ingresa la descripción del adjunto.", UtilLog.TW_VALIDACION);
         }
         evaluacionAdjuntos.setNombre(evaluacionAdjuntos.getNombre().toUpperCase().trim());

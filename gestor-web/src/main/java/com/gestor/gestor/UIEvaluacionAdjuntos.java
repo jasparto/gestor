@@ -71,6 +71,10 @@ public class UIEvaluacionAdjuntos {
                     sdiSeleccionado.getSeccionDetalle().getSeccion().getCiclo().getCodCiclo(), sdiSeleccionado.getSeccionDetalle().getSeccion().getSeccionPK().getCodSeccion(),
                     sdiSeleccionado.getSeccionDetalle().getSeccionDetallePK().getCodDetalle(), sdiSeleccionado.getSeccionDetalleItemsPK().getCodItem())
             );
+            if (file == null || file.getFileName() == null || file.getFileName().equalsIgnoreCase("")) {
+                UtilMSG.addErrorMsg("Selecciona el archivo a guardar.");
+                return;
+            }
             evaluacionAdjuntos.setArchivo(file.getFileName());
             evaluacionAdjuntos.setExtension(FilenameUtils.getExtension(file.getFileName()));
             evaluacionAdjuntos.setDocumentoUsuario(sesion.getUsuarios().getUsuariosPK().getDocumentoUsuario());
@@ -94,6 +98,7 @@ public class UIEvaluacionAdjuntos {
             gestorEvaluacionAdjuntos.procesarEvaluacionAdjuntos(evaluacionAdjuntos);
             UtilMSG.addSuccessMsg("Adjunto almacenado correctamente.");
             UtilJSF.setBean("evaluacionAdjuntos", new EvaluacionAdjuntos(), UtilJSF.SESSION_SCOPE);
+            this.file = null;
         } catch (IOException ex) {
             UtilLog.generarLog(this.getClass(), ex);
         } catch (Exception ex) {
@@ -106,7 +111,7 @@ public class UIEvaluacionAdjuntos {
 
     }
 
-    /** 
+    /**
      * @return the file
      */
     public UploadedFile getFile() {

@@ -11,6 +11,13 @@ body {
     font-size: 13px;
 }
 
+.letraBlanca{
+    font-weight: bold;
+    font-family: Helvetica;
+    font-size: 13px;
+    color: #ffffff;
+}
+
 .letraTabla{
     font-size: small;
     text-align: center;
