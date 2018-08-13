@@ -25,6 +25,8 @@ public class GestorGeneral extends Gestor implements Serializable {
 
 //    public static String USUARIO_MENUS_COD_MENU_SEQ = "usuario.menus_cod_menu_seq";
     public static String GESTOR_EVALUACION_COD_EVALUACION_SEQ = "gestor.evaluacion_cod_evaluacion_seq";
+    public static String GESTOR_EVALUACION_PLAN_ACCION_COD_PLAN_SEQ = "gestor.evaluacion_cod_evaluacion_seq";
+    
 
     public static boolean VALIDA_PK = true;
     public static boolean NO_VALIDA_PK = false;

@@ -8,6 +8,8 @@ package com.gestor.gestor;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,7 +29,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "evaluacion_plan_accion")
 @NamedQueries({
-    @NamedQuery(name = "EvaluacionPlanAccion.findAll", query = "SELECT e FROM EvaluacionPlanAccion e")})
+    @NamedQuery(name = "EvaluacionPlanAccion.findAll", query = "SELECT e FROM EvaluacionPlanAccion e")
+})
+@ManagedBean
+@SessionScoped
 public class EvaluacionPlanAccion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,6 +53,7 @@ public class EvaluacionPlanAccion implements Serializable {
     private String estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluacionPlanAccion")
     private List<EvaluacionPlanAccionDetalle> evaluacionPlanAccionDetalleList;
+    private EvaluacionPlanAccionDetalle evaluacionPlanAccionDetalle;
 
     public EvaluacionPlanAccion() {
     }
@@ -61,7 +67,14 @@ public class EvaluacionPlanAccion implements Serializable {
         this.estado = estado;
     }
 
-    public EvaluacionPlanAccion(int codEvaluacion, short codigoEstablecimiento, int codPlan) {
+    public EvaluacionPlanAccion(EvaluacionPlanAccionPK evaluacionPlanAccionPK, String estado, String documentoUsuario, String documentoUsuarioModifica) {
+        this.evaluacionPlanAccionPK = evaluacionPlanAccionPK;
+        this.estado = estado;
+        this.documentoUsuario = documentoUsuario;
+        this.documentoUsuarioModifica = documentoUsuarioModifica;
+    }
+
+    public EvaluacionPlanAccion(int codEvaluacion, short codigoEstablecimiento, Long codPlan) {
         this.evaluacionPlanAccionPK = new EvaluacionPlanAccionPK(codEvaluacion, codigoEstablecimiento, codPlan);
     }
 
@@ -145,5 +158,19 @@ public class EvaluacionPlanAccion implements Serializable {
     public String toString() {
         return "com.gestor.gestor.EvaluacionPlanAccion[ evaluacionPlanAccionPK=" + evaluacionPlanAccionPK + " ]";
     }
-    
+
+    /**
+     * @return the evaluacionPlanAccionDetalle
+     */
+    public EvaluacionPlanAccionDetalle getEvaluacionPlanAccionDetalle() {
+        return evaluacionPlanAccionDetalle;
+    }
+
+    /**
+     * @param evaluacionPlanAccionDetalle the evaluacionPlanAccionDetalle to set
+     */
+    public void setEvaluacionPlanAccionDetalle(EvaluacionPlanAccionDetalle evaluacionPlanAccionDetalle) {
+        this.evaluacionPlanAccionDetalle = evaluacionPlanAccionDetalle;
+    }
+
 }

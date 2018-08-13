@@ -22,18 +22,23 @@ public class EvaluacionPlanAccionPK implements Serializable {
     private int codEvaluacion;
     @Basic(optional = false)
     @Column(name = "codigo_establecimiento")
-    private short codigoEstablecimiento;
+    private int codigoEstablecimiento;
     @Basic(optional = false)
     @Column(name = "cod_plan")
-    private int codPlan;
+    private Long codPlan;
 
     public EvaluacionPlanAccionPK() {
     }
 
-    public EvaluacionPlanAccionPK(int codEvaluacion, short codigoEstablecimiento, int codPlan) {
+    public EvaluacionPlanAccionPK(int codEvaluacion, int codigoEstablecimiento, Long codPlan) {
         this.codEvaluacion = codEvaluacion;
         this.codigoEstablecimiento = codigoEstablecimiento;
         this.codPlan = codPlan;
+    }
+    
+    public EvaluacionPlanAccionPK(int codEvaluacion, int codigoEstablecimiento) {
+        this.codEvaluacion = codEvaluacion;
+        this.codigoEstablecimiento = codigoEstablecimiento;
     }
 
     public int getCodEvaluacion() {
@@ -44,19 +49,19 @@ public class EvaluacionPlanAccionPK implements Serializable {
         this.codEvaluacion = codEvaluacion;
     }
 
-    public short getCodigoEstablecimiento() {
+    public int getCodigoEstablecimiento() {
         return codigoEstablecimiento;
     }
 
-    public void setCodigoEstablecimiento(short codigoEstablecimiento) {
+    public void setCodigoEstablecimiento(int codigoEstablecimiento) {
         this.codigoEstablecimiento = codigoEstablecimiento;
     }
 
-    public int getCodPlan() {
+    public Long getCodPlan() {
         return codPlan;
     }
 
-    public void setCodPlan(int codPlan) {
+    public void setCodPlan(Long codPlan) {
         this.codPlan = codPlan;
     }
 
@@ -65,7 +70,7 @@ public class EvaluacionPlanAccionPK implements Serializable {
         int hash = 0;
         hash += (int) codEvaluacion;
         hash += (int) codigoEstablecimiento;
-        hash += (int) codPlan;
+        hash +=  codPlan;
         return hash;
     }
 

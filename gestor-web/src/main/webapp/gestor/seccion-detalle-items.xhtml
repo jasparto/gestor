@@ -60,7 +60,7 @@
                                 <h:outputText value="#{varSdiOpciones.getPropiedad('descripcion')}" style="font-weight: bold; font-size: 70%;" />
                                 <p:remoteCommand name="mostrarAyudaItem" oncomplete="#{uiEvaluacion.mostrarAyudaItem()}"/>
                                 <p:remoteCommand name="adjuntarSoporte" action="#{uiEvaluacionAdjuntos.adjuntarSoporte()}" update=":formSeccionDetalleItems:dialog"/>
-                                <p:remoteCommand name="planAccion" oncomplete="alert('hola plan accion')"/>
+                                <p:remoteCommand name="planAccion" action="#{uiPlanAccion.mostrarDialogoPlanAccion()}"/>
                                 <p:remoteCommand name="capacitacion" oncomplete="alert('hola capacitacion')"/>
                             </h:panelGrid>
                         </p:dataGrid>

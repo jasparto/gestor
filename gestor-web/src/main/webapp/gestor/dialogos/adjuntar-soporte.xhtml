@@ -37,6 +37,63 @@
 
             <p:fileUpload value="#{uiEvaluacionAdjuntos.file}" mode="advanced" skinSimple="true" label="Seleccionar" fileUploadListener="#{uiEvaluacionAdjuntos.cargarAdjunto}"
                           auto="true"  update="pgAdjunto" immediate="true" process="@this"/>
+
+
+            <h:panelGrid columns="2">
+                <p:commandButton value="Crear / Modificar" action="#{uiEstablecimiento.guardarEstablecimiento()}"
+                                 icon="ui-icon-disk"
+                                 update="formEstablecimientos"/>
+                <p:commandButton value="Limpiar" action="#{uiEstablecimiento.limpiar()}"
+                                 icon="ui-icon-cancel"
+                                 update="formEstablecimientos"/>
+            </h:panelGrid>
+
+
+            <br/>
+            
+            <p:dataTable  value="#{uiEvaluacionAdjuntos.evaluacionAdjuntosList}" var="varEvaluacionAdjunto" emptyMessage="No hay establecimientos"
+                          rowStyleClass="Centro">
+
+                <p:columnGroup type="header">  
+                    <p:row>  
+                        <p:column  headerText="Opciones" />
+                        <p:column headerText="Codigo"/>
+                        <p:column  headerText="Nombre"/>
+                        <p:column  headerText="Municipio"/>
+                        <p:column  headerText="Nit" />
+                        <p:column  headerText="Dirección" />
+                        <p:column  headerText="Telefono" />
+                        <p:column  headerText="Correo" />
+                    </p:row> 
+                </p:columnGroup>
+
+                <p:column>
+                    <p:commandButton icon="ui-icon-pencil" title="Modificar Adjunto" update="opAdjunto"
+                                     action="#{uiEstablecimiento.subirItemEstablecimiento()}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{varEvaluacionAdjunto.nombre}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{varEvaluacionAdjunto.nombre}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{varEstablecimiento.municipios.nombre}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{varEstablecimiento.nit}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{varEstablecimiento.direccion}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{varEstablecimiento.telefono}"/>
+                </p:column>
+                <p:column>
+                    <h:outputText value="#{varEstablecimiento.correo}"/>
+                </p:column>
+
+            </p:dataTable>
         </p:outputPanel>
 
         <br/>

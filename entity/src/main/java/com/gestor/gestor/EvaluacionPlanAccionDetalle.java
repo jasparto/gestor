@@ -10,9 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -30,6 +27,14 @@ public class EvaluacionPlanAccionDetalle implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected EvaluacionPlanAccionDetallePK evaluacionPlanAccionDetallePK;
+    @Column(name = "cod_ciclo")
+    private String codCiclo;
+    @Column(name = "cod_seccion")
+    private Integer codSeccion;
+    @Column(name = "cod_detalle")
+    private Integer codDetalle;
+    @Column(name = "cod_item")
+    private Integer codItem;
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "descripcion")
@@ -37,12 +42,6 @@ public class EvaluacionPlanAccionDetalle implements Serializable {
     @Basic(optional = false)
     @Column(name = "estado")
     private String estado;
-    @JoinColumns({
-        @JoinColumn(name = "cod_evaluacion", referencedColumnName = "cod_evaluacion", insertable = false, updatable = false),
-        @JoinColumn(name = "codigo_establecimiento", referencedColumnName = "codigo_establecimiento", insertable = false, updatable = false),
-        @JoinColumn(name = "cod_plan", referencedColumnName = "cod_plan", insertable = false, updatable = false)})
-    @ManyToOne(optional = false)
-    private EvaluacionPlanAccion evaluacionPlanAccion;
 
     public EvaluacionPlanAccionDetalle() {
     }
@@ -56,7 +55,7 @@ public class EvaluacionPlanAccionDetalle implements Serializable {
         this.estado = estado;
     }
 
-    public EvaluacionPlanAccionDetalle(int codEvaluacion, short codigoEstablecimiento, int codPlan, int codPlanDetalle) {
+    public EvaluacionPlanAccionDetalle(int codEvaluacion, int codigoEstablecimiento, Long codPlan, int codPlanDetalle) {
         this.evaluacionPlanAccionDetallePK = new EvaluacionPlanAccionDetallePK(codEvaluacion, codigoEstablecimiento, codPlan, codPlanDetalle);
     }
 
@@ -66,6 +65,42 @@ public class EvaluacionPlanAccionDetalle implements Serializable {
 
     public void setEvaluacionPlanAccionDetallePK(EvaluacionPlanAccionDetallePK evaluacionPlanAccionDetallePK) {
         this.evaluacionPlanAccionDetallePK = evaluacionPlanAccionDetallePK;
+    }
+    
+     public void setEvaluacionPlanAccionDetallePK(EvaluacionPlanAccionDetallePK evaluacionPlanAccionDetallePK, String estado) {
+        this.evaluacionPlanAccionDetallePK = evaluacionPlanAccionDetallePK;
+    }
+
+    public String getCodCiclo() {
+        return codCiclo;
+    }
+
+    public void setCodCiclo(String codCiclo) {
+        this.codCiclo = codCiclo;
+    }
+
+    public Integer getCodSeccion() {
+        return codSeccion;
+    }
+
+    public void setCodSeccion(Integer codSeccion) {
+        this.codSeccion = codSeccion;
+    }
+
+    public Integer getCodDetalle() {
+        return codDetalle;
+    }
+
+    public void setCodDetalle(Integer codDetalle) {
+        this.codDetalle = codDetalle;
+    }
+
+    public Integer getCodItem() {
+        return codItem;
+    }
+
+    public void setCodItem(Integer codItem) {
+        this.codItem = codItem;
     }
 
     public String getNombre() {
@@ -90,14 +125,6 @@ public class EvaluacionPlanAccionDetalle implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
-    }
-
-    public EvaluacionPlanAccion getEvaluacionPlanAccion() {
-        return evaluacionPlanAccion;
-    }
-
-    public void setEvaluacionPlanAccion(EvaluacionPlanAccion evaluacionPlanAccion) {
-        this.evaluacionPlanAccion = evaluacionPlanAccion;
     }
 
     @Override
