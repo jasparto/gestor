@@ -66,7 +66,7 @@ public class EvaluacionAdjuntos implements Serializable {
         this.archivo = archivo;
     }
 
-    public EvaluacionAdjuntos(Long codEvaluacion, int codigoEstablecimiento, String codCiclo, int codSeccion, int codDetalle, int codItem, int codAdjunto) {
+    public EvaluacionAdjuntos(Long codEvaluacion, int codigoEstablecimiento, String codCiclo, int codSeccion, int codDetalle, int codItem, Long codAdjunto) {
         this.evaluacionAdjuntosPK = new EvaluacionAdjuntosPK(codEvaluacion, codigoEstablecimiento, codCiclo, codSeccion, codDetalle, codItem, codAdjunto);
     }
 
@@ -99,6 +99,13 @@ public class EvaluacionAdjuntos implements Serializable {
     }
 
     public String getArchivo() {
+        return archivo;
+    }
+
+    public String getArchivoSimple() {
+        if (archivo != null && evaluacionAdjuntosPK != null && evaluacionAdjuntosPK.getCodAdjunto() != null && archivo.length() > 0) {
+            return archivo.replace(evaluacionAdjuntosPK.getCodAdjunto() + "-", "");
+        }
         return archivo;
     }
 

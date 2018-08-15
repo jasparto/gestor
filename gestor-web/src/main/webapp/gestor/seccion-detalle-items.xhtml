@@ -58,10 +58,10 @@
                                                     width="30%"/> 
                                 </p:commandLink>
                                 <h:outputText value="#{varSdiOpciones.getPropiedad('descripcion')}" style="font-weight: bold; font-size: 70%;" />
-                                <p:remoteCommand name="mostrarAyudaItem" oncomplete="#{uiEvaluacion.mostrarAyudaItem()}"/>
+                                <p:remoteCommand name="mostrarAyudaItem" action="#{uiEvaluacion.mostrarAyudaItem()}"/>
                                 <p:remoteCommand name="adjuntarSoporte" action="#{uiEvaluacionAdjuntos.adjuntarSoporte()}" update=":formSeccionDetalleItems:dialog"/>
                                 <p:remoteCommand name="planAccion" action="#{uiPlanAccion.mostrarDialogoPlanAccion()}"/>
-                                <p:remoteCommand name="capacitacion" oncomplete="alert('hola capacitacion')"/>
+                                <p:remoteCommand name="capacitacion" oncomplete="alert('En construcción.')"/>
                             </h:panelGrid>
                         </p:dataGrid>
 
@@ -72,7 +72,7 @@
 
             </p:panel>
 
-            <p:dialog id="dialog" widgetVar="dialog" header="#{dialogo.header}" showEffect="#{dialogo.effect}" hideEffect="#{dialogo.effect}"
+            <p:dialog id="dialog" widgetVar="dialog" header="#{dialogo.header}" showEffect="#{dialogo.effect}" hideEffect="#{dialogo.effect}" width="#{dialogo.width}"
                       onHide="limpiarModal()">
                 <ui:include src="#{dialogo.src}"/>
             </p:dialog>

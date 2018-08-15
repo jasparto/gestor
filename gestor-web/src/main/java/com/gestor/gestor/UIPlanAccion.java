@@ -60,7 +60,7 @@ public class UIPlanAccion {
 
     public void mostrarDialogoPlanAccion() {
         this.sdiSeleccionado = (SeccionDetalleItems) UtilJSF.getBean("varSeccionDetalleItems");
-        Dialogo dialogo = new Dialogo("dialogos/plan-accion.xhtml", "Plan Acción", "clip");
+        Dialogo dialogo = new Dialogo("dialogos/plan-accion.xhtml", "Plan Acción", "clip", Dialogo.WIDTH_AUTO);
         UtilJSF.setBean("dialogo", dialogo, UtilJSF.SESSION_SCOPE);
         UtilJSF.execute("PF('dialog').show();");
     }

@@ -6,9 +6,11 @@ package com.gestor.publico;
 
 import com.gestor.controller.GestorGeneral;
 import com.gestor.entity.App;
+import com.gestor.entity.Dialogo;
 import com.gestor.entity.UtilJSF;
 import com.gestor.entity.UtilLog;
 import com.gestor.entity.UtilMSG;
+import com.gestor.gestor.Evaluacion;
 import com.gestor.gestor.controlador.GestorPuntajes;
 import com.gestor.modelo.Sesion;
 import com.gestor.publico.controlador.GestorEstablecimiento;
@@ -150,6 +152,10 @@ public class UIUsuario {
                 usuarios = new Usuarios();
                 UtilJSF.setBean("usuarios", usuarios, UtilJSF.SESSION_SCOPE);
                 UtilJSF.setBean("sesion", sesion, UtilJSF.SESSION_SCOPE);
+
+                UtilJSF.setBean("dialogo", new Dialogo(), UtilJSF.SESSION_SCOPE);
+                UtilJSF.setBean("evaluacion", new Evaluacion(), UtilJSF.SESSION_SCOPE);
+
                 return ("/inicio/principal.xhtml?faces-redirect=true");
             } else {
                 UtilMSG.addWarningMsg("Usuario o clave invalida.");

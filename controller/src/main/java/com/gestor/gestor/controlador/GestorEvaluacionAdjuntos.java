@@ -9,6 +9,8 @@ import com.gestor.controller.Gestor;
 import com.gestor.entity.UtilLog;
 import com.gestor.gestor.dao.EvaluacionAdjuntosDAO;
 import com.gestor.publico.EvaluacionAdjuntos;
+import com.gestor.publico.EvaluacionAdjuntosPK;
+import java.util.Collection;
 
 /**
  *
@@ -41,6 +43,26 @@ public class GestorEvaluacionAdjuntos extends Gestor {
 
             EvaluacionAdjuntosDAO evaluacionAdjuntosDAO = new EvaluacionAdjuntosDAO(conexion);
             evaluacionAdjuntosDAO.insertaEvaluacionAdjuntos(evaluacionAdjuntos);
+        } finally {
+            this.cerrarConexion();
+        }
+    }
+
+    public Collection<? extends EvaluacionAdjuntos> cargarEvaluacionAdjuntos(EvaluacionAdjuntosPK evaluacionAdjuntosPK) throws Exception {
+        try {
+            this.abrirConexion();
+            EvaluacionAdjuntosDAO evaluacionAdjuntosDAO = new EvaluacionAdjuntosDAO(conexion);
+            return evaluacionAdjuntosDAO.cargarEvaluacionAdjuntos(evaluacionAdjuntosPK);
+        } finally {
+            this.cerrarConexion();
+        }
+    }
+
+    public void actualizarEstadoEvaluacionAdjuntos(EvaluacionAdjuntos ea) throws Exception {
+        try {
+            this.abrirConexion();
+            EvaluacionAdjuntosDAO evaluacionAdjuntosDAO = new EvaluacionAdjuntosDAO(conexion);
+            evaluacionAdjuntosDAO.actualizarEstadoEvaluacionAdjuntos(ea);
         } finally {
             this.cerrarConexion();
         }

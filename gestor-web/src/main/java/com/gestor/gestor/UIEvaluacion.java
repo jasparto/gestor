@@ -37,7 +37,7 @@ public class UIEvaluacion {
 
     public static final String COMPONENTES_REFRESCAR = "dialog";
 
-    private List<Evaluacion> evaluacionList;
+    private List<Evaluacion> evaluacionList = new ArrayList<>();
     private List<SeccionDetalleItems> resumenEvaluacionList;
     private Establecimiento establecimiento;
     private Lista seccionDetalleItemsOpcionesLista;
@@ -55,6 +55,7 @@ public class UIEvaluacion {
         try {
             SeccionDetalleItems sdi = (SeccionDetalleItems) UtilJSF.getBean("varSeccionDetalleItems");
             GestorSeccionDetalleItemsAyuda gestorSeccionDetalleItemsAyuda = new GestorSeccionDetalleItemsAyuda();
+            seccionDetalleItemsAyudas = new ArrayList<>();
             seccionDetalleItemsAyudas.addAll(
                     gestorSeccionDetalleItemsAyuda.cargarSeccionDetalleItemsAyudas(
                             new SeccionDetalleItemsAyudaPK(
@@ -63,7 +64,7 @@ public class UIEvaluacion {
                     )
             );
             if (seccionDetalleItemsAyudas != null && !seccionDetalleItemsAyudas.isEmpty()) {
-                Dialogo dialogo = new Dialogo("dialogos/ayuda-item.xhtml", "Indicaciones", "clip");
+                Dialogo dialogo = new Dialogo("dialogos/ayuda-item.xhtml", "Indicaciones", "clip", Dialogo.WIDTH_AUTO);
                 UtilJSF.setBean("dialogo", dialogo, UtilJSF.SESSION_SCOPE);
                 UtilJSF.execute("PF('dialog').show();");
             } else {
@@ -85,7 +86,7 @@ public class UIEvaluacion {
 
     public String nuevo() {
         try {
-            Dialogo dialogo = new Dialogo("dialogos/nuevo.xhtml", "Nueva Evaluación", "clip");
+            Dialogo dialogo = new Dialogo("dialogos/nuevo.xhtml", "Nueva Evaluación", "clip", Dialogo.WIDTH_AUTO);
             UtilJSF.setBean("dialogo", dialogo, UtilJSF.SESSION_SCOPE);
             UtilJSF.execute("PF('dialog').show();");
         } catch (Exception e) {
@@ -320,6 +321,7 @@ public class UIEvaluacion {
     public String cancelar() {
         evaluacionList.clear();
         this.nuevoActivo = Boolean.TRUE;
+        UtilJSF.setBean("evaluacion", new Evaluacion(), UtilJSF.SESSION_SCOPE);
         return ("/gestor/evaluaciones.xhtml?faces-redirect=true");
     }
 

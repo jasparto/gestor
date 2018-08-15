@@ -73,6 +73,17 @@ public class Establecimiento implements Serializable, Cloneable {
         this.nombre = nombre;
     }
 
+    public Establecimiento(Integer codigoEstablecimiento, String nombre, String nit, String direccion, String telefono, String correo) {
+        this.codigoEstablecimiento = codigoEstablecimiento;
+        this.nombre = nombre;
+        this.nit = nit;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.correo = correo;
+    }
+    
+    
+
     public Establecimiento(int codigoEstablecimiento, String nit, Date fechaCierreDiario, String tipoEstablecimiento) {
         this.codigoEstablecimiento = codigoEstablecimiento;
         this.nit = nit;

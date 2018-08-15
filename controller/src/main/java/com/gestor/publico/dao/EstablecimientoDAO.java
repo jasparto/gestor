@@ -135,14 +135,14 @@ public class EstablecimientoDAO {
         try {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
-                    "SELECT E.codigo_establecimiento, E.nombre"
+                    "SELECT E.codigo_establecimiento, E.nombre, E.nit, E.direccion, E.telefono, E.correo, E.fecha_cierre_diario, E.tipo_establecimiento"
                     + " FROM rel_usuarios_establecimiento"
                     + " JOIN establecimiento E USING (codigo_establecimiento)"
                     + " WHERE documento_usuario='" + documentoUsuario + "'"
             );
             rs = consulta.ejecutar(sql);
             while (rs.next()) {
-                listaEstablecimientos.add(new Establecimiento(rs.getInt("codigo_establecimiento"), rs.getString("nombre")));
+                listaEstablecimientos.add(new Establecimiento(rs.getInt("codigo_establecimiento"), rs.getString("nombre"), rs.getString("nit"), rs.getString("direccion"), rs.getString("telefono"), rs.getString("correo")));
             }
             return listaEstablecimientos;
         } finally {

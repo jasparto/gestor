@@ -19,6 +19,7 @@ import javax.faces.bean.SessionScoped;
 public class Dialogo implements Serializable {
 
     public static String EFECTO = "clip";
+    public static String WIDTH_AUTO = "auto";
 
     public Dialogo() {
     }
@@ -27,15 +28,17 @@ public class Dialogo implements Serializable {
         this.src = src;
     }
 
-    public Dialogo(String src, String header, String effect) {
+    public Dialogo(String src, String header, String effect, String width) {
         this.src = src;
         this.header = header;
         this.effect = effect;
+        this.width = width;
     }
 
     private String src;
     private String header;
     private String effect;
+    private String width;
 
     /**
      * @return the src
@@ -77,5 +80,19 @@ public class Dialogo implements Serializable {
      */
     public void setEffect(String effect) {
         this.effect = effect;
+    }
+
+    /**
+     * @return the width
+     */
+    public String getWidth() {
+        return width;
+    }
+
+    /**
+     * @param width the width to set
+     */
+    public void setWidth(String width) {
+        this.width = width;
     }
 }

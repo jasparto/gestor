@@ -37,12 +37,12 @@ public class EvaluacionAdjuntosPK implements Serializable {
     private int codItem;
     @Basic(optional = false)
     @Column(name = "cod_adjunto")
-    private int codAdjunto;
+    private Long codAdjunto;
 
     public EvaluacionAdjuntosPK() {
     }
-    
-     public EvaluacionAdjuntosPK(Long codEvaluacion, int codigoEstablecimiento, String codCiclo, int codSeccion, int codDetalle, int codItem, int codAdjunto) {
+
+    public EvaluacionAdjuntosPK(Long codEvaluacion, int codigoEstablecimiento, String codCiclo, int codSeccion, int codDetalle, int codItem, Long codAdjunto) {
         this.codEvaluacion = codEvaluacion;
         this.codigoEstablecimiento = codigoEstablecimiento;
         this.codCiclo = codCiclo;
@@ -109,11 +109,11 @@ public class EvaluacionAdjuntosPK implements Serializable {
         this.codItem = codItem;
     }
 
-    public int getCodAdjunto() {
+    public Long getCodAdjunto() {
         return codAdjunto;
     }
 
-    public void setCodAdjunto(int codAdjunto) {
+    public void setCodAdjunto(Long codAdjunto) {
         this.codAdjunto = codAdjunto;
     }
 
@@ -126,7 +126,7 @@ public class EvaluacionAdjuntosPK implements Serializable {
         hash += (int) codSeccion;
         hash += (int) codDetalle;
         hash += (int) codItem;
-        hash += (int) codAdjunto;
+        hash += codAdjunto;
         return hash;
     }
 
