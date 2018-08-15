@@ -17,6 +17,11 @@
                     <h:outputText value="Código Evaluacion: #{evaluacion.evaluacionPK.codEvaluacion}"/>
                     <p:progressBar id="pbAvance" value="#{uiEvaluacion.avanceEvaluacion}" labelTemplate="{value}%" displayOnly="true" interval="10"/>
                     <br/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionPlanear}" labelTemplate="Planear {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'P'}"/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionHacer}" labelTemplate="Hacer {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'H'}"/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionVerificar}" labelTemplate="Verificar {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'V'}"/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionActuar}" labelTemplate="Actuar {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'A'}"/>
+                    <br/>
                     <p:button outcome="evaluacion" icon="ui-icon-arrowthickstop-1-w" title="Ciclos"
                               style="font-size: 9px;"/>
                     <p:spacer width="10px;"/>
@@ -33,7 +38,6 @@
                             rows="1" paginator="true" id="dtSeccionDetalleItems"
                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                             >
-
                     <f:facet name="header">
                         Seccion Detalle Evaluar (#{seccionDetalle.nombre}")
                     </f:facet>
@@ -47,12 +51,11 @@
                                 <f:selectItems value="#{varSeccionDetalleItems.evaluacionPuntajesItems}" var="c" itemLabel="#{descripcion}" itemValue="#{descripcion}"/>
                                 <p:ajax event="change" process="@this" listener="#{uiEvaluacion.guardarSeccionDetalleItems()}" update=":formSeccionDetalleItems:pbAvance"/>
                             </p:selectOneRadio>
-
                         </center>
                         <br/>
                         <p:dataGrid value="#{uiEvaluacion.seccionDetalleItemsOpcionesLista.listaDetalleList}" var="varSdiOpciones" styleClass="Centro"
                                     layout="grid" columns="4">
-                            <h:panelGrid >
+                            <h:panelGrid >  
                                 <p:commandLink oncomplete="#{varSdiOpciones.getPropiedad('comando')}">
                                     <p:graphicImage url="#{varSdiOpciones.getPropiedad('imagen')}" 
                                                     width="30%"/> 

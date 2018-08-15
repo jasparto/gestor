@@ -17,6 +17,11 @@
                     <h:outputText value="Código Evaluacion: #{evaluacion.evaluacionPK.codEvaluacion}"/>
                     <p:progressBar value="#{uiEvaluacion.avanceEvaluacion}" labelTemplate="{value}%" displayOnly="true" interval="10"/>
                     <br/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionPlanear}" labelTemplate="Planear {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'P'}"/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionHacer}" labelTemplate="Hacer {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'H'}"/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionVerificar}" labelTemplate="Verificar {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'V'}"/>
+                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionActuar}" labelTemplate="Actuar {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'A'}"/>
+                    <br/>
                     <p:button outcome="evaluacion" icon="ui-icon-arrowthickstop-1-w" title="Ciclos"
                               style="font-size: 9px;"/>
                     <p:spacer width="10px;"/>
