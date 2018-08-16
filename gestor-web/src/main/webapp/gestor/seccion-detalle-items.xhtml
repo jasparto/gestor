@@ -15,23 +15,25 @@
 
                 <f:facet name="header">
                     <h:outputText value="Código Evaluacion: #{evaluacion.evaluacionPK.codEvaluacion}"/>
-                    <p:progressBar id="pbAvance" value="#{uiEvaluacion.avanceEvaluacion}" labelTemplate="{value}%" displayOnly="true" interval="10"/>
-                    <br/>
-                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionPlanear}" labelTemplate="Planear {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'P'}"/>
-                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionHacer}" labelTemplate="Hacer {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'H'}"/>
-                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionVerificar}" labelTemplate="Verificar {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'V'}"/>
-                    <p:progressBar value="#{uiEvaluacion.avanceEvaluacionActuar}" labelTemplate="Actuar {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'A'}"/>
-                    <br/>
-                    <p:button outcome="evaluacion" icon="ui-icon-arrowthickstop-1-w" title="Ciclos"
-                              style="font-size: 9px;"/>
-                    <p:spacer width="10px;"/>
-                    <p:button outcome="seccion" value="CICLO #{ciclo.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;"/>
-                    <p:spacer width="10px;"/>
-                    <p:button outcome="seccion-detalle" value="SECCIÓN #{seccion.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;"
-                              rendered="#{not empty seccion.seccionPK.codSeccion}"/>
-                    <p:spacer width="10px;"/>
-                    <p:button outcome="seccion-detalle-items" value="ITEM #{seccionDetalle.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;"
-                              rendered="#{not empty seccionDetalle.seccionDetallePK.codDetalle}" styleClass="ui-state-active" disabled="true"/>
+                    <h:panelGroup id="pgAvance">
+                        <p:progressBar id="pbAvance" value="#{uiEvaluacion.avanceEvaluacion}" labelTemplate="{value}%" displayOnly="true" interval="10"/>
+                        <br/>
+                        <p:progressBar value="#{uiEvaluacion.avanceEvaluacionPlanear}" labelTemplate="Planear {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'P'}"/>
+                        <p:progressBar value="#{uiEvaluacion.avanceEvaluacionHacer}" labelTemplate="Hacer {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'H'}"/>
+                        <p:progressBar value="#{uiEvaluacion.avanceEvaluacionVerificar}" labelTemplate="Verificar {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'V'}"/>
+                        <p:progressBar value="#{uiEvaluacion.avanceEvaluacionActuar}" labelTemplate="Actuar {value}%" displayOnly="true" interval="10" style="width: 50%;" rendered="#{ciclo.codCiclo eq 'A'}"/>
+                        <br/>
+                        <p:button outcome="evaluacion" icon="ui-icon-arrowthickstop-1-w" title="Ciclos"
+                                  style="font-size: 9px;"/>
+                        <p:spacer width="10px;"/>
+                        <p:button outcome="seccion" value="CICLO #{ciclo.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;"/>
+                        <p:spacer width="10px;"/>
+                        <p:button outcome="seccion-detalle" value="SECCIÓN #{seccion.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;"
+                                  rendered="#{not empty seccion.seccionPK.codSeccion}"/>
+                        <p:spacer width="10px;"/>
+                        <p:button outcome="seccion-detalle-items" value="ITEM #{seccionDetalle.nombre}" icon="ui-icon-arrowreturn-1-e" style="font-size: 9px;"
+                                  rendered="#{not empty seccionDetalle.seccionDetallePK.codDetalle}" styleClass="ui-state-active" disabled="true"/>
+                    </h:panelGroup>
                 </f:facet>
 
                 <p:dataGrid var="varSeccionDetalleItems" value="#{seccionDetalle.seccionDetalleItemsList}" columns="1" layout="grid"
@@ -49,7 +51,7 @@
                             <p:outputLabel for="sorPuntaje" value="Puntaje Posible" />
                             <p:selectOneRadio id="sorPuntaje" value="#{varSeccionDetalleItems.evaluacionPuntajes.descripcion}" layout="responsive" columns="4">
                                 <f:selectItems value="#{varSeccionDetalleItems.evaluacionPuntajesItems}" var="c" itemLabel="#{descripcion}" itemValue="#{descripcion}"/>
-                                <p:ajax event="change" process="@this" listener="#{uiEvaluacion.guardarSeccionDetalleItems()}" update=":formSeccionDetalleItems:pbAvance"/>
+                                <p:ajax event="change" process="@this" listener="#{uiEvaluacion.guardarSeccionDetalleItems()}" update=":formSeccionDetalleItems:pgAvance"/>
                             </p:selectOneRadio>
                         </center>
                         <br/>
@@ -85,7 +87,7 @@
                 <ui:param name="bean" value="#{uiEvaluacion}"/>
             </ui:include>
         </h:form>
-        
+
     </ui:define>
 
 </ui:composition>

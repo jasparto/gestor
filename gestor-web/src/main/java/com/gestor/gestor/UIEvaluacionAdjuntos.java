@@ -47,6 +47,12 @@ public class UIEvaluacionAdjuntos {
     private String archivoEliminar;
     private StreamedContent fileDownload;
 
+    public void limpiar() {
+        UtilJSF.setBean("evaluacionAdjuntos", new EvaluacionAdjuntos(), UtilJSF.SESSION_SCOPE);
+        archivoEliminar = null;
+        file = null;
+    }
+
     public void eliminarAdjunto() {
         try {
             EvaluacionAdjuntos ea = (EvaluacionAdjuntos) UtilJSF.getBean("varEvaluacionAdjunto");

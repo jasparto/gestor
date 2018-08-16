@@ -22,13 +22,13 @@
 
                     <h:outputLabel value="Nombre: " style="font-weight: bold;"/>
                     <p:inputText value="#{evaluacionAdjuntos.nombre}" placeholder="Registra un nombre para identificar el adjunto">
-                        <p:ajax event="blur" process="@this"/>
+                        <p:ajax event="blur" process="@this" update="pgSoporteAdjunto"/>
                     </p:inputText>
 
 
                     <h:outputLabel value="Descripcion: " style="font-weight: bold;"/>
                     <p:inputTextarea value="#{evaluacionAdjuntos.descripcion}" placeholder="Registra la descripcion del adjunto">
-                        <p:ajax event="blur" process="@this"/>
+                        <p:ajax event="blur" process="@this" update="pgSoporteAdjunto"/>
                     </p:inputTextarea>
 
                     <h:outputLabel value="Archivo: " style="font-weight: bold;" />
@@ -92,7 +92,7 @@
                 </p:dataTable>
             </h:panelGrid>
             <br/>
-            <h:panelGrid>
+            <h:panelGrid id="pgSoporteAdjunto">
                 <p:fileUpload value="#{uiEvaluacionAdjuntos.file}" mode="advanced" skinSimple="true" label="Seleccionar" fileUploadListener="#{uiEvaluacionAdjuntos.cargarAdjunto}"
                               auto="true"  update="pgAdjunto" immediate="true" process="@this"/>
             </h:panelGrid>
@@ -106,10 +106,11 @@
 
         <p:toolbar style="height: 45px;" >
             <p:toolbarGroup align="center" style="margin: auto auto;  align-content: center">
-                <h:panelGrid columns="2" cellspacing="10" style="align-content: center; display: inline-block;">
+                <h:panelGrid columns="3" cellspacing="10" style="align-content: center; display: inline-block;">
                     <p:commandButton value="Guardar Soporte" icon="ui-icon-disk" action="#{uiEvaluacionAdjuntos.guardarAdjunto()}" 
                                      process="@parent" update="opAdjunto"/>
                     <p:commandButton value="Volver" icon="ui-icon-triangle-1-w" oncomplete="PF('dialog').hide();"/>
+                    <p:commandButton value="Limpiar" icon="ui-icon-cancel" action="#{uiEvaluacionAdjuntos.limpiar()}" update="opAdjunto" process="@this"/>
                 </h:panelGrid>
             </p:toolbarGroup>
         </p:toolbar> 
