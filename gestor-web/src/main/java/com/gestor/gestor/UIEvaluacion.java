@@ -86,7 +86,7 @@ public class UIEvaluacion {
 
     public String nuevo() {
         try {
-            Dialogo dialogo = new Dialogo("dialogos/nuevo.xhtml", "Nueva Evaluación", "clip", Dialogo.WIDTH_AUTO);
+            Dialogo dialogo = new Dialogo("dialogos/nuevo.xhtml", "Nueva Evaluación", "clip", "80%");
             UtilJSF.setBean("dialogo", dialogo, UtilJSF.SESSION_SCOPE);
             UtilJSF.execute("PF('dialog').show();");
         } catch (Exception e) {
@@ -214,12 +214,14 @@ public class UIEvaluacion {
             }
             Evaluacion e = new Evaluacion(new EvaluacionPK(gestorGeneral.nextval(GestorGeneral.GESTOR_EVALUACION_COD_EVALUACION_SEQ), sesion.getEstablecimiento().getCodigoEstablecimiento()),
                     sesion.getUsuarios().getUsuariosPK().getDocumentoUsuario(), new Date(), new Date(), App.EVALUACION_ESTADO_ABIERTO);
-
+            
             e.setFecha(evaluacion.getFecha());
             e.setEvaluacionPuntajesList(gestorEvaluacion.generarEvaluacionPuntajes(sesion.getEstablecimiento().getCodigoEstablecimiento(), e.getEvaluacionPK().getCodEvaluacion(), sesion.getPuntajesList()));
             e = gestorEvaluacion.validarEvaluacion(e);
             gestorEvaluacion.procesarEvaluacion(e);
-
+            
+            e.setUsuarios(sesion.getUsuarios());
+            e.setEstablecimiento(sesion.getEstablecimiento());
             e.setCiclos(sesion.getCiclos());
 
             List<String> evaluacionPuntajesItems = new ArrayList<>();
@@ -228,7 +230,7 @@ public class UIEvaluacion {
             }
 
             for (Ciclo c : e.getCiclos()) {
-                c.setEvaluacion(evaluacion);
+                c.setEvaluacion(e);
                 for (Seccion s : c.getSeccionList()) {
                     s.setCiclo(c);
                     for (SeccionDetalle sd : s.getSeccionDetalleList()) {
