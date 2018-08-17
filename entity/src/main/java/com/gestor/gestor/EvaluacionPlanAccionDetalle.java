@@ -5,7 +5,11 @@
  */
 package com.gestor.gestor;
 
+import com.gestor.publico.Usuarios;
 import java.io.Serializable;
+import java.util.Date;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -21,7 +25,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "evaluacion_plan_accion_detalle")
 @NamedQueries({
-    @NamedQuery(name = "EvaluacionPlanAccionDetalle.findAll", query = "SELECT e FROM EvaluacionPlanAccionDetalle e")})
+    @NamedQuery(name = "EvaluacionPlanAccionDetalle.findAll", query = "SELECT e FROM EvaluacionPlanAccionDetalle e")
+})
+@ManagedBean
+@SessionScoped
 public class EvaluacionPlanAccionDetalle implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,7 +49,12 @@ public class EvaluacionPlanAccionDetalle implements Serializable {
     @Basic(optional = false)
     @Column(name = "estado")
     private String estado;
-
+    private String documentoUsuario;
+    
+    private Usuarios usuarios;
+    
+    private Date fechaRegistro;
+    
     public EvaluacionPlanAccionDetalle() {
     }
 
@@ -55,8 +67,21 @@ public class EvaluacionPlanAccionDetalle implements Serializable {
         this.estado = estado;
     }
 
-    public EvaluacionPlanAccionDetalle(int codEvaluacion, int codigoEstablecimiento, Long codPlan, int codPlanDetalle) {
+    public EvaluacionPlanAccionDetalle(Long codEvaluacion, int codigoEstablecimiento, Long codPlan, int codPlanDetalle) {
         this.evaluacionPlanAccionDetallePK = new EvaluacionPlanAccionDetallePK(codEvaluacion, codigoEstablecimiento, codPlan, codPlanDetalle);
+    }
+
+    public EvaluacionPlanAccionDetalle(EvaluacionPlanAccionDetallePK evaluacionPlanAccionDetallePK, String codCiclo, Integer codSeccion, Integer codDetalle, Integer codItem, String nombre, String descripcion, String estado, Usuarios usuarios, Date fechaRegistro) {
+        this.evaluacionPlanAccionDetallePK = evaluacionPlanAccionDetallePK;
+        this.codCiclo = codCiclo;
+        this.codSeccion = codSeccion;
+        this.codDetalle = codDetalle;
+        this.codItem = codItem;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.estado = estado;
+        this.usuarios = usuarios;
+        this.fechaRegistro = fechaRegistro;
     }
 
     public EvaluacionPlanAccionDetallePK getEvaluacionPlanAccionDetallePK() {
@@ -66,8 +91,8 @@ public class EvaluacionPlanAccionDetalle implements Serializable {
     public void setEvaluacionPlanAccionDetallePK(EvaluacionPlanAccionDetallePK evaluacionPlanAccionDetallePK) {
         this.evaluacionPlanAccionDetallePK = evaluacionPlanAccionDetallePK;
     }
-    
-     public void setEvaluacionPlanAccionDetallePK(EvaluacionPlanAccionDetallePK evaluacionPlanAccionDetallePK, String estado) {
+
+    public void setEvaluacionPlanAccionDetallePK(EvaluacionPlanAccionDetallePK evaluacionPlanAccionDetallePK, String estado) {
         this.evaluacionPlanAccionDetallePK = evaluacionPlanAccionDetallePK;
     }
 
@@ -151,5 +176,47 @@ public class EvaluacionPlanAccionDetalle implements Serializable {
     public String toString() {
         return "com.gestor.gestor.EvaluacionPlanAccionDetalle[ evaluacionPlanAccionDetallePK=" + evaluacionPlanAccionDetallePK + " ]";
     }
-    
+
+    /**
+     * @return the fechaRegistro
+     */
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    /**
+     * @param fechaRegistro the fechaRegistro to set
+     */
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    /**
+     * @return the usuarios
+     */
+    public Usuarios getUsuarios() {
+        return usuarios;
+    }
+
+    /**
+     * @param usuarios the usuarios to set
+     */
+    public void setUsuarios(Usuarios usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    /**
+     * @return the documentoUsuario
+     */
+    public String getDocumentoUsuario() {
+        return documentoUsuario;
+    }
+
+    /**
+     * @param documentoUsuario the documentoUsuario to set
+     */
+    public void setDocumentoUsuario(String documentoUsuario) {
+        this.documentoUsuario = documentoUsuario;
+    }
+
 }

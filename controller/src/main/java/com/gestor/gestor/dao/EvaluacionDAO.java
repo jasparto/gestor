@@ -129,10 +129,10 @@ public class EvaluacionDAO {
             StringBuilder sql = new StringBuilder(
                     "INSERT INTO gestor.evaluacion_puntajes("
                     + " codigo_establecimiento, cod_evaluacion, cod_puntaje, descripcion, "
-                    + " plan_accion, capacitacion, califica)"
+                    + " plan_accion, capacitacion, califica, orden)"
                     + " VALUES (" + ep.getEvaluacionPuntajesPK().getCodigoEstablecimiento() + ", " + ep.getEvaluacionPuntajesPK().getCodEvaluacion()
                     + " , '" + ep.getEvaluacionPuntajesPK().getCodPuntaje() + "', '" + ep.getDescripcion() + "'"
-                    + " , " + ep.getPlanAccion() + ", " + ep.getCapacitacion() + ", " + ep.getCalifica() + ");"
+                    + " , " + Boolean.FALSE + ", " + Boolean.FALSE + ", " + ep.getCalifica() + "," + ep.getOrden() + ");"
             );
             consulta.actualizar(sql);
         } finally {

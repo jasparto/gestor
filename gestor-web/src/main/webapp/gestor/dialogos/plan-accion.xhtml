@@ -13,32 +13,83 @@
             </h3>
 
             <br/>
+            <h:panelGrid columns="2" cellspacing="10">
+                <h:panelGrid id="pgPlanAccion" columns="2" cellspacing="10">
+                    <h:outputLabel value="Nombre: " style="font-weight: bold;"/>
+                    <p:inputText value="#{evaluacionPlanAccionDetalle.nombre}" placeholder="Registra el nombre del plan de accción"
+                                 >
+                        <p:ajax event="blur" process="@this"/>
+                    </p:inputText>
 
-            <h:panelGrid id="pgPlanAccion" columns="2" cellspacing="10">
-                <h:outputLabel value="Nombre: " style="font-weight: bold;"/>
-                <p:inputText value="#{evaluacionPlanAccionDetalle.nombre}" placeholder="Registra el nombre del plan de accción">
-                    <p:ajax event="blur" process="@this"/>
-                </p:inputText>
-                
-                <h:outputLabel value="Descripción: " style="font-weight: bold;"/>
-                <p:inputText value="#{evaluacionPlanAccionDetalle.descripcion}" placeholder="Registra la descripción del plan de accción" style="width: 100%">
-                    <p:ajax event="blur" process="@this"/>
-                </p:inputText>
-                
+                    <h:outputLabel value="Descripción: " style="font-weight: bold;"/>
+                    <p:inputTextarea value="#{evaluacionPlanAccionDetalle.descripcion}" placeholder="Registra la descripción del plan de accción">
+                        <p:ajax event="blur" process="@this"/>
+                    </p:inputTextarea>
+
+                </h:panelGrid>
+
+                <p:dataTable  value="#{uiPlanAccion.evaluacionPlanAccionDetalles}" var="varPlanAccionDetalle" emptyMessage="El ítem no tiene planes de acción."
+                              rowStyleClass="letra-xx-small-centro" widgetVar="evaluacionAdjuntosTable">
+                    <f:facet name="header">
+                        Planes de Acción
+                    </f:facet>
+                    <p:columnGroup type="header">  
+                        <p:row>  
+                            <p:column  headerText="Opciones" />
+                            <p:column headerText="Nombre" filterBy="#{varPlanAccionDetalle.nombre}" sortBy="#{varPlanAccionDetalle.nombre}"/>
+                            <p:column  headerText="Descripción"/>
+                            <p:column  headerText="Fecha" sortBy="#{varPlanAccionDetalle.fechaRegistro}"/>
+                            <p:column  headerText="Usuario" filterBy="#{varPlanAccionDetalle.usuarios.usuario}"/>
+                            <p:column  headerText="Estado" filterBy="#{varPlanAccionDetalle.estado}"/>
+                        </p:row> 
+                    </p:columnGroup>
+
+                    <p:column>
+                        <p:panelGrid columns="3">
+                            <p:commandButton icon="ui-icon-pencil" title="Modificar Adjunto"/>
+                            <p:commandButton icon="ui-icon-trash" title="Eliminar Adjunto" >
+                                <p:confirm header="Eliminar Soporte" message="Desea eliminar el plan de acción ?" icon="ui-icon-alert" />
+                            </p:commandButton>
+                        </p:panelGrid>
+                    </p:column>
+                    <p:column >
+                        <h:outputText value="#{varPlanAccionDetalle.nombre}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{varPlanAccionDetalle.descripcion}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{varPlanAccionDetalle.fechaRegistro}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{varPlanAccionDetalle.usuarios.usuario}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{varPlanAccionDetalle.estado}"/>
+                    </p:column>
+
+
+                </p:dataTable>
+
             </h:panelGrid>
+
 
         </p:outputPanel>
 
         <br/>
 
         <p:toolbar style="height: 45px;">
-            <p:toolbarGroup align="center" style="margin: auto auto;">
-                <h:panelGrid columns="2" cellspacing="10">
+            <p:toolbarGroup align="center" style="margin: auto auto;  align-content: center">
+                <h:panelGrid columns="3" cellspacing="10" style="align-content: center; display: inline-block;">
                     <p:commandButton value="Generar Plan Acción" icon="ui-icon-disk" action="#{uiPlanAccion.procesarPlanAccion()}" process="@parent" update="pgPlanAccion"/>
                     <p:commandButton value="Volver" icon="ui-icon-triangle-1-w" oncomplete="PF('dialog').hide();"/>
                 </h:panelGrid>
             </p:toolbarGroup>
         </p:toolbar> 
+        
+        
 
 
 

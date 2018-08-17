@@ -25,5 +25,6 @@ public class App {
     public static final String COD_CICLO_ACTUAR = "A";
     public static final String LISTA_SECCION_DETALLE_ITEMS_OPCIONES = "SECCION_DETALLE_ITEMS_OPCIONES";
     public static final String ADJUNTO_PREFIJO = "E-";
+    public static String EVALUACION_PLAN_ACCION_DETALLE_ESTADO_ELIMINADO = "E";
 
 }

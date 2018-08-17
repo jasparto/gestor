@@ -6,6 +6,8 @@
 package com.gestor.gestor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -52,7 +54,7 @@ public class EvaluacionPlanAccion implements Serializable {
     @Column(name = "estado")
     private String estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluacionPlanAccion")
-    private List<EvaluacionPlanAccionDetalle> evaluacionPlanAccionDetalleList;
+    private List<EvaluacionPlanAccionDetalle> evaluacionPlanAccionDetalleList = new ArrayList<>();
     private EvaluacionPlanAccionDetalle evaluacionPlanAccionDetalle;
 
     public EvaluacionPlanAccion() {
@@ -74,7 +76,7 @@ public class EvaluacionPlanAccion implements Serializable {
         this.documentoUsuarioModifica = documentoUsuarioModifica;
     }
 
-    public EvaluacionPlanAccion(int codEvaluacion, short codigoEstablecimiento, Long codPlan) {
+    public EvaluacionPlanAccion(Long codEvaluacion, int codigoEstablecimiento, Long codPlan) {
         this.evaluacionPlanAccionPK = new EvaluacionPlanAccionPK(codEvaluacion, codigoEstablecimiento, codPlan);
     }
 

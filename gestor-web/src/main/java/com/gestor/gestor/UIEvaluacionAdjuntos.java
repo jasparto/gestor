@@ -147,7 +147,7 @@ public class UIEvaluacionAdjuntos {
                     sdiSeleccionado.getSeccionDetalle().getSeccionDetallePK().getCodDetalle(), sdiSeleccionado.getSeccionDetalleItemsPK().getCodItem(), codAdjunto)
             );
             if (file == null || file.getFileName() == null || file.getFileName().equalsIgnoreCase("")) {
-                UtilMSG.addErrorMsg("Selecciona el archivo a guardar.");
+                UtilMSG.addErrorMsg("Cargar Adjunto", "Selecciona el archivo a guardar.");
                 return;
             }
             String fileName = codAdjunto + "-" + file.getFileName();

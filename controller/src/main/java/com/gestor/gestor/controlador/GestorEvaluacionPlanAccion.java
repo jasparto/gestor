@@ -6,9 +6,12 @@
 package com.gestor.gestor.controlador;
 
 import com.gestor.controller.Gestor;
+import com.gestor.entity.UtilLog;
 import com.gestor.gestor.EvaluacionPlanAccion;
 import com.gestor.gestor.EvaluacionPlanAccionDetalle;
 import com.gestor.gestor.dao.EvaluacionPlanAccionDAO;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -20,8 +23,15 @@ public class GestorEvaluacionPlanAccion extends Gestor {
         super();
     }
 
-    public EvaluacionPlanAccionDetalle validarEvaluacionPlanAccionDetalle(EvaluacionPlanAccionDetalle epd) {
-
+    public EvaluacionPlanAccionDetalle validarEvaluacionPlanAccionDetalle(EvaluacionPlanAccionDetalle epd) throws Exception {
+        if (epd.getNombre() == null || epd.getNombre().equalsIgnoreCase("")) {
+            throw new Exception("Ingrese el nombre del plan de acción.", UtilLog.TW_VALIDACION);
+        }
+        if (epd.getDescripcion() == null || epd.getDescripcion().equalsIgnoreCase("")) {
+            throw new Exception("Ingrese el nombre del plan de acción.", UtilLog.TW_VALIDACION);
+        }
+        epd.setNombre(epd.getNombre().toUpperCase().trim());
+        epd.setDescripcion(epd.getDescripcion().toUpperCase().trim());
         return epd;
     }
 
@@ -32,8 +42,18 @@ public class GestorEvaluacionPlanAccion extends Gestor {
             EvaluacionPlanAccionDAO evaluacionPlanAccionDAO = new EvaluacionPlanAccionDAO(conexion);
             evaluacionPlanAccionDAO.upsertEvaluacionPlanAccion(ep);
             evaluacionPlanAccionDAO.insertaEvaluacionPlanAccionDetalle(ep.getEvaluacionPlanAccionDetalle());
-            
+
             this.finTransaccion();
+        } finally {
+            this.cerrarConexion();
+        }
+    }
+
+    public Collection<? extends EvaluacionPlanAccionDetalle> cargarListaEvaluacionPlanAccion(Long codEvaluacion, int codigoEstablecimiento, String codCiclo, int codSeccion, int codDetalle, int codItem) throws Exception {
+        try {
+            this.abrirConexion();
+            EvaluacionPlanAccionDAO evaluacionPlanAccionDAO = new EvaluacionPlanAccionDAO(conexion);
+            return evaluacionPlanAccionDAO.cargarListaEvaluacionPlanAccion(codEvaluacion, codigoEstablecimiento,  codCiclo, codSeccion, codDetalle, codItem);
         } finally {
             this.cerrarConexion();
         }

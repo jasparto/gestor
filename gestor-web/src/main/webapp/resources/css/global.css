@@ -11,6 +11,13 @@ body {
     font-size: 13px;
 }
 
+.letraBackgroundWhite{
+    font-weight: bold;
+    font-family: Helvetica;
+    font-size: 14px;
+    background-color: #ffffff;
+}
+
 .letraBlanca{
     font-weight: bold;
     font-family: Helvetica;
@@ -27,6 +34,14 @@ body {
     font-weight: bold;
     font-family: Helvetica;
     font-size: 20px;
+}
+
+.labelOpcion{
+    font-weight: bold;
+    font-family: Helvetica;
+    font-size: 25px;
+    font-weight: 900;
+    color: #0078ae;
 }
 
 .letraTitulo{

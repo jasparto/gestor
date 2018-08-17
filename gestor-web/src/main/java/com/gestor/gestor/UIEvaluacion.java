@@ -64,7 +64,7 @@ public class UIEvaluacion {
                     )
             );
             if (seccionDetalleItemsAyudas != null && !seccionDetalleItemsAyudas.isEmpty()) {
-                Dialogo dialogo = new Dialogo("dialogos/ayuda-item.xhtml", "Indicaciones", "clip", Dialogo.WIDTH_AUTO);
+                Dialogo dialogo = new Dialogo("dialogos/ayuda-item.xhtml", "Indicaciones", "clip", Dialogo.WIDTH_80);
                 UtilJSF.setBean("dialogo", dialogo, UtilJSF.SESSION_SCOPE);
                 UtilJSF.execute("PF('dialog').show();");
             } else {
@@ -101,6 +101,7 @@ public class UIEvaluacion {
             this.seccionDetalleItemsOpcionesLista = new GestorLista().cargarLista(App.LISTA_SECCION_DETALLE_ITEMS_OPCIONES);
             UtilJSF.setBean("evaluacion", new Evaluacion(), UtilJSF.SESSION_SCOPE);
             UtilJSF.setBean("evaluacionAdjuntos", new EvaluacionAdjuntos(), UtilJSF.SESSION_SCOPE);
+            UtilJSF.setBean("evaluacionPlanAccionDetalle", new EvaluacionPlanAccionDetalle(), UtilJSF.SESSION_SCOPE);
 
         } catch (Exception ex) {
             UtilLog.generarLog(this.getClass(), ex);
@@ -201,6 +202,18 @@ public class UIEvaluacion {
         this.establecimiento = new Establecimiento();
     }
 
+    public void finalizarEvaluacion() {
+        if (getAvanceEvaluacion() < 100) {
+            UtilMSG.addWarningMsg("Se debe completar la evalución para finalizarla.");
+            return;
+        }
+        try {
+            GestorEvaluacion gestorEvaluacion = new GestorEvaluacion();
+        } catch (Exception e) {
+            UtilLog.generarLog(this.getClass(), e);
+        }
+    }
+
     public String procesarEvaluacion() {
         try {
             Sesion sesion = (Sesion) UtilJSF.getBean("sesion");
@@ -214,12 +227,12 @@ public class UIEvaluacion {
             }
             Evaluacion e = new Evaluacion(new EvaluacionPK(gestorGeneral.nextval(GestorGeneral.GESTOR_EVALUACION_COD_EVALUACION_SEQ), sesion.getEstablecimiento().getCodigoEstablecimiento()),
                     sesion.getUsuarios().getUsuariosPK().getDocumentoUsuario(), new Date(), new Date(), App.EVALUACION_ESTADO_ABIERTO);
-            
+
             e.setFecha(evaluacion.getFecha());
             e.setEvaluacionPuntajesList(gestorEvaluacion.generarEvaluacionPuntajes(sesion.getEstablecimiento().getCodigoEstablecimiento(), e.getEvaluacionPK().getCodEvaluacion(), sesion.getPuntajesList()));
             e = gestorEvaluacion.validarEvaluacion(e);
             gestorEvaluacion.procesarEvaluacion(e);
-            
+
             e.setUsuarios(sesion.getUsuarios());
             e.setEstablecimiento(sesion.getEstablecimiento());
             e.setCiclos(sesion.getCiclos());
@@ -323,6 +336,7 @@ public class UIEvaluacion {
     public String cancelar() {
         evaluacionList.clear();
         this.nuevoActivo = Boolean.TRUE;
+        this.guardarActivo = Boolean.FALSE;
         UtilJSF.setBean("evaluacion", new Evaluacion(), UtilJSF.SESSION_SCOPE);
         return ("/gestor/evaluaciones.xhtml?faces-redirect=true");
     }
