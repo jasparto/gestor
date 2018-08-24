@@ -44,7 +44,7 @@
                         Seccion Detalle Evaluar (#{seccionDetalle.nombre}")
                     </f:facet>
 
-                    <p:panel header="#{varSeccionDetalleItems.nombre}" style="text-align:left" >
+                    <p:panel header="#{varSeccionDetalleItems.numeralNombre}" style="text-align:left" >
                         <center>
                             <p align="left" class="letraBackgroundWhite">#{varSeccionDetalleItems.detalle}</p>
                             <br/>
@@ -67,7 +67,7 @@
                                 <p:remoteCommand name="mostrarAyudaItem" action="#{uiEvaluacion.mostrarAyudaItem()}" update=":formSeccionDetalleItems:dialog"/>
                                 <p:remoteCommand name="adjuntarSoporte" action="#{uiEvaluacionAdjuntos.adjuntarSoporte()}" update=":formSeccionDetalleItems:dialog"/>
                                 <p:remoteCommand name="planAccion" action="#{uiPlanAccion.mostrarDialogoPlanAccion()}" update=":formSeccionDetalleItems:dialog"/>
-                                <p:remoteCommand name="capacitacion" oncomplete="alert('En construcción.')"/>
+                                <p:remoteCommand name="capacitacion" action="#{uiCapacitacion.mostrarDialogoCapacitacion()}" update=":formSeccionDetalleItems:dialog"/>
                             </h:panelGrid>
                         </p:dataGrid>
 

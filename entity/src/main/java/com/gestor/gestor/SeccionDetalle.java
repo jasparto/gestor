@@ -5,6 +5,7 @@
  */
 package com.gestor.gestor;
 
+import com.gestor.entity.App;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -49,6 +50,7 @@ public class SeccionDetalle implements Serializable {
 
     private Boolean activo;
     private String imagen;
+    private String numeral;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "seccionDetalle")
     private List<SeccionDetalleItems> seccionDetalleItemsList;
@@ -85,6 +87,10 @@ public class SeccionDetalle implements Serializable {
 
     public void setSeccionDetallePK(SeccionDetallePK seccionDetallePK) {
         this.seccionDetallePK = seccionDetallePK;
+    }
+    
+    public String getNumeralNombre() {
+        return numeral + App.NUMERAL_SEPARADOR + nombre;
     }
 
     public String getNombre() {
@@ -192,6 +198,20 @@ public class SeccionDetalle implements Serializable {
      */
     public void setDetalle(String detalle) {
         this.detalle = detalle;
+    }
+
+    /**
+     * @return the numeral
+     */
+    public String getNumeral() {
+        return numeral;
+    }
+
+    /**
+     * @param numeral the numeral to set
+     */
+    public void setNumeral(String numeral) {
+        this.numeral = numeral;
     }
 
 }

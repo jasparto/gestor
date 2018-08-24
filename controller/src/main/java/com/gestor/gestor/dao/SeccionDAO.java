@@ -33,7 +33,7 @@ public class SeccionDAO {
         try {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
-                    "SELECT cod_ciclo, cod_seccion, nombre, activo, peso, imagen, orden"
+                    "SELECT cod_ciclo, cod_seccion, nombre, activo, peso, imagen, orden, numeral"
                     + " FROM gestor.seccion"
                     + " WHERE cod_ciclo='" + codCiclo + "'"
                     + " ORDER BY orden"
@@ -45,7 +45,7 @@ public class SeccionDAO {
                 Seccion s = new Seccion(new SeccionPK(rs.getString("cod_ciclo"), rs.getInt("cod_seccion")), rs.getString("nombre"), rs.getBoolean("activo"), rs.getDouble("peso"),
                         rs.getString("imagen"), rs.getInt("orden")
                 );
-
+                s.setNumeral(rs.getString("numeral"));
                 seccions.add(s);
             }
             return seccions;

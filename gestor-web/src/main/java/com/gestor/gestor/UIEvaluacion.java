@@ -102,6 +102,7 @@ public class UIEvaluacion {
             UtilJSF.setBean("evaluacion", new Evaluacion(), UtilJSF.SESSION_SCOPE);
             UtilJSF.setBean("evaluacionAdjuntos", new EvaluacionAdjuntos(), UtilJSF.SESSION_SCOPE);
             UtilJSF.setBean("evaluacionPlanAccionDetalle", new EvaluacionPlanAccionDetalle(), UtilJSF.SESSION_SCOPE);
+            UtilJSF.setBean("evaluacionCapacitacionDetalle", new EvaluacionCapacitacionDetalle(), UtilJSF.SESSION_SCOPE);
 
         } catch (Exception ex) {
             UtilLog.generarLog(this.getClass(), ex);
@@ -179,7 +180,7 @@ public class UIEvaluacion {
 
     public void guardarSeccionDetalleItems() {
         SeccionDetalleItems sdi = (SeccionDetalleItems) UtilJSF.getBean("varSeccionDetalleItems");
-        System.out.println("d=>" + sdi.getEvaluacionPuntajes().getDescripcion());
+//        System.out.println("d=>" + sdi.getEvaluacionPuntajes().getDescripcion());
         try {
             GestorEvaluacion gestorEvaluacion = new GestorEvaluacion();
             GestorSeccionDetalleItems gestorSeccionDetalleItems = new GestorSeccionDetalleItems();
@@ -208,7 +209,12 @@ public class UIEvaluacion {
             return;
         }
         try {
+            Evaluacion evaluacion = (Evaluacion) UtilJSF.getBean("evaluacion");
             GestorEvaluacion gestorEvaluacion = new GestorEvaluacion();
+            gestorEvaluacion.finalizarEvaluacion(evaluacion);
+            this.finalizarActivo = Boolean.FALSE;
+            this.evaluacionList = null;
+            UtilMSG.addSuccessMsg("Evaluación finalizada correctamente.");
         } catch (Exception e) {
             UtilLog.generarLog(this.getClass(), e);
         }

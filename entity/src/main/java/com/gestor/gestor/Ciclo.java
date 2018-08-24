@@ -5,6 +5,7 @@
  */
 package com.gestor.gestor;
 
+import com.gestor.entity.App;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -46,6 +47,8 @@ public class Ciclo implements Serializable {
     
     private List<Seccion> seccionList;
     private Evaluacion evaluacion;
+    
+    private String numeral;
 
     public Ciclo() {
     }
@@ -65,6 +68,10 @@ public class Ciclo implements Serializable {
 
     public void setCodCiclo(String codCiclo) {
         this.codCiclo = codCiclo;
+    }
+    
+    public String getNumeralNombre() {
+        return numeral + App.NUMERAL_SEPARADOR + nombre;
     }
 
     public String getNombre() {
@@ -120,6 +127,20 @@ public class Ciclo implements Serializable {
      */
     public void setEvaluacion(Evaluacion evaluacion) {
         this.evaluacion = evaluacion;
+    }
+
+    /**
+     * @return the numeral
+     */
+    public String getNumeral() {
+        return numeral;
+    }
+
+    /**
+     * @param numeral the numeral to set
+     */
+    public void setNumeral(String numeral) {
+        this.numeral = numeral;
     }
 
 }

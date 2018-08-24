@@ -5,6 +5,7 @@
  */
 package com.gestor.gestor;
 
+import com.gestor.entity.App;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -54,6 +55,8 @@ public class SeccionDetalleItems implements Serializable, Cloneable {
     private SeccionDetalle seccionDetalle;
     private EvaluacionPuntajes evaluacionPuntajes = new EvaluacionPuntajes(new EvaluacionPuntajesPK());
     private List<String> evaluacionPuntajesItems;
+    
+    private String numeral;
 
     public SeccionDetalleItems() {
     }
@@ -216,6 +219,10 @@ public class SeccionDetalleItems implements Serializable, Cloneable {
     public void setEvaluacionPuntajesItems(List<String> evaluacionPuntajesItems) {
         this.evaluacionPuntajesItems = evaluacionPuntajesItems;
     }
+    
+    public String getNumeralNombre() {
+        return numeral + App.NUMERAL_SEPARADOR + nombre;
+    }
 
     /**
      * @return the nombre
@@ -234,6 +241,20 @@ public class SeccionDetalleItems implements Serializable, Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the numeral
+     */
+    public String getNumeral() {
+        return numeral;
+    }
+
+    /**
+     * @param numeral the numeral to set
+     */
+    public void setNumeral(String numeral) {
+        this.numeral = numeral;
     }
     
     

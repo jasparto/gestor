@@ -49,6 +49,8 @@ public class EvaluacionCapacitacion implements Serializable {
     private String estado;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluacionCapacitacion")
     private List<EvaluacionCapacitacionDetalle> evaluacionCapacitacionDetalleList;
+    
+    private EvaluacionCapacitacionDetalle evaluacionCapacitacionDetalle;
 
     public EvaluacionCapacitacion() {
     }
@@ -63,7 +65,7 @@ public class EvaluacionCapacitacion implements Serializable {
         this.estado = estado;
     }
 
-    public EvaluacionCapacitacion(int codEvaluacion, short codigoEstablecimiento, int codCapacitacion) {
+    public EvaluacionCapacitacion(Long codEvaluacion, short codigoEstablecimiento, Long codCapacitacion) {
         this.evaluacionCapacitacionPK = new EvaluacionCapacitacionPK(codEvaluacion, codigoEstablecimiento, codCapacitacion);
     }
 
@@ -146,6 +148,20 @@ public class EvaluacionCapacitacion implements Serializable {
     @Override
     public String toString() {
         return "com.gestor.gestor.EvaluacionCapacitacion[ evaluacionCapacitacionPK=" + evaluacionCapacitacionPK + " ]";
+    }
+
+    /**
+     * @return the evaluacionCapacitacionDetalle
+     */
+    public EvaluacionCapacitacionDetalle getEvaluacionCapacitacionDetalle() {
+        return evaluacionCapacitacionDetalle;
+    }
+
+    /**
+     * @param evaluacionCapacitacionDetalle the evaluacionCapacitacionDetalle to set
+     */
+    public void setEvaluacionCapacitacionDetalle(EvaluacionCapacitacionDetalle evaluacionCapacitacionDetalle) {
+        this.evaluacionCapacitacionDetalle = evaluacionCapacitacionDetalle;
     }
     
 }

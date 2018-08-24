@@ -19,53 +19,53 @@ public class EvaluacionCapacitacionPK implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "cod_evaluacion")
-    private int codEvaluacion;
+    private Long codEvaluacion;
     @Basic(optional = false)
     @Column(name = "codigo_establecimiento")
-    private short codigoEstablecimiento;
+    private int codigoEstablecimiento;
     @Basic(optional = false)
     @Column(name = "cod_capacitacion")
-    private int codCapacitacion;
+    private Long codCapacitacion;
 
     public EvaluacionCapacitacionPK() {
     }
 
-    public EvaluacionCapacitacionPK(int codEvaluacion, short codigoEstablecimiento, int codCapacitacion) {
+    public EvaluacionCapacitacionPK(Long codEvaluacion, int codigoEstablecimiento, Long codCapacitacion) {
         this.codEvaluacion = codEvaluacion;
         this.codigoEstablecimiento = codigoEstablecimiento;
         this.codCapacitacion = codCapacitacion;
     }
 
-    public int getCodEvaluacion() {
+    public Long getCodEvaluacion() {
         return codEvaluacion;
     }
 
-    public void setCodEvaluacion(int codEvaluacion) {
+    public void setCodEvaluacion(Long codEvaluacion) {
         this.codEvaluacion = codEvaluacion;
     }
 
-    public short getCodigoEstablecimiento() {
+    public int getCodigoEstablecimiento() {
         return codigoEstablecimiento;
     }
 
-    public void setCodigoEstablecimiento(short codigoEstablecimiento) {
+    public void setCodigoEstablecimiento(int codigoEstablecimiento) {
         this.codigoEstablecimiento = codigoEstablecimiento;
     }
 
-    public int getCodCapacitacion() {
+    public Long getCodCapacitacion() {
         return codCapacitacion;
     }
 
-    public void setCodCapacitacion(int codCapacitacion) {
+    public void setCodCapacitacion(Long codCapacitacion) {
         this.codCapacitacion = codCapacitacion;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) codEvaluacion;
+        hash += codEvaluacion;
         hash += (int) codigoEstablecimiento;
-        hash += (int) codCapacitacion;
+        hash += codCapacitacion;
         return hash;
     }
 
@@ -92,5 +92,5 @@ public class EvaluacionCapacitacionPK implements Serializable {
     public String toString() {
         return "com.gestor.gestor.EvaluacionCapacitacionPK[ codEvaluacion=" + codEvaluacion + ", codigoEstablecimiento=" + codigoEstablecimiento + ", codCapacitacion=" + codCapacitacion + " ]";
     }
-    
+
 }

@@ -6,6 +6,7 @@
 package com.gestor.gestor.controlador;
 
 import com.gestor.controller.Gestor;
+import com.gestor.entity.App;
 import com.gestor.entity.UtilLog;
 import com.gestor.gestor.Evaluacion;
 import com.gestor.gestor.EvaluacionPuntajes;
@@ -49,10 +50,10 @@ public class GestorEvaluacion extends Gestor {
             evaluacionDAO.upsertEvaluacion(e);
             e.getEvaluacionPuntajesList().forEach((ep) -> {
                 try {
-                evaluacionDAO.insertEvaluacionPuntajes(ep);
+                    evaluacionDAO.insertEvaluacionPuntajes(ep);
                 } catch (SQLException ex) {
                     Logger.getLogger(GestorEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                }
             });
         } catch (Exception ex) {
             throw ex;
@@ -117,13 +118,26 @@ public class GestorEvaluacion extends Gestor {
             this.cerrarConexion();
         }
     }
-    
+
     public Integer avanceEvaluacionCiclo(int codigoEstablecimiento, Long codEvaluacion, String codCiclo) throws Exception {
         try {
             this.abrirConexion();
             EvaluacionDAO evaluacionDAO = new EvaluacionDAO(conexion);
             return evaluacionDAO.avanceEvaluacionCiclo(codigoEstablecimiento, codEvaluacion, codCiclo);
 
+        } finally {
+            this.cerrarConexion();
+        }
+    }
+
+    public void finalizarEvaluacion(Evaluacion evaluacion) throws Exception {
+        try {
+            this.abrirConexion();
+            this.inicioTransaccion();
+            EvaluacionDAO evaluacionDAO = new EvaluacionDAO(conexion);
+            evaluacion.setEstado(App.EVALUACION_ESTADO_CERRADO);
+            evaluacionDAO.actualizarEstadoEvaluacion(evaluacion.getEvaluacionPK(), evaluacion.getEstado());
+            this.finTransaccion();
         } finally {
             this.cerrarConexion();
         }

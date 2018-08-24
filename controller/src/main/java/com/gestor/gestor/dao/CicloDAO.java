@@ -32,14 +32,15 @@ public class CicloDAO {
         try {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
-                    "SELECT cod_ciclo, nombre"
-                    + " FROM gestor.ciclo;"
+                    "SELECT cod_ciclo, nombre, numeral"
+                    + " FROM gestor.ciclo ORDER BY numeral;"
             );
 
             rs = consulta.ejecutar(sql);
             List<Ciclo> ciclos = new ArrayList<>();
             while (rs.next()) {
                 Ciclo c = new Ciclo(rs.getString("cod_ciclo"), rs.getString("nombre"));
+                c.setNumeral(rs.getString("numeral"));
                 ciclos.add(c);
             }
             return ciclos;

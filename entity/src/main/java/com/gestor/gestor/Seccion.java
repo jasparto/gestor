@@ -5,6 +5,7 @@
  */
 package com.gestor.gestor;
 
+import com.gestor.entity.App;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -46,6 +47,7 @@ public class Seccion implements Serializable {
     private Double peso;
     private String imagen;
     private Integer orden;
+    private String numeral;
 
     @JoinColumn(name = "cod_ciclo", referencedColumnName = "cod_ciclo", insertable = false, updatable = false)
     @ManyToOne(optional = false)
@@ -80,6 +82,10 @@ public class Seccion implements Serializable {
 
     public void setSeccionPK(SeccionPK seccionPK) {
         this.seccionPK = seccionPK;
+    }
+    
+    public String getNumeralNombre() {
+        return numeral + App.NUMERAL_SEPARADOR + nombre;
     }
 
     public String getNombre() {
@@ -173,6 +179,20 @@ public class Seccion implements Serializable {
      */
     public void setOrden(Integer orden) {
         this.orden = orden;
+    }
+
+    /**
+     * @return the numeral
+     */
+    public String getNumeral() {
+        return numeral;
+    }
+
+    /**
+     * @param numeral the numeral to set
+     */
+    public void setNumeral(String numeral) {
+        this.numeral = numeral;
     }
 
 }

@@ -261,4 +261,25 @@ public class EvaluacionDAO {
         }
     }
 
+    public void actualizarEstadoEvaluacion(EvaluacionPK evaluacionPK, String estado) throws SQLException {
+        ResultSet rs = null;
+        Consulta consulta = null;
+        try {
+            consulta = new Consulta(this.conexion);
+            StringBuilder sql = new StringBuilder(
+                    "UPDATE gestor.evaluacion"
+                    + " SET estado='" + estado + "'"
+                    + " WHERE cod_evaluacion=" + evaluacionPK.getCodEvaluacion() + " AND codigo_establecimiento=" + evaluacionPK.getCodigoEstablecimiento()
+            );
+            consulta.actualizar(sql);
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (consulta != null) {
+                consulta.desconectar();
+            }
+        }
+    }
+
 }

@@ -34,7 +34,7 @@ public class SeccionDetalleItemsDAO {
         try {
             consulta = new Consulta(this.conexion);
             StringBuilder sql = new StringBuilder(
-                    "SELECT cod_ciclo, cod_seccion, cod_detalle, cod_item, nombre, detalle, peso, activo, imagen, orden"
+                    "SELECT cod_ciclo, cod_seccion, cod_detalle, cod_item, nombre, detalle, peso, activo, imagen, orden, numeral"
                     + " FROM gestor.seccion_detalle_items"
                     + " WHERE cod_ciclo='" + codCiclo + "' AND cod_seccion=" + codSeccion + " AND cod_detalle=" + codDetalle
                     + " ORDER BY orden"
@@ -45,6 +45,7 @@ public class SeccionDetalleItemsDAO {
             while (rs.next()) {
                 SeccionDetalleItems sdi = new SeccionDetalleItems(new SeccionDetalleItemsPK(rs.getString("cod_ciclo"), rs.getInt("cod_seccion"), rs.getInt("cod_detalle"), rs.getInt("cod_item")),
                         rs.getString("nombre"), rs.getString("detalle"), rs.getDouble("peso"), rs.getBoolean("activo"), rs.getString("imagen"), rs.getInt("orden"));
+                sdi.setNumeral(rs.getString("numeral"));
                 seccionDetalleItemses.add(sdi);
             }
             return seccionDetalleItemses;

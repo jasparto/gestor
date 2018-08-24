@@ -53,7 +53,39 @@ public class GestorEvaluacionPlanAccion extends Gestor {
         try {
             this.abrirConexion();
             EvaluacionPlanAccionDAO evaluacionPlanAccionDAO = new EvaluacionPlanAccionDAO(conexion);
-            return evaluacionPlanAccionDAO.cargarListaEvaluacionPlanAccion(codEvaluacion, codigoEstablecimiento,  codCiclo, codSeccion, codDetalle, codItem);
+            return evaluacionPlanAccionDAO.cargarListaEvaluacionPlanAccion(codEvaluacion, codigoEstablecimiento, codCiclo, codSeccion, codDetalle, codItem);
+        } finally {
+            this.cerrarConexion();
+        }
+    }
+
+    public Long consultarEvaluacionPlanAccion(Long codEvaluacion, int codigoEstablecimiento, String estado) throws Exception {
+        try {
+            this.abrirConexion();
+            EvaluacionPlanAccionDAO evaluacionPlanAccionDAO = new EvaluacionPlanAccionDAO(conexion);
+            return evaluacionPlanAccionDAO.consultarEvaluacionPlanAccion(codEvaluacion, codigoEstablecimiento, estado);
+        } finally {
+            this.cerrarConexion();
+        }
+    }
+
+    public int actualizarEstadoEvaluacionPlanAccionDetalle(EvaluacionPlanAccionDetalle epad) throws Exception {
+        try {
+            this.abrirConexion();
+            EvaluacionPlanAccionDAO evaluacionPlanAccionDAO = new EvaluacionPlanAccionDAO(conexion);
+            return evaluacionPlanAccionDAO.actualizarEstadoEvaluacionPlanAccionDetalle(epad);
+        } finally {
+            this.cerrarConexion();
+        }
+    }
+
+    public void actualizarEvaluacionPlanAccionDetalle(EvaluacionPlanAccionDetalle epd) throws Exception {
+        try {
+            this.abrirConexion();
+
+            EvaluacionPlanAccionDAO evaluacionPlanAccionDAO = new EvaluacionPlanAccionDAO(conexion);
+            evaluacionPlanAccionDAO.actualizarEvaluacionPlanAccionDetalle(epd);
+
         } finally {
             this.cerrarConexion();
         }

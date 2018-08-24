@@ -19,13 +19,13 @@ public class EvaluacionCapacitacionDetallePK implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "cod_evaluacion")
-    private int codEvaluacion;
+    private Long codEvaluacion;
     @Basic(optional = false)
     @Column(name = "codigo_establecimiento")
-    private short codigoEstablecimiento;
+    private int codigoEstablecimiento;
     @Basic(optional = false)
     @Column(name = "cod_capacitacion")
-    private int codCapacitacion;
+    private Long codCapacitacion;
     @Basic(optional = false)
     @Column(name = "cod_capacitacion_detalle")
     private int codCapacitacionDetalle;
@@ -33,34 +33,34 @@ public class EvaluacionCapacitacionDetallePK implements Serializable {
     public EvaluacionCapacitacionDetallePK() {
     }
 
-    public EvaluacionCapacitacionDetallePK(int codEvaluacion, short codigoEstablecimiento, int codCapacitacion, int codCapacitacionDetalle) {
+    public EvaluacionCapacitacionDetallePK(Long codEvaluacion, int codigoEstablecimiento, Long codCapacitacion, int codCapacitacionDetalle) {
         this.codEvaluacion = codEvaluacion;
         this.codigoEstablecimiento = codigoEstablecimiento;
         this.codCapacitacion = codCapacitacion;
         this.codCapacitacionDetalle = codCapacitacionDetalle;
     }
 
-    public int getCodEvaluacion() {
+    public Long getCodEvaluacion() {
         return codEvaluacion;
     }
 
-    public void setCodEvaluacion(int codEvaluacion) {
+    public void setCodEvaluacion(Long codEvaluacion) {
         this.codEvaluacion = codEvaluacion;
     }
 
-    public short getCodigoEstablecimiento() {
+    public int getCodigoEstablecimiento() {
         return codigoEstablecimiento;
     }
 
-    public void setCodigoEstablecimiento(short codigoEstablecimiento) {
+    public void setCodigoEstablecimiento(int codigoEstablecimiento) {
         this.codigoEstablecimiento = codigoEstablecimiento;
     }
 
-    public int getCodCapacitacion() {
+    public Long getCodCapacitacion() {
         return codCapacitacion;
     }
 
-    public void setCodCapacitacion(int codCapacitacion) {
+    public void setCodCapacitacion(Long codCapacitacion) {
         this.codCapacitacion = codCapacitacion;
     }
 
@@ -75,9 +75,9 @@ public class EvaluacionCapacitacionDetallePK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) codEvaluacion;
+        hash += codEvaluacion;
         hash += (int) codigoEstablecimiento;
-        hash += (int) codCapacitacion;
+        hash += codCapacitacion;
         hash += (int) codCapacitacionDetalle;
         return hash;
     }
@@ -108,5 +108,5 @@ public class EvaluacionCapacitacionDetallePK implements Serializable {
     public String toString() {
         return "com.gestor.gestor.EvaluacionCapacitacionDetallePK[ codEvaluacion=" + codEvaluacion + ", codigoEstablecimiento=" + codigoEstablecimiento + ", codCapacitacion=" + codCapacitacion + ", codCapacitacionDetalle=" + codCapacitacionDetalle + " ]";
     }
-    
+
 }
